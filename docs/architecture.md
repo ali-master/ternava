@@ -8,7 +8,7 @@
 
 ## 1. System Overview
 
-The ternlight runtime is composed of three tightly coupled components:
+The ternava runtime is composed of three tightly coupled components:
 
 ```
 ┌──────────────────────────────────────────────┐
@@ -217,7 +217,7 @@ L2 cache:   ~4–12 MB — holds the ENTIRE model
 L3 cache:   ~32 MB+  — irrelevant, everything fits in L2
 ```
 
-For comparison, `all-MiniLM-L6-v2` at fp32 is ~90 MB — it would constantly evict L2 cache. ternlight's model fits entirely in L2 cache from the first call onward. Every weight read is a cache hit.
+For comparison, `all-MiniLM-L6-v2` at fp32 is ~90 MB — it would constantly evict L2 cache. ternava's model fits entirely in L2 cache from the first call onward. Every weight read is a cache hit.
 
 ### Measured latency
 
@@ -253,7 +253,7 @@ model-int4.bin (4.6 MB)
     ↓       Cargo.toml includes `tokenizers` crate
     ↓       BERT vocab + model.bin embedded via include_bytes!()
     ↓
-npm package (`ternlight`)
+npm package (`ternava`)
 │   index.js (thin JS wrapper)                              ~10 KB
 │   pkg/tern_engine_bg.wasm  (engine + tokenizer + model)   ~7 MB
 └── pkg/tern_engine.js (wasm-bindgen glue)                  ~13 KB

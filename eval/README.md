@@ -1,11 +1,11 @@
 # eval — quality + performance scorecard
 
-> For contributors running quality and performance evaluations against the shipped engine. If you're *using* ternlight in an app, see [`packages/ternlight/`](../packages/ternlight). For the latest published numbers, see [`quality/RESULTS.md`](quality/RESULTS.md).
+> For contributors running quality and performance evaluations against the shipped engine. If you're *using* ternava in an app, see [`packages/mini/`](../packages/mini). For the latest published numbers, see [`quality/RESULTS.md`](quality/RESULTS.md).
 
 Cross-cutting evaluation of the *shipped* engine (engine + bundled model + JS API). Distinct from:
 
 - [`engine/tests/`](../engine/) — element-level parity tests (does the Rust math match Python?)
-- [`packages/ternlight/tests/`](../packages/ternlight/) — JS API integration tests
+- [`packages/mini/tests/`](../packages/mini/) — JS API integration tests
 
 ## Layout
 

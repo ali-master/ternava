@@ -1,14 +1,14 @@
-# ternlight — Project Overview
+# ternava — Project Overview
 
 > A 1.58-bit sentence-embedding model packaged as a WASM module. Runs anywhere JavaScript runs. Fits in 5 MB. Embeds a sentence in under 2 milliseconds on an M-series Mac. Inspired by Microsoft's **BitNet b1.58**.
 
 ---
 
-## What ternlight is
+## What ternava is
 
 A small sentence encoder — given a piece of text, returns a 384-dimensional unit vector representing its semantic content. Two of these vectors can be compared via cosine similarity to get a meaningful "how related are these?" score, which is the foundation for semantic search, FAQ matching, clustering, deduplication, etc.
 
-### How is ternlight different?
+### How is ternava different?
 
 **Runs anywhere JavaScript runs:**
 - No network call, no GPU, no ML framework runtime
@@ -34,7 +34,7 @@ The default mode for "I need an embedding model in my app" is to call a remote e
 - **Privacy**: queries and documents leave the user's device.
 - **Availability**: no offline; flaky networks break the UX.
 
-Running embedding inference *on the user's device* eliminates all four. The catch: encoders are usually too big (25–100 MB), too slow on CPU (hundreds of ms), and need an ML runtime. ternlight pushes those numbers low enough that "ship the model with the page" becomes a sane default.
+Running embedding inference *on the user's device* eliminates all four. The catch: encoders are usually too big (25–100 MB), too slow on CPU (hundreds of ms), and need an ML runtime. ternava pushes those numbers low enough that "ship the model with the page" becomes a sane default.
 
 **The goal: decent-quality embeddings, produced cheaply, on the user's device.**
 
@@ -64,7 +64,7 @@ At 1.82 ms per embedding, a query-time fan-out over **a corpus of ~500 documents
 
 ## The three levers
 
-The conceptual foundation is **BitNet b1.58** (Microsoft, 2024) — transformer weights restricted to just three values, `{-1, 0, +1}`, can match the quality of full-precision(fp32) baselines. This finding reshapes the cost model of inference where the core operation in any transformer forward pass is the matrix multiply(matmul). If every weight is ternary, the matmul simplifies to adds and subtracts (with no multiplication at all). Everything ternlight does is downstream of that insight.
+The conceptual foundation is **BitNet b1.58** (Microsoft, 2024) — transformer weights restricted to just three values, `{-1, 0, +1}`, can match the quality of full-precision(fp32) baselines. This finding reshapes the cost model of inference where the core operation in any transformer forward pass is the matrix multiply(matmul). If every weight is ternary, the matmul simplifies to adds and subtracts (with no multiplication at all). Everything ternava does is downstream of that insight.
 
 - **① Training (distillation + QAT)** — A small student is taught by a stronger teacher *while being trained as a ternary model from the start* — the compression is baked into training.
 - **② Packing (ternary bit format)** — Each weight goes from 32 bits → 2 bits. The whole model + tokenizer + engine code ships as one ~5 MB `.wasm` (3 MB gzipped), with no external dependencies and no model fetch at runtime.
@@ -132,7 +132,7 @@ Concretely:
 
 ### Distillation + QAT (the joint trick)
 
-ternlight merges two ideas:
+ternava merges two ideas:
 
 **Distillation**: A frozen teacher model (`all-MiniLM-L6-v2`) provides the target signal. For each training sentence, the teacher produces a 384-dim target vector. The student is trained to match these vectors via cosine loss. This is the source of the student's semantic knowledge — the teacher embeds the knowledge of its much larger training corpus into compact targets.
 
@@ -339,7 +339,7 @@ Three inference-only optimizations sit on top of the forward pass, together they
 
 The usual pain with shipping ML inference is platform-specific glue. A PyTorch runtime install runs into hundreds of MB. ONNX Runtime needs a build per target CPU (and a different one per GPU). CUDA wants drivers; Metal wants Xcode; mobile pulls in CoreML or TFLite. Every deployment target spawns its own bloated artifact, its own dependency hell, its own install ritual — and that pain multiplies across every OS, CPU, and chip vendor you need to support.
 
-ternlight sidesteps that. One `.wasm` file runs in every compliant runtime — Node ≥16.4, modern browsers, Cloudflare Workers, Vercel Edge, Deno, Bun — with the SIMD opcodes baked into the bytecode, so speed travels with the file. No native binaries to build per platform, no GPU drivers, no install step.
+ternava sidesteps that. One `.wasm` file runs in every compliant runtime — Node ≥16.4, modern browsers, Cloudflare Workers, Vercel Edge, Deno, Bun — with the SIMD opcodes baked into the bytecode, so speed travels with the file. No native binaries to build per platform, no GPU drivers, no install step.
 
 **Sweet spot:** applications that already host a JavaScript runtime — browser tabs, Edge functions, serverless Workers, Node services. Anywhere shipping a native ML runtime would be the real barrier.
 
@@ -347,7 +347,7 @@ ternlight sidesteps that. One `.wasm` file runs in every compliant runtime — N
 
 ## 4. Quality: what we actually measure
 
-ternlight is evaluated at three levels of rigor, in increasing order:
+ternava is evaluated at three levels of rigor, in increasing order:
 
 1. **Smoke test** (every build) — A small set of hand-picked sentence pairs (identity, paraphrase, negative anchor, gibberish) run through the engine to catch "model loaded but produces garbage" failure modes that aggregate metrics would mask. Fast, qualitative, runs after every build.
 2. **Per-checkpoint formal eval** — A full evaluation harness against held-out benchmarks: pairwise rank correlation vs the teacher (`test/spearman`), STS-Benchmark (`stsb/{spearman,pearson}`), retrieval (`retrieval/ndcg@10` on SciFact). Run per checkpoint to pick the right one to ship.

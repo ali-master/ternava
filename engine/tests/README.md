@@ -40,4 +40,28 @@ Per-format tolerances are defined in
 
 ## Status
 
-Scaffolding only. Tests land after the engine modules in `../src/` are implemented.
+`test_bilingual.mjs` checks Python/WASM token IDs and int4 forward parity, including
+Persian normalization, empty input and truncation. Generate its untrained fixture
+and build it using the commands in [the pilot runbook](../../docs/persian-pilot.md#offline-tests-and-cross-runtime-smoke).
+
+## Portable loader
+
+`test_runtime.mjs` exercises the shared runtime against a built web artifact:
+offline file loading, HTTP loading, bytes and compiled modules, concurrent init,
+failed-load retry, validation, helper results, and both `/runtime` export maps.
+The supplied artifact is reused for both export-map tests; this does not evaluate
+the base model's quality. Every tested vector must equal the raw WASM API output.
+
+```sh
+# From the repository root, after building the pilot:
+node engine/tests/test_runtime.mjs dist/pilot-fa-en-reasoning/d256 dist/pilot-fa-en-reasoning/d256/runtime-parity.json
+bun engine/tests/test_runtime.mjs dist/pilot-fa-en-reasoning/d256
+python3 -m http.server 8877 --bind 127.0.0.1
+# Open http://127.0.0.1:8877/engine/tests/runtime.html
+```
+
+The browser page compares its vectors with the Node-generated fixture and checks
+the WASM hash. Use `?artifact=/dist/your-build/d256/` to test another artifact;
+generate its `runtime-parity.json` first. These are compatibility checks, not
+evidence of semantic quality. CI runs Node/Bun against the untrained pilot fixture;
+the browser check is manual.

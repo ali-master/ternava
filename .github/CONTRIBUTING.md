@@ -1,4 +1,4 @@
-# Contributing to tern
+# Contributing to Ternava
 
 > **Status:** v0.1, pre-alpha. Not yet accepting PRs from outside contributors — this file is here so the structure exists when we open up.
 
@@ -8,7 +8,7 @@ The repo is organized so contributors only need the toolchain for the layer they
 
 | If you're touching | You need | Read first |
 |---|---|---|
-| `packages/` (JS API) | Node.js, pnpm | [packages/semantic/README.md](../packages/semantic/README.md) |
+| `packages/` (JS API) | Node.js, pnpm | [packages/mini/README.md](../packages/mini/README.md) |
 | `engine/` (Wasm engine) | Rust, wasm-pack | [engine/README.md](../engine/README.md) and [docs/training/model-internals.md](../docs/training/model-internals.md) |
 | `training/` (model training) | Python, PyTorch, GPU | [training/README.md](../training/README.md) and [docs/training/](../docs/training/) |
 | `eval/` (quality + perf) | Node.js + Python | [eval/README.md](../eval/README.md) |

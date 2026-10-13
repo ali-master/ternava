@@ -1,6 +1,6 @@
 # Eval Methodology
 
-How we measure ternlight before each release. Six dimensions, each answering a different question:
+How we measure ternava before each release. Six dimensions, each answering a different question:
 
 | Dimension | What it answers |
 |---|---|

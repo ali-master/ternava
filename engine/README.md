@@ -1,8 +1,8 @@
 # engine — Rust → Wasm inference engine
 
-> For contributors building or modifying the WASM engine. If you're *using* ternlight in an app, see [`packages/ternlight/`](../packages/ternlight) instead.
+> For contributors building or modifying the WASM engine. If you're *using* ternava in an app, see [`packages/mini/`](../packages/mini) instead.
 
-The math half of ternlight. Reads the trained model from `assets/model.bin`, tokenizes input via the embedded BERT tokenizer, runs the full BitLinear-faithful forward pass, and returns a 384-dim L2-normalized embedding.
+The math half of ternava. Reads the trained model from `assets/model.bin`, tokenizes input via the embedded BERT tokenizer, runs the full BitLinear-faithful forward pass, and returns a 384-dim L2-normalized embedding.
 
 ## Build
 
@@ -15,7 +15,7 @@ wasm-pack build --target nodejs --features emb_ternary  # size-extreme variant
 wasm-pack build --target nodejs --features emb_fp32     # parity reference (not for users)
 ```
 
-Exactly one feature per build, enforced at compile time. Output lands in `pkg/`. `scripts/build-engine.sh` at the repo root runs the full sweep, applies `wasm-opt -Oz`, and copies the artifacts into `packages/ternlight/pkg/`.
+Exactly one feature per build, enforced at compile time. Output lands in `pkg/`. `scripts/build-engine.sh` at the repo root runs the full sweep, applies `wasm-opt -Oz`, and copies the artifacts into `packages/mini/pkg/`.
 
 ## Layout
 

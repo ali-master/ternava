@@ -1,6 +1,6 @@
 # training
 
-> For contributors retraining or modifying the distillation pipeline. If you're *using* ternlight in an app, see [`packages/ternlight/`](../packages/ternlight). For shipped model artifacts, see [`models/`](../models).
+> For contributors retraining or modifying the distillation pipeline. If you're *using* ternava in an app, see [`packages/mini/`](../packages/mini). For shipped model artifacts, see [`models/`](../models).
 
 Python pipeline that produces the `.bin` model file consumed by the Wasm engine. Two stages:
 

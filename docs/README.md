@@ -1,14 +1,14 @@
 # Documentation
 
-In-depth concepts and methodology behind ternlight. For end-user usage, see
-[`packages/ternlight/`](../packages/ternlight). For build and contribution
+In-depth concepts and methodology behind ternava. For end-user usage, see
+[`packages/mini/`](../packages/mini). For build and contribution
 notes specific to one component, see the README in that directory.
 
 ## What's here
 
 | Doc | What it covers |
 |---|---|
-| [overview.md](overview.md) | Project overview — what ternlight is, how the three technical choices stack, when to use it |
+| [overview.md](overview.md) | Project overview — what ternava is, how the three technical choices stack, when to use it |
 | [architecture.md](architecture.md) | System design — the `.bin` format, runtime model, packaging pipeline |
 | [inference-engine.md](inference-engine.md) | Runtime internals — engine layout, BitLinear forward pass, tokenization path |
 | [model-internals.md](model-internals.md) | Canonical math reference — forward pass, backprop, distillation dynamics |
