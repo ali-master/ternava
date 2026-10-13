@@ -1,0 +1,1355 @@
+{
+  "protocol": "Authored before reasoning training; final-only evaluation; no aliases or runtime arithmetic. Translated EN logic is related, not independent evidence.",
+  "suites": {
+    "docs": {
+      "corpus": [
+        {
+          "id": "fa-react-01",
+          "text": "کامپوننت یک تابع جاوااسکریپت است که ظاهر بخشی از صفحه را با JSX توصیف می‌کند. نام آن را با حرف بزرگ شروع کنید و برای استفادهٔ دوباره، آن را در فایل جداگانه قرار دهید."
+        },
+        {
+          "id": "fa-react-02",
+          "text": "در JSX باید تگ‌ها را ببندید و چند عنصر هم‌سطح را در یک عنصر والد یا Fragment قرار دهید. ویژگی className برای تعیین کلاس CSS به کار می‌رود."
+        },
+        {
+          "id": "fa-react-03",
+          "text": "با آکولاد می‌توانید یک مقدار یا عبارت جاوااسکریپت را داخل JSX نمایش دهید. برای نوشتن متن ثابت نیازی به آکولاد نیست؛ برای ویژگی‌های پویا از آن استفاده کنید."
+        },
+        {
+          "id": "fa-react-04",
+          "text": "پراپ‌ها ورودی‌های کامپوننت هستند. والد می‌تواند نام، تصویر، عدد یا تابع را به فرزند بدهد. فرزند نباید پراپ دریافتی را تغییر دهد؛ برای تغییر، از والد درخواست کند."
+        },
+        {
+          "id": "fa-react-05",
+          "text": "برای نمایش محتوای متفاوت بر اساس وضعیت، از if یا عملگر شرطی استفاده کنید. برگرداندن null یعنی آن کامپوننت در این حالت چیزی نمایش نمی‌دهد."
+        },
+        {
+          "id": "fa-react-06",
+          "text": "با map داده‌ها را به فهرست عناصر تبدیل کنید. هر عضو باید کلید پایدار و یکتا داشته باشد تا React بتواند جابه‌جایی، اضافه‌شدن یا حذف آن را تشخیص دهد."
+        },
+        {
+          "id": "fa-react-07",
+          "text": "شناسهٔ داده انتخاب خوبی برای key است. کلید تصادفی یا شمارهٔ جایگاه، در فهرستی که مرتب می‌شود، ممکن است وضعیت ورودی‌ها را به عضو اشتباه وصل کند."
+        },
+        {
+          "id": "fa-react-08",
+          "text": "تابع مدیریت رویداد را به onClick بدهید. نوشتن نام تابع، اجرای آن را به زمان کلیک موکول می‌کند؛ فراخوانی مستقیم تابع داخل JSX آن را هنگام رندر اجرا می‌کند."
+        },
+        {
+          "id": "fa-react-09",
+          "text": "وقتی مقدار باید بین رندرها حفظ شود و تغییر آن صفحه را به‌روز کند، از useState استفاده کنید. متغیر معمولی چنین رفتاری ندارد و تغییر آن به‌تنهایی رندر ایجاد نمی‌کند."
+        },
+        {
+          "id": "fa-react-10",
+          "text": "هر رندر تصویری از وضعیت در همان لحظه دارد. صدا زدن تابع تغییر وضعیت، مقدار متغیر داخل رویداد جاری را فوراً عوض نمی‌کند؛ رندر بعدی مقدار جدید را می‌بیند."
+        },
+        {
+          "id": "fa-react-11",
+          "text": "اگر مقدار بعدی به مقدار قبلی وابسته است، تابع به‌روزرسانی مانند setCount(c => c + 1) را به کار ببرید. این روش برای چند به‌روزرسانی پشت سر هم مناسب است."
+        },
+        {
+          "id": "fa-react-12",
+          "text": "شیء ذخیره‌شده در وضعیت را مستقیم تغییر ندهید. یک نسخهٔ تازه بسازید، ویژگی موردنظر را روی آن قرار دهید و نسخهٔ تازه را به تابع تغییر وضعیت بدهید."
+        },
+        {
+          "id": "fa-react-13",
+          "text": "برای افزودن یا حذف عضو از آرایهٔ وضعیت، آرایهٔ تازه بسازید. filter و map کمک می‌کنند بدون تغییر آرایهٔ قبلی، مقدار بعدی را ایجاد کنید."
+        },
+        {
+          "id": "fa-react-14",
+          "text": "وقتی دو کامپوننت باید هماهنگ باشند، وضعیت مشترک را به نزدیک‌ترین والد مشترک منتقل کنید. والد مقدار و تابع تغییر آن را از طریق پراپ به فرزندان می‌دهد."
+        },
+        {
+          "id": "fa-react-15",
+          "text": "در ورودی کنترل‌شده، value از وضعیت می‌آید و onChange وضعیت را به‌روز می‌کند. مقدار اولیهٔ ورودی متنی را رشتهٔ خالی بگذارید تا کنترل‌شده باقی بماند."
+        },
+        {
+          "id": "fa-react-16",
+          "text": "مقادیر قابل محاسبه از وضعیت موجود را دوباره ذخیره نکنید. دادهٔ تکراری یا متناقض، هماهنگ نگه‌داشتن فرم و نمایش نتیجه را دشوار می‌کند."
+        },
+        {
+          "id": "fa-react-17",
+          "text": "React وضعیت را به جایگاه کامپوننت در درخت مرتبط می‌کند. تغییر key می‌تواند نمونهٔ تازه‌ای بسازد و وضعیت قبلی، مانند مقدارهای یک فرم، را بازنشانی کند."
+        },
+        {
+          "id": "fa-react-18",
+          "text": "وقتی تغییرات وضعیت زیاد و پراکنده‌اند، منطق را در reducer جمع کنید. رویدادها action می‌فرستند و reducer از وضعیت قبلی و action، وضعیت بعدی را می‌سازد."
+        },
+        {
+          "id": "fa-react-19",
+          "text": "برای داده‌هایی مانند پوسته یا کاربر جاری که در بخش‌های زیادی لازم‌اند، context می‌تواند عبور پراپ از تمام لایه‌ها را کم کند. مصرف‌کننده نزدیک‌ترین مقدار فراهم‌شده در درخت را می‌خواند."
+        },
+        {
+          "id": "fa-react-20",
+          "text": "useRef مقداری را بین رندرها حفظ می‌کند، اما تغییر current باعث رندر دوباره نمی‌شود. شناسهٔ تایمر نمونهٔ مناسبی است؛ دادهٔ قابل مشاهدهٔ صفحه معمولاً باید در state باشد."
+        },
+        {
+          "id": "fa-react-21",
+          "text": "برای فوکوس‌دادن به یک ورودی یا پیمایش به یک عنصر، ref را به عنصر DOM وصل کنید. پس از ایجاد عنصر می‌توانید متدهای آن را از طریق current فراخوانی کنید."
+        },
+        {
+          "id": "fa-react-22",
+          "text": "Effect برای هماهنگ‌کردن کامپوننت با سیستم بیرونی مانند پخش‌کننده، اتصال شبکه یا رویداد مرورگر است. useEffect پس از ثبت تغییرات اجرا می‌شود و وابستگی‌ها مشخص می‌کنند چه زمانی دوباره اجرا شود."
+        },
+        {
+          "id": "fa-react-23",
+          "text": "وقتی Effect تایمر، اشتراک یا اتصال می‌سازد، تابع پاک‌سازی برگردانید. React پیش از اجرای دوبارهٔ Effect با وابستگی‌های تازه و هنگام حذف کامپوننت، پاک‌سازی را فراخوانی می‌کند."
+        },
+        {
+          "id": "fa-react-24",
+          "text": "مقدارهای واکنشی خوانده‌شده در Effect باید در وابستگی‌ها باشند. حذف بی‌دلیل وابستگی برای خاموش‌کردن هشدار ممکن است باعث استفاده از مقدار قدیمی شود؛ ابتدا منطق را بازنویسی کنید."
+        },
+        {
+          "id": "fa-react-25",
+          "text": "برای محاسبهٔ دادهٔ قابل نمایش از پراپ یا وضعیت، معمولاً محاسبه در زمان رندر کافی است. واکنش به کلیک کاربر نیز بهتر است در همان مدیریت‌کنندهٔ رویداد باشد."
+        },
+        {
+          "id": "fa-react-26",
+          "text": "منطق تکراری مانند وضعیت اتصال یا رویداد پنجره را در هوک سفارشی با نامی که با use شروع می‌شود قرار دهید. هوک منطق را به اشتراک می‌گذارد؛ هر مصرف‌کننده وضعیت مستقل خود را دارد."
+        },
+        {
+          "id": "fa-react-27",
+          "text": "تغییر وضعیت باعث درخواست رندر می‌شود. React کامپوننت‌ها را اجرا می‌کند، خروجی تازه را با قبلی می‌سنجد و تغییرهای لازم را در DOM ثبت می‌کند؛ رندر همیشه به معنی تغییر DOM نیست."
+        },
+        {
+          "id": "fa-react-28",
+          "text": "پیش از بهینه‌سازی، هزینهٔ رندر را اندازه بگیرید. memo می‌تواند اجرای دوبارهٔ کامپوننتی با پراپ‌های برابر را کم کند؛ useMemo نیز نتیجهٔ محاسبه را بر اساس وابستگی‌ها نگه می‌دارد. این ابزارها تضمین معنایی برنامه نیستند."
+        },
+        {
+          "id": "fa-react-29",
+          "text": "کامپوننت باید با ورودی یکسان خروجی یکسان بدهد. هنگام رندر دادهٔ بیرونی را تغییر ندهید؛ کارهای جانبی را در مدیریت رویداد یا Effect مناسب انجام دهید."
+        },
+        {
+          "id": "fa-react-30",
+          "text": "حالت‌های فرم مانند آماده، در حال ارسال، موفق و ناموفق را روشن تعریف کنید. هنگام ارسال از ثبت دوباره جلوگیری کنید و خطا را نزدیک همان ورودی به کاربر نشان دهید."
+        }
+      ],
+      "queries": [
+        {
+          "id": "docs-0",
+          "text": "تو یه کلیک، سه بار از روی مقدار قبلی زیادش می‌کنم ولی آخرش فقط یکی جلو می‌ره؛ کدوم روش صف تغییرات رو درست حساب می‌کنه؟",
+          "lang": "fa",
+          "category": "docs",
+          "relevant": {
+            "fa-react-11": 1
+          }
+        },
+        {
+          "id": "docs-1",
+          "text": "بعد از بستن صفحه هنوز پیام سوکت میاد و دفعهٔ بعد دو تا شنونده دارم؛ موقع جمع‌کردن کامپوننت چه کاری جا افتاده؟",
+          "lang": "fa",
+          "category": "docs",
+          "relevant": {
+            "fa-react-23": 1
+          }
+        },
+        {
+          "id": "docs-2",
+          "text": "ردیف اول رو که پاک می‌کنم، متن تایپ‌شدهٔ ردیف دوم می‌پره تو یکی دیگه؛ شناسهٔ ردیف رو از چی بگیرم؟",
+          "lang": "fa",
+          "category": "docs",
+          "relevant": {
+            "fa-react-07": 1
+          }
+        },
+        {
+          "id": "docs-3",
+          "text": "قیمت کل رو هم ذخیره کردم هم از اقلام درمیارم؛ این دوتا گاهی با هم نمی‌خونن. کدوم داده رو حذف کنم؟",
+          "lang": "fa",
+          "category": "docs",
+          "relevant": {
+            "fa-react-16": 1
+          }
+        },
+        {
+          "id": "docs-4",
+          "text": "فقط می‌خوام شمارهٔ تایمر تا دفعهٔ بعد یادم بمونه؛ عوض‌شدنش قرار نیست چیزی روی صفحه عوض کنه.",
+          "lang": "fa",
+          "category": "docs",
+          "relevant": {
+            "fa-react-20": 1
+          }
+        },
+        {
+          "id": "docs-5",
+          "text": "تابع داخل افکت هنوز شناسهٔ کاربر قبلی رو می‌خونه؛ پاک‌کردن اخطار وابستگی که مشکل رو حل نکرد.",
+          "lang": "fa",
+          "category": "docs",
+          "relevant": {
+            "fa-react-24": 1
+          }
+        },
+        {
+          "id": "docs-6",
+          "text": "دو تا انتخابگر کنار هم دارم؛ انتخاب توی یکی باید همون لحظه توی اون یکی دیده بشه. صاحب این مقدار کی باشه؟",
+          "lang": "fa",
+          "category": "docs",
+          "relevant": {
+            "fa-react-14": 1
+          }
+        },
+        {
+          "id": "docs-7",
+          "text": "وقتی درخواست فرم در راهه نباید دوباره بفرستمش؛ خطا و موفقیت هم باید ظاهر متفاوتی داشته باشن.",
+          "lang": "fa",
+          "category": "docs",
+          "relevant": {
+            "fa-react-30": 1
+          }
+        }
+      ]
+    },
+    "emoji": {
+      "corpus": [
+        {
+          "id": "😴",
+          "text": "خواب‌آلود، خیلی خسته‌ام، دلم می‌خواهد بخوابم و استراحت کنم"
+        },
+        {
+          "id": "😂",
+          "text": "خنده با اشک، از خنده اشکم درآمد، خیلی بامزه و خنده‌دار بود"
+        },
+        {
+          "id": "🤣",
+          "text": "غش از خنده، از شدت خنده روی زمین افتادم"
+        },
+        {
+          "id": "😍",
+          "text": "عاشق، چقدر دوست‌داشتنی است، دلم رفت، عاشقش شدم"
+        },
+        {
+          "id": "🥰",
+          "text": "پر از محبت، دوستت دارم، آغوش گرم و احساس صمیمیت"
+        },
+        {
+          "id": "❤️",
+          "text": "قلب قرمز، عشق، محبت، دوست داشتن و مهر"
+        },
+        {
+          "id": "💔",
+          "text": "دل‌شکسته، دلم شکست، جدایی و غم از دست دادن عشق"
+        },
+        {
+          "id": "😭",
+          "text": "گریه، خیلی ناراحتم، اشک و اندوه"
+        },
+        {
+          "id": "😢",
+          "text": "غمگین، دلم گرفته، ناراحتی و دلتنگی"
+        },
+        {
+          "id": "😡",
+          "text": "عصبانی، خیلی عصبانی‌ام، خشم و حرص خوردن"
+        },
+        {
+          "id": "🤯",
+          "text": "شگفت‌زده، مغزم سوت کشید، باورم نمی‌شود، حیرت"
+        },
+        {
+          "id": "😎",
+          "text": "باحال، خونسرد و مطمئن، عینک آفتابی و اعتمادبه‌نفس"
+        },
+        {
+          "id": "🥳",
+          "text": "جشن، برنده شدیم، وقت جشن و شادی و مهمانی است"
+        },
+        {
+          "id": "🎉",
+          "text": "کاغذرنگی جشن، تبریک، موفقیت، جشن تولد و شروع تازه"
+        },
+        {
+          "id": "🏆",
+          "text": "جام قهرمانی، بهترین شدیم، پیروزی و قهرمانی"
+        },
+        {
+          "id": "🐐",
+          "text": "بز، بز کوهی، حیوان شاخ‌دار و زندگی روی صخره"
+        },
+        {
+          "id": "☕",
+          "text": "قهوه، برای بیدار ماندن یک فنجان قهوه لازم دارم"
+        },
+        {
+          "id": "🍵",
+          "text": "چای، یک فنجان چای گرم برای آرامش و استراحت"
+        },
+        {
+          "id": "🤦",
+          "text": "دست روی صورت، این چه کاری بود، ناامیدی و اشتباه خجالت‌آور"
+        },
+        {
+          "id": "🤷",
+          "text": "نمی‌دانم، اطلاعی ندارم، شانه بالا انداختن و بی‌خبری"
+        },
+        {
+          "id": "🙄",
+          "text": "چشم‌غره، باز هم همان حرف، کلافه‌ام و حوصله ندارم"
+        },
+        {
+          "id": "😬",
+          "text": "معذب، لحظهٔ ناجور، خجالت و لبخند اجباری"
+        },
+        {
+          "id": "😅",
+          "text": "خندهٔ عصبی، به‌خیر گذشت، استرس داشتم ولی نجات پیدا کردم"
+        },
+        {
+          "id": "😌",
+          "text": "آسوده، بالاخره آرام شدم، خیال راحت و رضایت"
+        },
+        {
+          "id": "🤔",
+          "text": "متفکر، بگذار فکر کنم، سؤال و تردید"
+        },
+        {
+          "id": "🧐",
+          "text": "بررسی دقیق، دقت کن، بررسی جزئیات و کنجکاوی"
+        },
+        {
+          "id": "🤫",
+          "text": "ساکت، هیس، آرام صحبت کن، این یک راز است"
+        },
+        {
+          "id": "🤐",
+          "text": "دهان بسته، قول می‌دهم چیزی نگویم، راز نگه داشتن"
+        },
+        {
+          "id": "🤝",
+          "text": "دست دادن، توافق، همکاری و شروع دوستی"
+        },
+        {
+          "id": "🙏",
+          "text": "سپاس و دعا، خیلی ممنونم، خواهش می‌کنم، دعا و امید"
+        },
+        {
+          "id": "👍",
+          "text": "تأیید، آفرین، موافقم، کار خوب و درست"
+        },
+        {
+          "id": "👎",
+          "text": "مخالفت، موافق نیستم، نتیجهٔ نامناسب"
+        },
+        {
+          "id": "👏",
+          "text": "تشویق، دست بزنید، آفرین به این کار عالی"
+        },
+        {
+          "id": "💪",
+          "text": "قدرت، قوی باش، تلاش، ورزش و انگیزه"
+        },
+        {
+          "id": "🔥",
+          "text": "آتش، عالی و پرانرژی، داغ، هیجان و آتش"
+        },
+        {
+          "id": "✨",
+          "text": "درخشش، درخشان، تمیز، جادویی و تازه"
+        },
+        {
+          "id": "🌟",
+          "text": "ستارهٔ درخشان، استعداد، موفقیت و آدم خاص"
+        },
+        {
+          "id": "🚀",
+          "text": "موشک، شروع پروژه، رشد سریع، پرتاب و پیشرفت"
+        },
+        {
+          "id": "💻",
+          "text": "رایانه، برنامه‌نویسی، کد زدن، کار با لپ‌تاپ"
+        },
+        {
+          "id": "🐛",
+          "text": "اشکال نرم‌افزار، باگ پیدا کردم، خطای کد و رفع اشکال"
+        },
+        {
+          "id": "✅",
+          "text": "انجام شد، بالاخره کدم کار کرد، کار تمام شد و درست است"
+        },
+        {
+          "id": "❌",
+          "text": "خطا، اشتباه، لغو، ناموفق و رد شدن"
+        },
+        {
+          "id": "⏳",
+          "text": "انتظار، صبر کن، در حال بارگیری و گذشت زمان"
+        },
+        {
+          "id": "📧",
+          "text": "ایمیل، این جلسه می‌توانست یک پیام باشد، نامهٔ الکترونیکی"
+        },
+        {
+          "id": "📅",
+          "text": "تقویم، قرار ملاقات، برنامه‌ریزی و تاریخ جلسه"
+        },
+        {
+          "id": "📚",
+          "text": "کتاب‌ها، درس، مطالعه، یادگیری و کتابخانه"
+        },
+        {
+          "id": "💡",
+          "text": "ایده، فکری به ذهنم رسید، راه‌حل و خلاقیت"
+        },
+        {
+          "id": "🎯",
+          "text": "هدف، تمرکز، رسیدن به هدف و نشانه‌گیری"
+        },
+        {
+          "id": "💰",
+          "text": "پول، درآمد، پس‌انداز و ثروت"
+        },
+        {
+          "id": "💸",
+          "text": "خرج کردن، پولم تمام شد، هزینهٔ زیاد و خرید گران"
+        },
+        {
+          "id": "🛒",
+          "text": "سبد خرید، خرید روزانه، فروشگاه و سفارش کالا"
+        },
+        {
+          "id": "🎁",
+          "text": "هدیه، کادو، غافلگیری و تولد"
+        },
+        {
+          "id": "🎂",
+          "text": "کیک تولد، تولدت مبارک، شمع و کیک"
+        },
+        {
+          "id": "🍕",
+          "text": "پیتزا، گرسنه‌ام، پیتزا و غذای خوشمزه"
+        },
+        {
+          "id": "🍎",
+          "text": "سیب، میوهٔ تازه، خوراک سالم و سیب قرمز"
+        },
+        {
+          "id": "🏠",
+          "text": "خانه، برگشتن به خانه، خانواده و آسایش"
+        },
+        {
+          "id": "✈️",
+          "text": "هواپیما، سفر، پرواز و تعطیلات"
+        },
+        {
+          "id": "🌊",
+          "text": "دریا، موج، ساحل، شنا و آرامش کنار آب"
+        },
+        {
+          "id": "🌧️",
+          "text": "باران، هوای بارانی، چتر و خیس شدن"
+        },
+        {
+          "id": "☀️",
+          "text": "خورشید، روز آفتابی، گرما و روشنایی"
+        },
+        {
+          "id": "🌙",
+          "text": "ماه، شب، سکوت و آسمان تاریک"
+        },
+        {
+          "id": "🌱",
+          "text": "جوانه، رشد، شروع تازه، طبیعت و امید"
+        },
+        {
+          "id": "🌹",
+          "text": "گل رز، گل برای تو، عشق و زیبایی"
+        },
+        {
+          "id": "🐈",
+          "text": "گربه، گربهٔ خانگی، ناز و بازیگوش"
+        },
+        {
+          "id": "🐕",
+          "text": "سگ، دوست وفادار، سگ خانگی و همراهی"
+        },
+        {
+          "id": "🚩",
+          "text": "هشدار، نشانهٔ خطر، مراقب باش، زنگ خطر در رابطه"
+        },
+        {
+          "id": "🆘",
+          "text": "کمک، کمک لازم دارم، وضعیت اضطراری"
+        },
+        {
+          "id": "🤒",
+          "text": "بیمار، تب دارم، مریضی و استراحت"
+        },
+        {
+          "id": "😷",
+          "text": "ماسک، مراقبت از سلامتی و پیشگیری"
+        },
+        {
+          "id": "🧘",
+          "text": "آرامش، نفس عمیق، تمرکز، مراقبه و ذهن آرام"
+        }
+      ],
+      "queries": [
+        {
+          "id": "emoji-0",
+          "text": "تو این ورزش، از نسل‌های قبل تا الان، هیچ‌کس به گرد پاش هم نرسیده.",
+          "lang": "fa",
+          "category": "emoji",
+          "relevant": {
+            "🏆": 1
+          }
+        },
+        {
+          "id": "emoji-1",
+          "text": "تو نباشی انگار یه تیکه از وجودم کمه؛ چقدر بهت دل بستم.",
+          "lang": "fa",
+          "category": "emoji",
+          "relevant": {
+            "❤️": 1,
+            "🥰": 1,
+            "😍": 1
+          }
+        },
+        {
+          "id": "emoji-2",
+          "text": "این حرف بین خودمون می‌مونه؛ حتی با اصرار بقیه هم لو نمی‌دم.",
+          "lang": "fa",
+          "category": "emoji",
+          "relevant": {
+            "🤐": 1
+          }
+        },
+        {
+          "id": "emoji-3",
+          "text": "برای صدمین بار همون بهونه رو آورد؛ دیگه واقعاً حوصله‌اش رو ندارم.",
+          "lang": "fa",
+          "category": "emoji",
+          "relevant": {
+            "🙄": 1
+          }
+        },
+        {
+          "id": "emoji-4",
+          "text": "صبر کن! یه راه تازه به فکرم رسید که همهٔ این گره رو باز می‌کنه.",
+          "lang": "fa",
+          "category": "emoji",
+          "relevant": {
+            "💡": 1
+          }
+        },
+        {
+          "id": "emoji-5",
+          "text": "هنوز اول ماهه، ولی اجاره و خریدها حسابم رو خالی کرده.",
+          "lang": "fa",
+          "category": "emoji",
+          "relevant": {
+            "💸": 1
+          }
+        },
+        {
+          "id": "emoji-6",
+          "text": "فکر کردم همه‌چیز از دست رفت؛ لحظهٔ آخر نجات پیدا کردیم، چه نفسی کشیدم!",
+          "lang": "fa",
+          "category": "emoji",
+          "relevant": {
+            "😅": 1
+          }
+        },
+        {
+          "id": "emoji-7",
+          "text": "اون حیوان ریش‌دارِ شاخ‌دار روی شیب سنگی دنبال علف می‌گرده.",
+          "lang": "fa",
+          "category": "emoji",
+          "relevant": {
+            "🐐": 1
+          }
+        }
+      ]
+    },
+    "fa_negation": {
+      "corpus": [
+        {
+          "id": "fa_negation-0-0",
+          "text": "خروج تجهیزات همچنان ممنوع است.",
+          "lang": "fa"
+        },
+        {
+          "id": "fa_negation-0-1",
+          "text": "خروج تجهیزات دیگر ممنوع نیست.",
+          "lang": "fa"
+        },
+        {
+          "id": "fa_negation-1-0",
+          "text": "رد اعتراض به دست همهٔ داورها نامعلوم است.",
+          "lang": "fa"
+        },
+        {
+          "id": "fa_negation-1-1",
+          "text": "رد اعتراض به دست همهٔ داورها قطعی است.",
+          "lang": "fa"
+        },
+        {
+          "id": "fa_negation-2-0",
+          "text": "اجازهٔ ارسال بسته از این اطلاعات معلوم نمی‌شود.",
+          "lang": "fa"
+        },
+        {
+          "id": "fa_negation-2-1",
+          "text": "ارسال بسته با این شرط مجاز نیست.",
+          "lang": "fa"
+        },
+        {
+          "id": "fa_negation-3-0",
+          "text": "پرونده‌ای بیرون از دو دسته وجود دارد.",
+          "lang": "fa"
+        },
+        {
+          "id": "fa_negation-3-1",
+          "text": "هیچ پرونده‌ای بیرون از دو دسته وجود ندارد.",
+          "lang": "fa"
+        },
+        {
+          "id": "fa_negation-4-0",
+          "text": "ترانه در بازبینی حاضر بود.",
+          "lang": "fa"
+        },
+        {
+          "id": "fa_negation-4-1",
+          "text": "ترانه در بازبینی حاضر نبود.",
+          "lang": "fa"
+        },
+        {
+          "id": "fa_negation-5-0",
+          "text": "احتمال نشت هنوز منتفی نیست.",
+          "lang": "fa"
+        },
+        {
+          "id": "fa_negation-5-1",
+          "text": "احتمال نشت منتفی است.",
+          "lang": "fa"
+        }
+      ],
+      "queries": [
+        {
+          "id": "q-fa_negation-0-0",
+          "text": "ممنوعیت خروج تجهیزات برداشته نشده؛ فقط بررسیِ برداشتن آن تصویب شده.",
+          "lang": "fa",
+          "category": "negation",
+          "pair": 0,
+          "relevant": {
+            "fa_negation-0-0": 1
+          },
+          "contrast": "fa_negation-0-1"
+        },
+        {
+          "id": "q-fa_negation-0-1",
+          "text": "ممنوعیت خروج تجهیزات برداشته شده؛ بررسی آن هم تمام شده.",
+          "lang": "fa",
+          "category": "negation",
+          "pair": 0,
+          "relevant": {
+            "fa_negation-0-1": 1
+          },
+          "contrast": "fa_negation-0-0"
+        },
+        {
+          "id": "q-fa_negation-1-0",
+          "text": "از اینکه تمام داورها اعتراض را رد کرده‌اند مطمئن نیستیم؛ هیچ رأیی هنوز منتشر نشده.",
+          "lang": "fa",
+          "category": "negation",
+          "pair": 1,
+          "relevant": {
+            "fa_negation-1-0": 1
+          },
+          "contrast": "fa_negation-1-1"
+        },
+        {
+          "id": "q-fa_negation-1-1",
+          "text": "تمام رأی‌ها منتشر شده و همهٔ داورها اعتراض را رد کرده‌اند.",
+          "lang": "fa",
+          "category": "negation",
+          "pair": 1,
+          "relevant": {
+            "fa_negation-1-1": 1
+          },
+          "contrast": "fa_negation-1-0"
+        },
+        {
+          "id": "q-fa_negation-2-0",
+          "text": "شرط لازم ارسال بسته، پرداخت است؛ پول واریز شده ولی از باقی شرط‌ها خبری نداریم.",
+          "lang": "fa",
+          "category": "negation",
+          "pair": 2,
+          "relevant": {
+            "fa_negation-2-0": 1
+          },
+          "contrast": "fa_negation-2-1"
+        },
+        {
+          "id": "q-fa_negation-2-1",
+          "text": "شرط لازم ارسال بسته، پرداخت است؛ پول واریز نشده و این شرط هیچ استثنایی ندارد.",
+          "lang": "fa",
+          "category": "negation",
+          "pair": 2,
+          "relevant": {
+            "fa_negation-2-1": 1
+          },
+          "contrast": "fa_negation-2-0"
+        },
+        {
+          "id": "q-fa_negation-3-0",
+          "text": "در میان پرونده‌ها دست‌کم یکی هست که نه مختومه است و نه بایگانی‌شده.",
+          "lang": "fa",
+          "category": "negation",
+          "pair": 3,
+          "relevant": {
+            "fa_negation-3-0": 1
+          },
+          "contrast": "fa_negation-3-1"
+        },
+        {
+          "id": "q-fa_negation-3-1",
+          "text": "هر پرونده یا مختومه است یا بایگانی‌شده؛ مورد سومی نداریم.",
+          "lang": "fa",
+          "category": "negation",
+          "pair": 3,
+          "relevant": {
+            "fa_negation-3-1": 1
+          },
+          "contrast": "fa_negation-3-0"
+        },
+        {
+          "id": "q-fa_negation-4-0",
+          "text": "غیر از ترانه کسی به بازبینی نرفت؛ خود ترانه رفت.",
+          "lang": "fa",
+          "category": "negation",
+          "pair": 4,
+          "relevant": {
+            "fa_negation-4-0": 1
+          },
+          "contrast": "fa_negation-4-1"
+        },
+        {
+          "id": "q-fa_negation-4-1",
+          "text": "همه به بازبینی رفتند مگر ترانه؛ او نرفت.",
+          "lang": "fa",
+          "category": "negation",
+          "pair": 4,
+          "relevant": {
+            "fa_negation-4-1": 1
+          },
+          "contrast": "fa_negation-4-0"
+        },
+        {
+          "id": "q-fa_negation-5-0",
+          "text": "دلیلی برای غیرممکن‌بودن نشت نداریم؛ این به معنی قطعی‌بودن نشت نیست.",
+          "lang": "fa",
+          "category": "negation",
+          "pair": 5,
+          "relevant": {
+            "fa_negation-5-0": 1
+          },
+          "contrast": "fa_negation-5-1"
+        },
+        {
+          "id": "q-fa_negation-5-1",
+          "text": "با آزمایش قطعی، هر امکان نشت رد شده است.",
+          "lang": "fa",
+          "category": "negation",
+          "pair": 5,
+          "relevant": {
+            "fa_negation-5-1": 1
+          },
+          "contrast": "fa_negation-5-0"
+        }
+      ]
+    },
+    "fa_numbers": {
+      "corpus": [
+        {
+          "id": "fa_numbers-0-0",
+          "text": "در قفسه ۳۸ جلد باقی است.",
+          "lang": "fa"
+        },
+        {
+          "id": "fa_numbers-0-1",
+          "text": "در قفسه ۲۸ جلد باقی است.",
+          "lang": "fa"
+        },
+        {
+          "id": "fa_numbers-1-0",
+          "text": "کرایهٔ نهایی ۲۷۰ تومان است.",
+          "lang": "fa"
+        },
+        {
+          "id": "fa_numbers-1-1",
+          "text": "کرایهٔ نهایی ۴۵۰ تومان است.",
+          "lang": "fa"
+        },
+        {
+          "id": "fa_numbers-2-0",
+          "text": "شمار چراغ‌های خواسته‌شده ۶۰ است.",
+          "lang": "fa"
+        },
+        {
+          "id": "fa_numbers-2-1",
+          "text": "شمار چراغ‌های خواسته‌شده ۲۴ است.",
+          "lang": "fa"
+        },
+        {
+          "id": "fa_numbers-3-0",
+          "text": "مدت سفر قطار ۸۵ دقیقه بود.",
+          "lang": "fa"
+        },
+        {
+          "id": "fa_numbers-3-1",
+          "text": "مدت سفر قطار ۲۵ دقیقه بود.",
+          "lang": "fa"
+        },
+        {
+          "id": "fa_numbers-4-0",
+          "text": "هوا هفت درجه گرم‌تر شد.",
+          "lang": "fa"
+        },
+        {
+          "id": "fa_numbers-4-1",
+          "text": "هوا هفت درجه سردتر شد.",
+          "lang": "fa"
+        },
+        {
+          "id": "fa_numbers-5-0",
+          "text": "اندازه از نظر حد پذیرش قابل قبول است.",
+          "lang": "fa"
+        },
+        {
+          "id": "fa_numbers-5-1",
+          "text": "اندازه از نظر حد پذیرش قابل قبول نیست.",
+          "lang": "fa"
+        }
+      ],
+      "queries": [
+        {
+          "id": "q-fa_numbers-0-0",
+          "text": "قفسه با ۴۶ جلد پر شد؛ ۱۳ جلد امانت رفت و ۵ جلد از همان‌ها برگشت. چند جلد ماند؟",
+          "lang": "fa",
+          "category": "numbers",
+          "pair": 0,
+          "relevant": {
+            "fa_numbers-0-0": 1
+          },
+          "contrast": "fa_numbers-0-1"
+        },
+        {
+          "id": "q-fa_numbers-0-1",
+          "text": "قفسه با ۴۶ جلد پر شد؛ ۱۳ جلد امانت رفت و بعد ۵ جلد دیگر هم امانت دادند. چند جلد ماند؟",
+          "lang": "fa",
+          "category": "numbers",
+          "pair": 0,
+          "relevant": {
+            "fa_numbers-0-1": 1
+          },
+          "contrast": "fa_numbers-0-0"
+        },
+        {
+          "id": "q-fa_numbers-1-0",
+          "text": "کرایهٔ ۳۶۰ تومانی با تخفیف یک‌چهارم پرداخت شد. مبلغ پرداختی؟",
+          "lang": "fa",
+          "category": "numbers",
+          "pair": 1,
+          "relevant": {
+            "fa_numbers-1-0": 1
+          },
+          "contrast": "fa_numbers-1-1"
+        },
+        {
+          "id": "q-fa_numbers-1-1",
+          "text": "به کرایهٔ ۳۶۰ تومانی یک‌چهارم افزوده شد. مبلغ پرداختی؟",
+          "lang": "fa",
+          "category": "numbers",
+          "pair": 1,
+          "relevant": {
+            "fa_numbers-1-1": 1
+          },
+          "contrast": "fa_numbers-1-0"
+        },
+        {
+          "id": "q-fa_numbers-2-0",
+          "text": "از ۸۴ چراغ، دو هفتم خاموش‌اند؛ چند چراغ روشن مانده؟",
+          "lang": "fa",
+          "category": "numbers",
+          "pair": 2,
+          "relevant": {
+            "fa_numbers-2-0": 1
+          },
+          "contrast": "fa_numbers-2-1"
+        },
+        {
+          "id": "q-fa_numbers-2-1",
+          "text": "از ۸۴ چراغ، دو هفتم خاموش‌اند؛ چند چراغ خاموش مانده؟",
+          "lang": "fa",
+          "category": "numbers",
+          "pair": 2,
+          "relevant": {
+            "fa_numbers-2-1": 1
+          },
+          "contrast": "fa_numbers-2-0"
+        },
+        {
+          "id": "q-fa_numbers-3-0",
+          "text": "قطار ساعت ۱۳:۴۰ راه افتاد و ۱۵:۰۵ رسید. سفر چند دقیقه شد؟",
+          "lang": "fa",
+          "category": "numbers",
+          "pair": 3,
+          "relevant": {
+            "fa_numbers-3-0": 1
+          },
+          "contrast": "fa_numbers-3-1"
+        },
+        {
+          "id": "q-fa_numbers-3-1",
+          "text": "قطار ساعت ۱۳:۴۰ راه افتاد و ۱۴:۰۵ رسید. سفر چند دقیقه شد؟",
+          "lang": "fa",
+          "category": "numbers",
+          "pair": 3,
+          "relevant": {
+            "fa_numbers-3-1": 1
+          },
+          "contrast": "fa_numbers-3-0"
+        },
+        {
+          "id": "q-fa_numbers-4-0",
+          "text": "اول دماسنج منفی یازده را نشان می‌داد، بعد منفی چهار؛ هوا چه تغییری کرد؟",
+          "lang": "fa",
+          "category": "numbers",
+          "pair": 4,
+          "relevant": {
+            "fa_numbers-4-0": 1
+          },
+          "contrast": "fa_numbers-4-1"
+        },
+        {
+          "id": "q-fa_numbers-4-1",
+          "text": "اول دماسنج منفی چهار را نشان می‌داد، بعد منفی یازده؛ هوا چه تغییری کرد؟",
+          "lang": "fa",
+          "category": "numbers",
+          "pair": 4,
+          "relevant": {
+            "fa_numbers-4-1": 1
+          },
+          "contrast": "fa_numbers-4-0"
+        },
+        {
+          "id": "q-fa_numbers-5-0",
+          "text": "حد پذیرش دست‌کم ۷٫۲ است و اندازه دقیقاً ۷٫۲ شده؛ پذیرفته است؟",
+          "lang": "fa",
+          "category": "numbers",
+          "pair": 5,
+          "relevant": {
+            "fa_numbers-5-0": 1
+          },
+          "contrast": "fa_numbers-5-1"
+        },
+        {
+          "id": "q-fa_numbers-5-1",
+          "text": "حد پذیرش باید از ۷٫۲ بیشتر باشد و اندازه دقیقاً ۷٫۲ شده؛ پذیرفته است؟",
+          "lang": "fa",
+          "category": "numbers",
+          "pair": 5,
+          "relevant": {
+            "fa_numbers-5-1": 1
+          },
+          "contrast": "fa_numbers-5-0"
+        }
+      ]
+    },
+    "en_negation": {
+      "corpus": [
+        {
+          "id": "en_negation-0-0",
+          "text": "Moving the archive remains prohibited.",
+          "lang": "en"
+        },
+        {
+          "id": "en_negation-0-1",
+          "text": "Moving the archive is no longer prohibited.",
+          "lang": "en"
+        },
+        {
+          "id": "en_negation-1-0",
+          "text": "Universal refusal by inspectors is unestablished.",
+          "lang": "en"
+        },
+        {
+          "id": "en_negation-1-1",
+          "text": "Universal refusal by inspectors is established.",
+          "lang": "en"
+        },
+        {
+          "id": "en_negation-2-0",
+          "text": "Whether dispatch is permitted remains unknown.",
+          "lang": "en"
+        },
+        {
+          "id": "en_negation-2-1",
+          "text": "Dispatch is not permitted.",
+          "lang": "en"
+        },
+        {
+          "id": "en_negation-3-0",
+          "text": "A parcel outside both categories exists.",
+          "lang": "en"
+        },
+        {
+          "id": "en_negation-3-1",
+          "text": "No parcel outside both categories exists.",
+          "lang": "en"
+        },
+        {
+          "id": "en_negation-4-0",
+          "text": "Beatrice attended the inspection.",
+          "lang": "en"
+        },
+        {
+          "id": "en_negation-4-1",
+          "text": "Beatrice did not attend the inspection.",
+          "lang": "en"
+        },
+        {
+          "id": "en_negation-5-0",
+          "text": "A leak remains possible.",
+          "lang": "en"
+        },
+        {
+          "id": "en_negation-5-1",
+          "text": "A leak is impossible.",
+          "lang": "en"
+        }
+      ],
+      "queries": [
+        {
+          "id": "q-en_negation-0-0",
+          "text": "The ban on moving the archive has not been rescinded; only a review was authorized.",
+          "lang": "en",
+          "category": "negation",
+          "pair": 0,
+          "relevant": {
+            "en_negation-0-0": 1
+          },
+          "contrast": "en_negation-0-1"
+        },
+        {
+          "id": "q-en_negation-0-1",
+          "text": "The ban on moving the archive has been rescinded after the review.",
+          "lang": "en",
+          "category": "negation",
+          "pair": 0,
+          "relevant": {
+            "en_negation-0-1": 1
+          },
+          "contrast": "en_negation-0-0"
+        },
+        {
+          "id": "q-en_negation-1-0",
+          "text": "We cannot establish that every inspector refused; their reports are still sealed.",
+          "lang": "en",
+          "category": "negation",
+          "pair": 1,
+          "relevant": {
+            "en_negation-1-0": 1
+          },
+          "contrast": "en_negation-1-1"
+        },
+        {
+          "id": "q-en_negation-1-1",
+          "text": "All reports are open and every inspector explicitly refused.",
+          "lang": "en",
+          "category": "negation",
+          "pair": 1,
+          "relevant": {
+            "en_negation-1-1": 1
+          },
+          "contrast": "en_negation-1-0"
+        },
+        {
+          "id": "q-en_negation-2-0",
+          "text": "Payment is necessary for dispatch. Payment was made, but the other requirements are unknown.",
+          "lang": "en",
+          "category": "negation",
+          "pair": 2,
+          "relevant": {
+            "en_negation-2-0": 1
+          },
+          "contrast": "en_negation-2-1"
+        },
+        {
+          "id": "q-en_negation-2-1",
+          "text": "Payment is necessary for dispatch. Payment was not made; there are no exceptions.",
+          "lang": "en",
+          "category": "negation",
+          "pair": 2,
+          "relevant": {
+            "en_negation-2-1": 1
+          },
+          "contrast": "en_negation-2-0"
+        },
+        {
+          "id": "q-en_negation-3-0",
+          "text": "At least one parcel is neither sealed nor labeled.",
+          "lang": "en",
+          "category": "negation",
+          "pair": 3,
+          "relevant": {
+            "en_negation-3-0": 1
+          },
+          "contrast": "en_negation-3-1"
+        },
+        {
+          "id": "q-en_negation-3-1",
+          "text": "Every parcel is sealed or labeled; none is outside those categories.",
+          "lang": "en",
+          "category": "negation",
+          "pair": 3,
+          "relevant": {
+            "en_negation-3-1": 1
+          },
+          "contrast": "en_negation-3-0"
+        },
+        {
+          "id": "q-en_negation-4-0",
+          "text": "Nobody but Beatrice attended the inspection; Beatrice did attend.",
+          "lang": "en",
+          "category": "negation",
+          "pair": 4,
+          "relevant": {
+            "en_negation-4-0": 1
+          },
+          "contrast": "en_negation-4-1"
+        },
+        {
+          "id": "q-en_negation-4-1",
+          "text": "Everybody but Beatrice attended the inspection; Beatrice did not.",
+          "lang": "en",
+          "category": "negation",
+          "pair": 4,
+          "relevant": {
+            "en_negation-4-1": 1
+          },
+          "contrast": "en_negation-4-0"
+        },
+        {
+          "id": "q-en_negation-5-0",
+          "text": "There is no basis for ruling out a leak, though a leak is not certain.",
+          "lang": "en",
+          "category": "negation",
+          "pair": 5,
+          "relevant": {
+            "en_negation-5-0": 1
+          },
+          "contrast": "en_negation-5-1"
+        },
+        {
+          "id": "q-en_negation-5-1",
+          "text": "Conclusive testing has ruled out every possibility of a leak.",
+          "lang": "en",
+          "category": "negation",
+          "pair": 5,
+          "relevant": {
+            "en_negation-5-1": 1
+          },
+          "contrast": "en_negation-5-0"
+        }
+      ]
+    },
+    "en_numbers": {
+      "corpus": [
+        {
+          "id": "en_numbers-0-0",
+          "text": "There are 42 volumes left on the shelf.",
+          "lang": "en"
+        },
+        {
+          "id": "en_numbers-0-1",
+          "text": "There are 30 volumes left on the shelf.",
+          "lang": "en"
+        },
+        {
+          "id": "en_numbers-1-0",
+          "text": "The final fare is 210.",
+          "lang": "en"
+        },
+        {
+          "id": "en_numbers-1-1",
+          "text": "The final fare is 350.",
+          "lang": "en"
+        },
+        {
+          "id": "en_numbers-2-0",
+          "text": "The requested lamp count is 60.",
+          "lang": "en"
+        },
+        {
+          "id": "en_numbers-2-1",
+          "text": "The requested lamp count is 36.",
+          "lang": "en"
+        },
+        {
+          "id": "en_numbers-3-0",
+          "text": "The train journey lasted 95 minutes.",
+          "lang": "en"
+        },
+        {
+          "id": "en_numbers-3-1",
+          "text": "The train journey lasted 35 minutes.",
+          "lang": "en"
+        },
+        {
+          "id": "en_numbers-4-0",
+          "text": "It became seven degrees warmer.",
+          "lang": "en"
+        },
+        {
+          "id": "en_numbers-4-1",
+          "text": "It became seven degrees colder.",
+          "lang": "en"
+        },
+        {
+          "id": "en_numbers-5-0",
+          "text": "The measured value is eligible.",
+          "lang": "en"
+        },
+        {
+          "id": "en_numbers-5-1",
+          "text": "The measured value is ineligible.",
+          "lang": "en"
+        }
+      ],
+      "queries": [
+        {
+          "id": "q-en_numbers-0-0",
+          "text": "A shelf held 53 volumes. Readers borrowed 17 and returned 6 of those. How many remain?",
+          "lang": "en",
+          "category": "numbers",
+          "pair": 0,
+          "relevant": {
+            "en_numbers-0-0": 1
+          },
+          "contrast": "en_numbers-0-1"
+        },
+        {
+          "id": "q-en_numbers-0-1",
+          "text": "A shelf held 53 volumes. Readers borrowed 17 and then borrowed 6 more. How many remain?",
+          "lang": "en",
+          "category": "numbers",
+          "pair": 0,
+          "relevant": {
+            "en_numbers-0-1": 1
+          },
+          "contrast": "en_numbers-0-0"
+        },
+        {
+          "id": "q-en_numbers-1-0",
+          "text": "A fare of 280 was reduced by one quarter. What was paid?",
+          "lang": "en",
+          "category": "numbers",
+          "pair": 1,
+          "relevant": {
+            "en_numbers-1-0": 1
+          },
+          "contrast": "en_numbers-1-1"
+        },
+        {
+          "id": "q-en_numbers-1-1",
+          "text": "A fare of 280 was increased by one quarter. What was paid?",
+          "lang": "en",
+          "category": "numbers",
+          "pair": 1,
+          "relevant": {
+            "en_numbers-1-1": 1
+          },
+          "contrast": "en_numbers-1-0"
+        },
+        {
+          "id": "q-en_numbers-2-0",
+          "text": "Of 96 lamps, three eighths are off. How many are on?",
+          "lang": "en",
+          "category": "numbers",
+          "pair": 2,
+          "relevant": {
+            "en_numbers-2-0": 1
+          },
+          "contrast": "en_numbers-2-1"
+        },
+        {
+          "id": "q-en_numbers-2-1",
+          "text": "Of 96 lamps, three eighths are off. How many are off?",
+          "lang": "en",
+          "category": "numbers",
+          "pair": 2,
+          "relevant": {
+            "en_numbers-2-1": 1
+          },
+          "contrast": "en_numbers-2-0"
+        },
+        {
+          "id": "q-en_numbers-3-0",
+          "text": "The train left at 16:35 and arrived at 18:10. How many minutes did it travel?",
+          "lang": "en",
+          "category": "numbers",
+          "pair": 3,
+          "relevant": {
+            "en_numbers-3-0": 1
+          },
+          "contrast": "en_numbers-3-1"
+        },
+        {
+          "id": "q-en_numbers-3-1",
+          "text": "The train left at 16:35 and arrived at 17:10. How many minutes did it travel?",
+          "lang": "en",
+          "category": "numbers",
+          "pair": 3,
+          "relevant": {
+            "en_numbers-3-1": 1
+          },
+          "contrast": "en_numbers-3-0"
+        },
+        {
+          "id": "q-en_numbers-4-0",
+          "text": "The thermometer first read minus thirteen, then minus six. What changed?",
+          "lang": "en",
+          "category": "numbers",
+          "pair": 4,
+          "relevant": {
+            "en_numbers-4-0": 1
+          },
+          "contrast": "en_numbers-4-1"
+        },
+        {
+          "id": "q-en_numbers-4-1",
+          "text": "The thermometer first read minus six, then minus thirteen. What changed?",
+          "lang": "en",
+          "category": "numbers",
+          "pair": 4,
+          "relevant": {
+            "en_numbers-4-1": 1
+          },
+          "contrast": "en_numbers-4-0"
+        },
+        {
+          "id": "q-en_numbers-5-0",
+          "text": "Admission requires at least 8.4 and the measured value is exactly 8.4. Is it eligible?",
+          "lang": "en",
+          "category": "numbers",
+          "pair": 5,
+          "relevant": {
+            "en_numbers-5-0": 1
+          },
+          "contrast": "en_numbers-5-1"
+        },
+        {
+          "id": "q-en_numbers-5-1",
+          "text": "Admission requires more than 8.4 and the measured value is exactly 8.4. Is it eligible?",
+          "lang": "en",
+          "category": "numbers",
+          "pair": 5,
+          "relevant": {
+            "en_numbers-5-1": 1
+          },
+          "contrast": "en_numbers-5-0"
+        }
+      ]
+    }
+  }
+}
