@@ -6,6 +6,7 @@
     "tagName": "v${version}"
   },
   "npm": {
+    "ignoreVersion": true,
     "publishPackageManager": "bun",
     "publishPath": ""
   },
@@ -18,6 +19,7 @@
     }
   },
   "hooks": {
+    "before:bump": "if git show-ref --verify --quiet \"refs/tags/v${version}\"; then echo \"Release tag v${version} already exists; choose a new version.\" >&2; exit 1; fi",
     "after:bump": [
       "bun install --cwd ../.. --lockfile-only",
       "bun run --cwd ../.. build",

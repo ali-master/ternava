@@ -119,12 +119,16 @@ bun run release --dry-run
 ```
 
 [release-it](https://github.com/release-it/release-it) recommends the next version
-from Conventional Commits, updates the package and Bun lockfile, builds and tests,
+from the latest Git release tag and Conventional Commits, rejects existing tags
+before changing files, updates the package and Bun lockfile, builds and tests,
 writes [CHANGELOG.md](packages/mini/CHANGELOG.md), publishes `@usex/ternava` with Bun,
 and creates and pushes the release commit and tag. It uses your existing Git
 identity/signing and npm authentication; confirm the version and release steps when prompted.
 `packages/base` and the workspace root stay private and keep their own versions.
 Build and verification alone never publish.
+
+If publishing succeeds but a later Git step fails, check the npm registry before
+retrying: rolling back local Git changes does not undo an npm publication.
 
 ## Acknowledgments
 
