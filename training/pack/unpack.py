@@ -1,4 +1,4 @@
-"""Python reference reader for ternlight `.bin` v1.
+"""Python reference reader for ternava `.bin` v1.
 
 Mirrors the read path the Rust engine implements. Used by verify.py to confirm
 that a packed `.bin` produces the same forward-pass output as the source `.pt`.
@@ -240,9 +240,11 @@ class UnpackedModel:
         layers: list[_LayerBlocks],
         ln_final_w: torch.Tensor, ln_final_b: torch.Tensor,
         proj_W: torch.Tensor, proj_b: torch.Tensor,  # fp32, NOT ternary
+        position_embedding: torch.Tensor | None = None,
     ):
         self.header = header
         self.embedding = embedding
+        self.position_embedding = position_embedding
         self.layers = layers
         self.ln_final_w = ln_final_w
         self.ln_final_b = ln_final_b
@@ -261,6 +263,8 @@ class UnpackedModel:
     def forward(self, input_ids: torch.Tensor, attention_mask: torch.Tensor | None = None) -> torch.Tensor:
         """input_ids: [B, T] long. attention_mask: [B, T] {0,1}. Returns [B, output_dim] L2-normalized."""
         x = self.embedding[input_ids]                       # [B, T, d_model]
+        if self.position_embedding is not None:
+            x = x + self.position_embedding[:input_ids.shape[1]]
         for layer in self.layers:
             x = self._transformer_layer(x, layer, attention_mask)
         # Final LN (parametric)
@@ -327,6 +331,11 @@ class UnpackedModel:
         off = HEADER_SIZE
         # Embedding (already dequantized to fp32 tensor)
         embedding, off = decode_embedding(body, off, header)
+        position_embedding = None
+        if header.format_version == 2:
+            n = header.max_seq_len * header.d_model
+            position_embedding = torch.frombuffer(body, dtype=torch.float32, count=n, offset=off).clone().view(header.max_seq_len, header.d_model)
+            off += n * 4
         # Per layer
         layers: list[_LayerBlocks] = []
         for _ in range(header.n_layers):
@@ -353,4 +362,4 @@ class UnpackedModel:
         # Bytes consumed should exactly equal body length
         if off != len(body):
             raise ValueError(f"trailing bytes after parse: consumed {off}, body has {len(body)}")
-        return cls(header, embedding, layers, ln_final_w, ln_final_b, proj_W, proj_b)
+        return cls(header, embedding, layers, ln_final_w, ln_final_b, proj_W, proj_b, position_embedding)

@@ -37,6 +37,7 @@ sys.path.insert(0, str(_PACK_DIR))
 import ternary_qat
 from data  import TernDataset, collate_fn, load_cache
 from model import StudentEncoder
+from tokenization import check_checkpoint_tokenizer
 
 from pack    import pack as run_pack
 from unpack  import UnpackedModel
@@ -70,6 +71,7 @@ def _load_source_model(ckpt_path: Path, embedding_format_name: str) -> StudentEn
         ffn_dim    = cfg["ffn_dim"],
         output_dim = cfg["output_dim"],
         dropout    = cfg["dropout"],
+        position_embeddings = cfg.get("position_embeddings", False),
     )
     model.load_state_dict(ckpt["model_state"])
     ternary_qat.swap(model)
@@ -78,7 +80,7 @@ def _load_source_model(ckpt_path: Path, embedding_format_name: str) -> StudentEn
     return model.eval()
 
 
-def _get_eval_inputs(cache_dir: Path, cache_name: str, n_samples: int = 32, batch_size: int = 32):
+def _get_eval_inputs(cache_dir: Path, cache_name: str, n_samples: int = 32, batch_size: int = 32, checkpoint: dict | None = None):
     """Pull a small batch from the test split for the parity check.
 
     The parity check doesn't need many samples — it's testing forward-pass
@@ -86,6 +88,7 @@ def _get_eval_inputs(cache_dir: Path, cache_name: str, n_samples: int = 32, batc
     padding patterns to catch most off-by-one bugs.
     """
     splits, _manifest = load_cache(cache_dir, cache_name)
+    check_checkpoint_tokenizer(checkpoint or {}, _manifest.get("tokenizer"))
     dataset = TernDataset(splits["test"])
     loader = torch.utils.data.DataLoader(
         dataset, batch_size=batch_size, shuffle=False, collate_fn=collate_fn,
@@ -108,7 +111,7 @@ def verify(
     print(f"║  Parity verify: embedding_format={embedding_format_name}  tolerance={tol}")
     print(f"╚══════════════════════════════════════════════════════════════════╝")
 
-    with tempfile.TemporaryDirectory(prefix="ternlight-verify-") as tmpdir:
+    with tempfile.TemporaryDirectory(prefix="ternava-verify-") as tmpdir:
         bin_path = Path(tmpdir) / f"model-{embedding_format_name}.bin"
 
         # 1) Pack
@@ -131,7 +134,8 @@ def verify(
 
         # 4) Forward both on the same inputs, compare
         print(f"\n[4/4] Forward parity ({n_samples} samples from test split)")
-        input_ids, attention_mask = _get_eval_inputs(cache_dir, cache_name, n_samples=n_samples)
+        checkpoint = torch.load(ckpt_path, weights_only=False, map_location="cpu")
+        input_ids, attention_mask = _get_eval_inputs(cache_dir, cache_name, n_samples=n_samples, checkpoint=checkpoint)
         with torch.no_grad():
             src_out = src_model(input_ids, attention_mask)       # [N, output_dim], L2-normalized
             ref_out = ref_model.forward(input_ids, attention_mask)

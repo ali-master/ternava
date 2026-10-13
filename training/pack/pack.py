@@ -1,4 +1,4 @@
-"""Pack a `.pt` checkpoint into ternlight's `.bin` v1.
+"""Pack a `.pt` checkpoint into ternava's `.bin` v1.
 
 Usage:
   python pack.py \\
@@ -38,6 +38,7 @@ sys.path.insert(0, str(_PACK_DIR))
 
 import ternary_qat
 from model import StudentEncoder
+from tokenization import validate_tokenizer
 
 from encoders import (
     encode_embedding,
@@ -129,6 +130,13 @@ def pack(
     print(f"→ Loading checkpoint: {ckpt_path}")
     ckpt = torch.load(ckpt_path, weights_only=False, map_location="cpu")
     src_cfg = ckpt["config"]
+    tokenizer_info = ckpt.get("tokenizer")
+    if tokenizer_info:
+        source_tokenizer_path = validate_tokenizer(tokenizer_info)
+        if tokenizer_info["vocab_size"] != src_cfg["vocab_size"]:
+            raise ValueError("Checkpoint vocabulary does not match its tokenizer")
+    elif src_cfg["vocab_size"] != 30522:
+        raise ValueError("Custom vocabularies require tokenizer provenance in the checkpoint")
     src_run = src_cfg.get("run_name", "unknown")
     src_epoch = ckpt["epoch"]
     is_qat = bool(src_cfg.get("enable_qat", False))
@@ -146,6 +154,7 @@ def pack(
         ffn_dim    = src_cfg["ffn_dim"],
         output_dim = src_cfg["output_dim"],
         dropout    = src_cfg["dropout"],
+        position_embeddings = src_cfg.get("position_embeddings", False),
     )
 
     # 2) Load weights BEFORE swapping nn.Linear → BitLinear
@@ -176,12 +185,15 @@ def pack(
         ffn_dim          = src_cfg["ffn_dim"],
         output_dim       = src_cfg["output_dim"],
         max_seq_len      = src_cfg.get("max_seq_len", 128),
+        format_version   = 2 if model.position_embedding is not None else 1,
     )
     parts.append(header.pack())
     assert len(parts[-1]) == HEADER_SIZE
 
     # Embedding
     parts.append(encode_embedding(model.embedding.weight.detach(), embedding_format))
+    if model.position_embedding is not None:
+        parts.append(model.position_embedding.weight.detach().cpu().numpy().astype("<f4").tobytes())
 
     # Per layer
     for li, layer in enumerate(model.layers):
@@ -212,6 +224,10 @@ def pack(
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_bytes(blob)
+    if tokenizer_info:
+        tokenizer_path = output_path.with_suffix(".tokenizer.json")
+        tokenizer_path.write_bytes(source_tokenizer_path.read_bytes())
+        tokenizer_info = {**tokenizer_info, "path": tokenizer_path.name}
     print(f"✓ Wrote {output_path}")
 
     # 7) Sidecar manifest
@@ -226,6 +242,7 @@ def pack(
         source_ckpt_path     = str(ckpt_path),
         eval_scorecard_path  = eval_scorecard_path,
         source_data_manifest = source_data_manifest,
+        extra                = {"tokenizer": tokenizer_info, "data_manifest": ckpt.get("data_manifest")},
     )
     print(f"✓ Wrote {manifest_path}")
 

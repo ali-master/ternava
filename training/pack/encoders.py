@@ -1,4 +1,4 @@
-"""Per-section encoders for ternlight `.bin` v1.
+"""Per-section encoders for ternava `.bin` v1.
 
 Each function returns the bytes that go into the corresponding section of the
 wire format. The orchestration (which section in which order, header writing,

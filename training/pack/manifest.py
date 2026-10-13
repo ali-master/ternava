@@ -14,7 +14,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from format import EMB_NAMES, FORMAT_VERSION
+from format import EMB_NAMES, Header
 
 
 def _sha256_hex(path: Path) -> str:
@@ -45,7 +45,7 @@ def write_manifest(
     manifest_path = Path(manifest_path)
     sha256 = _sha256_hex(bin_path)
     payload = {
-        "format_version":       FORMAT_VERSION,
+        "format_version":       Header.unpack(bin_path.read_bytes()).format_version,
         "embedding_format":     EMB_NAMES[embedding_format],
         "weights_format":       "ternary",
         "bin_path":             bin_path.name,

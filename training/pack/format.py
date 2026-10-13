@@ -1,4 +1,7 @@
-"""Wire format constants + Header struct for ternlight's `.bin` v1.
+"""Wire format constants + Header struct for ternava's `.bin` v1/v2.
+
+Version 2 adds a max_seq_len × d_model fp32 learned-position table immediately
+after token embeddings/scales. Version 1 remains the default for legacy models.
 
 Canonical spec lives in [docs/tern-inference-engine.md](../../docs/tern-inference-engine.md).
 This file is the single source of truth for byte-level layout. Encoders/unpackers
@@ -15,7 +18,7 @@ from dataclasses import dataclass
 # ── Constants ────────────────────────────────────────────────────────────────
 
 MAGIC          = b"TERN"                # 4 bytes
-FORMAT_VERSION = 1                      # uint16 — ternlight v1 (tern-core POC versions superseded)
+FORMAT_VERSION = 1                      # uint16 — ternava v1 (tern-core POC versions superseded)
 
 # embedding_format byte values
 EMB_FP32       = 0
@@ -69,6 +72,8 @@ class Header:
             raise ValueError(f"unknown embedding_format: {self.embedding_format}")
         if self.weights_format != WEIGHTS_TERNARY:
             raise ValueError(f"unsupported weights_format: {self.weights_format} (v1 only allows ternary)")
+        if self.format_version not in (1, 2):
+            raise ValueError(f"unsupported format version {self.format_version}")
         return _HEADER_STRUCT.pack(
             MAGIC,
             self.format_version,
@@ -92,7 +97,7 @@ class Header:
             = _HEADER_STRUCT.unpack(data[:HEADER_SIZE])
         if magic != MAGIC:
             raise ValueError(f"bad magic: {magic!r} (expected {MAGIC!r})")
-        if version != FORMAT_VERSION:
+        if version not in (1, 2):
             raise ValueError(f"unsupported format version {version} (expected {FORMAT_VERSION})")
         if emb_fmt not in EMB_NAMES:
             raise ValueError(f"unknown embedding_format byte: {emb_fmt}")
