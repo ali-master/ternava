@@ -1,0 +1,969 @@
+{
+  "scope": "heldout-curated-challenge",
+  "created": "2026-10-12",
+  "note": "Frozen before training; authored relevance, not an external benchmark. No aliases or lexical scoring. Not used for checkpoint selection. Novelty checked against this pilot train/val; baseline and teacher pretraining exposure unknown.",
+  "corpus": [
+    {
+      "id": "affection-positive-fa",
+      "lang": "fa",
+      "text": "علاقه و محبت با وجود دلخوری موقت ادامه دارد."
+    },
+    {
+      "id": "affection-negative-fa",
+      "lang": "fa",
+      "text": "این رابطه تمام شده و دیگر علاقه‌ای باقی نمانده است."
+    },
+    {
+      "id": "affection-positive-en",
+      "lang": "en",
+      "text": "Affection persists despite a temporary disagreement."
+    },
+    {
+      "id": "affection-negative-en",
+      "lang": "en",
+      "text": "The relationship has ended and no affection remains."
+    },
+    {
+      "id": "excellence-negative-fa",
+      "lang": "fa",
+      "text": "ورزشکاری که تازه شروع کرده و هنوز موفقیتی ندارد."
+    },
+    {
+      "id": "excellence-positive-fa",
+      "lang": "fa",
+      "text": "ورزشکاری که از همهٔ قهرمانان تاریخ برتر است."
+    },
+    {
+      "id": "excellence-negative-en",
+      "lang": "en",
+      "text": "An athlete who has just started and has achieved nothing yet."
+    },
+    {
+      "id": "excellence-positive-en",
+      "lang": "en",
+      "text": "An athlete who surpasses every champion in history."
+    },
+    {
+      "id": "laughter-positive-fa",
+      "lang": "fa",
+      "text": "خندهٔ شدید به خاطر یک شوخی بسیار خنده‌دار."
+    },
+    {
+      "id": "laughter-negative-fa",
+      "lang": "fa",
+      "text": "اندوه شدید و گریستن پس از شنیدن خبر بد."
+    },
+    {
+      "id": "laughter-positive-en",
+      "lang": "en",
+      "text": "Intense laughter caused by a very funny joke."
+    },
+    {
+      "id": "laughter-negative-en",
+      "lang": "en",
+      "text": "Deep sadness and crying after hearing bad news."
+    },
+    {
+      "id": "exhaustion-negative-fa",
+      "lang": "fa",
+      "text": "سرحال بودن و آمادگی برای شروع فعالیت بدنی."
+    },
+    {
+      "id": "exhaustion-positive-fa",
+      "lang": "fa",
+      "text": "خستگی و نیاز شدید به خواب پس از کم‌خوابی."
+    },
+    {
+      "id": "exhaustion-negative-en",
+      "lang": "en",
+      "text": "Feeling energetic and ready to begin physical activity."
+    },
+    {
+      "id": "exhaustion-positive-en",
+      "lang": "en",
+      "text": "Exhaustion and a strong need for sleep after sleep deprivation."
+    },
+    {
+      "id": "relief-positive-fa",
+      "lang": "fa",
+      "text": "احساس آسودگی پس از برطرف شدن نگرانی."
+    },
+    {
+      "id": "relief-negative-fa",
+      "lang": "fa",
+      "text": "بالا بردن وزنهٔ سنگین برای تقویت عضلات شانه."
+    },
+    {
+      "id": "relief-positive-en",
+      "lang": "en",
+      "text": "A feeling of relief after a worry has been resolved."
+    },
+    {
+      "id": "relief-negative-en",
+      "lang": "en",
+      "text": "Lifting a heavy weight to strengthen shoulder muscles."
+    },
+    {
+      "id": "money-negative-fa",
+      "lang": "fa",
+      "text": "آسیب‌دیدگی ستون فقرات و درد جسمی کمر."
+    },
+    {
+      "id": "money-positive-fa",
+      "lang": "fa",
+      "text": "فشار مالی شدید و تمام شدن پول بر اثر هزینه‌ها."
+    },
+    {
+      "id": "money-negative-en",
+      "lang": "en",
+      "text": "A spinal injury and physical back pain."
+    },
+    {
+      "id": "money-positive-en",
+      "lang": "en",
+      "text": "Severe financial strain and running out of money because of expenses."
+    },
+    {
+      "id": "stress-positive-fa",
+      "lang": "fa",
+      "text": "اضطراب و دل‌شورهٔ شدید پیش از مصاحبه."
+    },
+    {
+      "id": "stress-negative-fa",
+      "lang": "fa",
+      "text": "احیای پزشکی فردی که ضربان قلبش متوقف شده بود."
+    },
+    {
+      "id": "stress-positive-en",
+      "lang": "en",
+      "text": "Extreme anxiety and nervousness before an interview."
+    },
+    {
+      "id": "stress-negative-en",
+      "lang": "en",
+      "text": "Medical resuscitation of someone whose heart had stopped."
+    },
+    {
+      "id": "hope-negative-fa",
+      "lang": "fa",
+      "text": "تسلیم شدن و کنار گذاشتن تلاش بعد از شکست."
+    },
+    {
+      "id": "hope-positive-fa",
+      "lang": "fa",
+      "text": "ادامهٔ تلاش با امید، با وجود شکست اولیه."
+    },
+    {
+      "id": "hope-negative-en",
+      "lang": "en",
+      "text": "Giving up and abandoning the effort after a defeat."
+    },
+    {
+      "id": "hope-positive-en",
+      "lang": "en",
+      "text": "Continuing to try with hope despite an initial failure."
+    },
+    {
+      "id": "approval-positive-fa",
+      "lang": "fa",
+      "text": "پذیرش اصل پیشنهاد و مخالفت با زمان اجرای آن."
+    },
+    {
+      "id": "approval-negative-fa",
+      "lang": "fa",
+      "text": "رد کامل اصل پیشنهاد بدون توجه به زمان اجرا."
+    },
+    {
+      "id": "approval-positive-en",
+      "lang": "en",
+      "text": "Accepting the proposal itself while objecting to its timing."
+    },
+    {
+      "id": "approval-negative-en",
+      "lang": "en",
+      "text": "Rejecting the proposal entirely regardless of its timing."
+    },
+    {
+      "id": "cancel-negative-fa",
+      "lang": "fa",
+      "text": "جلسه لغو شده و دیگر برگزار نمی‌شود."
+    },
+    {
+      "id": "cancel-positive-fa",
+      "lang": "fa",
+      "text": "جلسه برگزار می‌شود ولی زمان شروع آن تغییر کرده است."
+    },
+    {
+      "id": "cancel-negative-en",
+      "lang": "en",
+      "text": "The meeting has been cancelled and will not take place."
+    },
+    {
+      "id": "cancel-positive-en",
+      "lang": "en",
+      "text": "The meeting will take place, but its starting time has changed."
+    },
+    {
+      "id": "bugfree-positive-fa",
+      "lang": "fa",
+      "text": "رفع کامل خطاهای برنامه و اجرای موفق آن."
+    },
+    {
+      "id": "bugfree-negative-fa",
+      "lang": "fa",
+      "text": "باقی ماندن خطاها و شکست اجرای برنامه."
+    },
+    {
+      "id": "bugfree-positive-en",
+      "lang": "en",
+      "text": "All program errors have been fixed and execution succeeds."
+    },
+    {
+      "id": "bugfree-negative-en",
+      "lang": "en",
+      "text": "Errors remain and the program fails to execute."
+    },
+    {
+      "id": "refund-negative-fa",
+      "lang": "fa",
+      "text": "مبلغ به حساب فروشنده رسیده و پرداخت کامل شده است."
+    },
+    {
+      "id": "refund-positive-fa",
+      "lang": "fa",
+      "text": "مبلغ کسر شده اما انتقال به گیرنده هنوز انجام نشده است."
+    },
+    {
+      "id": "refund-negative-en",
+      "lang": "en",
+      "text": "The amount reached the seller and payment is complete."
+    },
+    {
+      "id": "refund-positive-en",
+      "lang": "en",
+      "text": "The amount was debited, but the transfer to the recipient is still incomplete."
+    },
+    {
+      "id": "vegetarian-positive-fa",
+      "lang": "fa",
+      "text": "غذای گیاهی بدون گوشت و مرغ."
+    },
+    {
+      "id": "vegetarian-negative-fa",
+      "lang": "fa",
+      "text": "غذایی شامل گوشت و مرغ کبابی."
+    },
+    {
+      "id": "vegetarian-positive-en",
+      "lang": "en",
+      "text": "A vegetarian dish without meat or chicken."
+    },
+    {
+      "id": "vegetarian-negative-en",
+      "lang": "en",
+      "text": "A dish containing grilled meat and chicken."
+    },
+    {
+      "id": "delivery-negative-fa",
+      "lang": "fa",
+      "text": "تحویل بسته دو روز زودتر از موعد اولیه انجام می‌شود."
+    },
+    {
+      "id": "delivery-positive-fa",
+      "lang": "fa",
+      "text": "تحویل بسته دو روز دیرتر از موعد اولیه انجام می‌شود."
+    },
+    {
+      "id": "delivery-negative-en",
+      "lang": "en",
+      "text": "The parcel will arrive two days earlier than originally scheduled."
+    },
+    {
+      "id": "delivery-positive-en",
+      "lang": "en",
+      "text": "The parcel will arrive two days later than originally scheduled."
+    },
+    {
+      "id": "discount-positive-fa",
+      "lang": "fa",
+      "text": "قیمت کالا بیست و پنج درصد کاهش یافته است."
+    },
+    {
+      "id": "discount-negative-fa",
+      "lang": "fa",
+      "text": "قیمت کالا بیست و پنج درصد افزایش یافته است."
+    },
+    {
+      "id": "discount-positive-en",
+      "lang": "en",
+      "text": "The item’s price has decreased by twenty-five percent."
+    },
+    {
+      "id": "discount-negative-en",
+      "lang": "en",
+      "text": "The item’s price has increased by twenty-five percent."
+    },
+    {
+      "id": "temperature-negative-fa",
+      "lang": "fa",
+      "text": "دمای هوا شش درجه کاهش پیدا کرده است."
+    },
+    {
+      "id": "temperature-positive-fa",
+      "lang": "fa",
+      "text": "دمای هوا شش درجه افزایش پیدا کرده است."
+    },
+    {
+      "id": "temperature-negative-en",
+      "lang": "en",
+      "text": "The temperature has decreased by six degrees."
+    },
+    {
+      "id": "temperature-positive-en",
+      "lang": "en",
+      "text": "The temperature has increased by six degrees."
+    },
+    {
+      "id": "transfer-positive-fa",
+      "lang": "fa",
+      "text": "نیما به سارا پول داد."
+    },
+    {
+      "id": "transfer-negative-fa",
+      "lang": "fa",
+      "text": "سارا به نیما پول داد."
+    },
+    {
+      "id": "transfer-positive-en",
+      "lang": "en",
+      "text": "Nima paid Sara."
+    },
+    {
+      "id": "transfer-negative-en",
+      "lang": "en",
+      "text": "Sara paid Nima."
+    },
+    {
+      "id": "chase-negative-fa",
+      "lang": "fa",
+      "text": "گربه سگ را دنبال کرد."
+    },
+    {
+      "id": "chase-positive-fa",
+      "lang": "fa",
+      "text": "سگ گربه را دنبال کرد."
+    },
+    {
+      "id": "chase-negative-en",
+      "lang": "en",
+      "text": "The cat chased the dog."
+    },
+    {
+      "id": "chase-positive-en",
+      "lang": "en",
+      "text": "The dog chased the cat."
+    },
+    {
+      "id": "lend-positive-fa",
+      "lang": "fa",
+      "text": "لیلا کتاب را به مریم قرض داد."
+    },
+    {
+      "id": "lend-negative-fa",
+      "lang": "fa",
+      "text": "مریم کتاب را به لیلا قرض داد."
+    },
+    {
+      "id": "lend-positive-en",
+      "lang": "en",
+      "text": "Leila lent the book to Maryam."
+    },
+    {
+      "id": "lend-negative-en",
+      "lang": "en",
+      "text": "Maryam lent the book to Leila."
+    },
+    {
+      "id": "apology-negative-fa",
+      "lang": "fa",
+      "text": "بهرام از آرش عذرخواهی کرد."
+    },
+    {
+      "id": "apology-positive-fa",
+      "lang": "fa",
+      "text": "آرش از بهرام عذرخواهی کرد."
+    },
+    {
+      "id": "apology-negative-en",
+      "lang": "en",
+      "text": "Bahram apologized to Arash."
+    },
+    {
+      "id": "apology-positive-en",
+      "lang": "en",
+      "text": "Arash apologized to Bahram."
+    },
+    {
+      "id": "network-positive-fa",
+      "lang": "fa",
+      "text": "اتصال به شبکهٔ محلی برقرار است اما دسترسی به اینترنت وجود ندارد."
+    },
+    {
+      "id": "network-negative-fa",
+      "lang": "fa",
+      "text": "اینترنت فعال است و همهٔ سایت‌ها به‌درستی باز می‌شوند."
+    },
+    {
+      "id": "network-positive-en",
+      "lang": "en",
+      "text": "The local network connection works but internet access is unavailable."
+    },
+    {
+      "id": "network-negative-en",
+      "lang": "en",
+      "text": "Internet access works and every website loads correctly."
+    },
+    {
+      "id": "cache-negative-fa",
+      "lang": "fa",
+      "text": "تغییرات جدید روی سرور حذف شده و قابل بازیابی نیستند."
+    },
+    {
+      "id": "cache-positive-fa",
+      "lang": "fa",
+      "text": "مرورگر محتوای قدیمی را از حافظهٔ نهان نمایش می‌دهد."
+    },
+    {
+      "id": "cache-negative-en",
+      "lang": "en",
+      "text": "The new changes were deleted from the server and cannot be recovered."
+    },
+    {
+      "id": "cache-positive-en",
+      "lang": "en",
+      "text": "The browser is displaying stale content from its cache."
+    },
+    {
+      "id": "privacy-positive-fa",
+      "lang": "fa",
+      "text": "نگهداری عکس به‌صورت خصوصی و بدون اشتراک عمومی."
+    },
+    {
+      "id": "privacy-negative-fa",
+      "lang": "fa",
+      "text": "انتشار عکس برای عموم با پیوند قابل اشتراک."
+    },
+    {
+      "id": "privacy-positive-en",
+      "lang": "en",
+      "text": "Keeping a photo private without public sharing."
+    },
+    {
+      "id": "privacy-negative-en",
+      "lang": "en",
+      "text": "Publishing the photo publicly with a shareable link."
+    },
+    {
+      "id": "sarcasm-negative-fa",
+      "lang": "fa",
+      "text": "تحسین صادقانهٔ سرعت و کیفیت پاسخ‌گویی پشتیبانی."
+    },
+    {
+      "id": "sarcasm-positive-fa",
+      "lang": "fa",
+      "text": "انتقاد کنایه‌آمیز از پاسخ‌گو نبودن پشتیبانی."
+    },
+    {
+      "id": "sarcasm-negative-en",
+      "lang": "en",
+      "text": "Sincere praise for the speed and quality of customer support."
+    },
+    {
+      "id": "sarcasm-positive-en",
+      "lang": "en",
+      "text": "Sarcastic criticism of unresponsive customer support."
+    }
+  ],
+  "queries": [
+    {
+      "id": "affection-fa",
+      "lang": "fa",
+      "category": "idiom",
+      "text": "حتی وقتی از دستت دلخورم، باز هم دلبسته‌ات هستم.",
+      "relevant": {
+        "affection-positive-fa": 1
+      },
+      "contrast": "affection-negative-fa"
+    },
+    {
+      "id": "affection-en",
+      "lang": "en",
+      "category": "idiom",
+      "text": "Even when you upset me, my affection for you remains.",
+      "relevant": {
+        "affection-positive-en": 1
+      },
+      "contrast": "affection-negative-en"
+    },
+    {
+      "id": "excellence-fa",
+      "lang": "fa",
+      "category": "paraphrase",
+      "text": "هیچ‌کدام از نسل‌های پیشین به پای این ورزشکار نمی‌رسند.",
+      "relevant": {
+        "excellence-positive-fa": 1
+      },
+      "contrast": "excellence-negative-fa"
+    },
+    {
+      "id": "excellence-en",
+      "lang": "en",
+      "category": "paraphrase",
+      "text": "No athlete from an earlier generation comes close to this one.",
+      "relevant": {
+        "excellence-positive-en": 1
+      },
+      "contrast": "excellence-negative-en"
+    },
+    {
+      "id": "laughter-fa",
+      "lang": "fa",
+      "category": "idiom",
+      "text": "آن‌قدر شوخی‌ات بامزه بود که نفسم از خندیدن بند آمد.",
+      "relevant": {
+        "laughter-positive-fa": 1
+      },
+      "contrast": "laughter-negative-fa"
+    },
+    {
+      "id": "laughter-en",
+      "lang": "en",
+      "category": "idiom",
+      "text": "Your joke was so funny that I could barely breathe from laughing.",
+      "relevant": {
+        "laughter-positive-en": 1
+      },
+      "contrast": "laughter-negative-en"
+    },
+    {
+      "id": "exhaustion-fa",
+      "lang": "fa",
+      "category": "idiom",
+      "text": "از بس شب‌بیداری کشیده‌ام پلک‌هایم سنگین شده‌اند.",
+      "relevant": {
+        "exhaustion-positive-fa": 1
+      },
+      "contrast": "exhaustion-negative-fa"
+    },
+    {
+      "id": "exhaustion-en",
+      "lang": "en",
+      "category": "idiom",
+      "text": "After so many late nights, I can barely keep my eyelids open.",
+      "relevant": {
+        "exhaustion-positive-en": 1
+      },
+      "contrast": "exhaustion-negative-en"
+    },
+    {
+      "id": "relief-fa",
+      "lang": "fa",
+      "category": "idiom",
+      "text": "وقتی جواب آمد انگار کوهی از روی دوشم برداشته شد.",
+      "relevant": {
+        "relief-positive-fa": 1
+      },
+      "contrast": "relief-negative-fa"
+    },
+    {
+      "id": "relief-en",
+      "lang": "en",
+      "category": "idiom",
+      "text": "When the answer arrived, it felt like a weight had been lifted off my shoulders.",
+      "relevant": {
+        "relief-positive-en": 1
+      },
+      "contrast": "relief-negative-en"
+    },
+    {
+      "id": "money-fa",
+      "lang": "fa",
+      "category": "idiom",
+      "text": "هزینه‌های این ماه کمرم را شکست و چیزی برایم نماند.",
+      "relevant": {
+        "money-positive-fa": 1
+      },
+      "contrast": "money-negative-fa"
+    },
+    {
+      "id": "money-en",
+      "lang": "en",
+      "category": "idiom",
+      "text": "This month’s expenses broke the bank and left me with nothing.",
+      "relevant": {
+        "money-positive-en": 1
+      },
+      "contrast": "money-negative-en"
+    },
+    {
+      "id": "stress-fa",
+      "lang": "fa",
+      "category": "idiom",
+      "text": "تا نوبت مصاحبه‌ام برسد هزار بار مردم و زنده شدم.",
+      "relevant": {
+        "stress-positive-fa": 1
+      },
+      "contrast": "stress-negative-fa"
+    },
+    {
+      "id": "stress-en",
+      "lang": "en",
+      "category": "idiom",
+      "text": "Waiting for my interview felt like dying a thousand deaths.",
+      "relevant": {
+        "stress-positive-en": 1
+      },
+      "contrast": "stress-negative-en"
+    },
+    {
+      "id": "hope-fa",
+      "lang": "fa",
+      "category": "negation",
+      "text": "بار اول باختیم، اما قرار نیست دست از تلاش بکشیم.",
+      "relevant": {
+        "hope-positive-fa": 1
+      },
+      "contrast": "hope-negative-fa"
+    },
+    {
+      "id": "hope-en",
+      "lang": "en",
+      "category": "negation",
+      "text": "We lost the first time, but we are not going to stop trying.",
+      "relevant": {
+        "hope-positive-en": 1
+      },
+      "contrast": "hope-negative-en"
+    },
+    {
+      "id": "approval-fa",
+      "lang": "fa",
+      "category": "negation",
+      "text": "با اصل پیشنهاد مشکلی ندارم؛ فقط زمان اجرای آن مناسب نیست.",
+      "relevant": {
+        "approval-positive-fa": 1
+      },
+      "contrast": "approval-negative-fa"
+    },
+    {
+      "id": "approval-en",
+      "lang": "en",
+      "category": "negation",
+      "text": "I have no problem with the proposal itself; only the timing is unsuitable.",
+      "relevant": {
+        "approval-positive-en": 1
+      },
+      "contrast": "approval-negative-en"
+    },
+    {
+      "id": "cancel-fa",
+      "lang": "fa",
+      "category": "negation",
+      "text": "جلسه لغو نشده؛ فقط به یک ساعت دیرتر منتقل شده است.",
+      "relevant": {
+        "cancel-positive-fa": 1
+      },
+      "contrast": "cancel-negative-fa"
+    },
+    {
+      "id": "cancel-en",
+      "lang": "en",
+      "category": "negation",
+      "text": "The meeting has not been cancelled; it has only been moved one hour later.",
+      "relevant": {
+        "cancel-positive-en": 1
+      },
+      "contrast": "cancel-negative-en"
+    },
+    {
+      "id": "bugfree-fa",
+      "lang": "fa",
+      "category": "negation",
+      "text": "هیچ خطایی باقی نمانده و برنامه با موفقیت تمام می‌شود.",
+      "relevant": {
+        "bugfree-positive-fa": 1
+      },
+      "contrast": "bugfree-negative-fa"
+    },
+    {
+      "id": "bugfree-en",
+      "lang": "en",
+      "category": "negation",
+      "text": "No errors remain and the program completes successfully.",
+      "relevant": {
+        "bugfree-positive-en": 1
+      },
+      "contrast": "bugfree-negative-en"
+    },
+    {
+      "id": "refund-fa",
+      "lang": "fa",
+      "category": "negation",
+      "text": "پول از حسابم رفته ولی هنوز به حساب فروشنده نرسیده است.",
+      "relevant": {
+        "refund-positive-fa": 1
+      },
+      "contrast": "refund-negative-fa"
+    },
+    {
+      "id": "refund-en",
+      "lang": "en",
+      "category": "negation",
+      "text": "The money left my account but has not reached the seller yet.",
+      "relevant": {
+        "refund-positive-en": 1
+      },
+      "contrast": "refund-negative-en"
+    },
+    {
+      "id": "vegetarian-fa",
+      "lang": "fa",
+      "category": "negation",
+      "text": "غذایی می‌خواهم که نه گوشت داشته باشد نه مرغ.",
+      "relevant": {
+        "vegetarian-positive-fa": 1
+      },
+      "contrast": "vegetarian-negative-fa"
+    },
+    {
+      "id": "vegetarian-en",
+      "lang": "en",
+      "category": "negation",
+      "text": "I want a dish containing neither meat nor chicken.",
+      "relevant": {
+        "vegetarian-positive-en": 1
+      },
+      "contrast": "vegetarian-negative-en"
+    },
+    {
+      "id": "delivery-fa",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "قرار بود بسته سه‌شنبه برسد، اما تحویل به پنج‌شنبه افتاد.",
+      "relevant": {
+        "delivery-positive-fa": 1
+      },
+      "contrast": "delivery-negative-fa"
+    },
+    {
+      "id": "delivery-en",
+      "lang": "en",
+      "category": "numbers",
+      "text": "The parcel was due on Tuesday, but delivery slipped to Thursday.",
+      "relevant": {
+        "delivery-positive-en": 1
+      },
+      "contrast": "delivery-negative-en"
+    },
+    {
+      "id": "discount-fa",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "قیمت از دویست هزار به صد و پنجاه هزار تومان رسید.",
+      "relevant": {
+        "discount-positive-fa": 1
+      },
+      "contrast": "discount-negative-fa"
+    },
+    {
+      "id": "discount-en",
+      "lang": "en",
+      "category": "numbers",
+      "text": "The price went from two hundred thousand to one hundred and fifty thousand tomans.",
+      "relevant": {
+        "discount-positive-en": 1
+      },
+      "contrast": "discount-negative-en"
+    },
+    {
+      "id": "temperature-fa",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "دماسنج از منفی چهار به مثبت دو درجه رسید.",
+      "relevant": {
+        "temperature-positive-fa": 1
+      },
+      "contrast": "temperature-negative-fa"
+    },
+    {
+      "id": "temperature-en",
+      "lang": "en",
+      "category": "numbers",
+      "text": "The thermometer rose from minus four to plus two degrees.",
+      "relevant": {
+        "temperature-positive-en": 1
+      },
+      "contrast": "temperature-negative-en"
+    },
+    {
+      "id": "transfer-fa",
+      "lang": "fa",
+      "category": "role-order",
+      "text": "گیرندهٔ وجه سارا بود و فرستندهٔ آن نیما.",
+      "relevant": {
+        "transfer-positive-fa": 1
+      },
+      "contrast": "transfer-negative-fa"
+    },
+    {
+      "id": "transfer-en",
+      "lang": "en",
+      "category": "role-order",
+      "text": "Sara received the money and Nima sent it.",
+      "relevant": {
+        "transfer-positive-en": 1
+      },
+      "contrast": "transfer-negative-en"
+    },
+    {
+      "id": "chase-fa",
+      "lang": "fa",
+      "category": "role-order",
+      "text": "این بار گربه فرار می‌کرد و سگ دنبالش می‌دوید.",
+      "relevant": {
+        "chase-positive-fa": 1
+      },
+      "contrast": "chase-negative-fa"
+    },
+    {
+      "id": "chase-en",
+      "lang": "en",
+      "category": "role-order",
+      "text": "This time the cat was running away and the dog was pursuing it.",
+      "relevant": {
+        "chase-positive-en": 1
+      },
+      "contrast": "chase-negative-en"
+    },
+    {
+      "id": "lend-fa",
+      "lang": "fa",
+      "category": "role-order",
+      "text": "کتاب از طرف لیلا به دست مریم رسید.",
+      "relevant": {
+        "lend-positive-fa": 1
+      },
+      "contrast": "lend-negative-fa"
+    },
+    {
+      "id": "lend-en",
+      "lang": "en",
+      "category": "role-order",
+      "text": "The book came from Leila and reached Maryam.",
+      "relevant": {
+        "lend-positive-en": 1
+      },
+      "contrast": "lend-negative-en"
+    },
+    {
+      "id": "apology-fa",
+      "lang": "fa",
+      "category": "role-order",
+      "text": "کسی که عذر خواست آرش بود، نه بهرام.",
+      "relevant": {
+        "apology-positive-fa": 1
+      },
+      "contrast": "apology-negative-fa"
+    },
+    {
+      "id": "apology-en",
+      "lang": "en",
+      "category": "role-order",
+      "text": "Arash was the one who apologized, not Bahram.",
+      "relevant": {
+        "apology-positive-en": 1
+      },
+      "contrast": "apology-negative-en"
+    },
+    {
+      "id": "network-fa",
+      "lang": "fa",
+      "category": "technical",
+      "text": "چراغ وای‌فای روشن است ولی هیچ سایتی باز نمی‌شود.",
+      "relevant": {
+        "network-positive-fa": 1
+      },
+      "contrast": "network-negative-fa"
+    },
+    {
+      "id": "network-en",
+      "lang": "en",
+      "category": "technical",
+      "text": "The Wi-Fi light is on, but no website loads.",
+      "relevant": {
+        "network-positive-en": 1
+      },
+      "contrast": "network-negative-en"
+    },
+    {
+      "id": "cache-fa",
+      "lang": "fa",
+      "category": "technical",
+      "text": "تغییرات را ذخیره کردم اما مرورگر هنوز نسخهٔ قبلی را نشان می‌دهد.",
+      "relevant": {
+        "cache-positive-fa": 1
+      },
+      "contrast": "cache-negative-fa"
+    },
+    {
+      "id": "cache-en",
+      "lang": "en",
+      "category": "technical",
+      "text": "I saved my changes, but the browser still displays the previous version.",
+      "relevant": {
+        "cache-positive-en": 1
+      },
+      "contrast": "cache-negative-en"
+    },
+    {
+      "id": "privacy-fa",
+      "lang": "fa",
+      "category": "technical",
+      "text": "می‌خواهم عکس فقط برای خودم بماند و کسی لینک عمومی آن را نبیند.",
+      "relevant": {
+        "privacy-positive-fa": 1
+      },
+      "contrast": "privacy-negative-fa"
+    },
+    {
+      "id": "privacy-en",
+      "lang": "en",
+      "category": "technical",
+      "text": "I want to keep the photo to myself without anyone seeing a public link.",
+      "relevant": {
+        "privacy-positive-en": 1
+      },
+      "contrast": "privacy-negative-en"
+    },
+    {
+      "id": "sarcasm-fa",
+      "lang": "fa",
+      "category": "sarcasm",
+      "text": "چه پشتیبانی فوق‌العاده‌ای؛ سه روز است هیچ‌کس جواب نداده!",
+      "relevant": {
+        "sarcasm-positive-fa": 1
+      },
+      "contrast": "sarcasm-negative-fa"
+    },
+    {
+      "id": "sarcasm-en",
+      "lang": "en",
+      "category": "sarcasm",
+      "text": "What wonderful support; nobody has replied for three days!",
+      "relevant": {
+        "sarcasm-positive-en": 1
+      },
+      "contrast": "sarcasm-negative-en"
+    }
+  ]
+}

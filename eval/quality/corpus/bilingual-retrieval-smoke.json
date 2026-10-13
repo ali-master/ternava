@@ -1,0 +1,40 @@
+{
+  "scope": "smoke",
+  "description": "Handwritten en/fa FAQ checks. Not a benchmark or a release quality claim. Never use for training.",
+  "corpus": [
+    {"id":"en-password","lang":"en","text":"To recover access to your account, use the forgotten password link and check your email."},
+    {"id":"en-refund","lang":"en","text":"You can request a refund for a returned purchase from the orders page."},
+    {"id":"en-delivery","lang":"en","text":"Track the location of your parcel using the shipping tracking number."},
+    {"id":"en-cancel","lang":"en","text":"Stop automatic subscription renewal in your billing settings."},
+    {"id":"en-offline","lang":"en","text":"Downloaded documents remain readable without an internet connection."},
+    {"id":"en-search","lang":"en","text":"Semantic search finds related meanings even when the words are different."},
+    {"id":"en-delete","lang":"en","text":"Deleting your account permanently removes your saved documents."},
+    {"id":"en-export","lang":"en","text":"Export your saved documents to a file before closing your account."},
+    {"id":"fa-password","lang":"fa","text":"برای بازیابی دسترسی به حساب، پیوند فراموشی رمز عبور را بزنید و ایمیلتان را بررسی کنید."},
+    {"id":"fa-refund","lang":"fa","text":"برای پس گرفتن پول کالای مرجوعی، از صفحه سفارش‌ها درخواست بازپرداخت ثبت کنید."},
+    {"id":"fa-delivery","lang":"fa","text":"با شماره رهگیری پستی می‌توانید محل بسته ارسالی را پیگیری کنید."},
+    {"id":"fa-cancel","lang":"fa","text":"تمدید خودکار اشتراک را از تنظیمات پرداخت غیرفعال کنید."},
+    {"id":"fa-offline","lang":"fa","text":"سندهای دانلودشده بدون اتصال به اینترنت هم قابل خواندن هستند."},
+    {"id":"fa-search","lang":"fa","text":"جستجوی معنایی با وجود تفاوت واژه‌ها، متن‌های هم‌معنا را پیدا می‌کند."},
+    {"id":"fa-delete","lang":"fa","text":"حذف حساب کاربری، سندهای ذخیره‌شده را برای همیشه پاک می‌کند."},
+    {"id":"fa-export","lang":"fa","text":"پیش از بستن حساب، از سندهای ذخیره‌شده خروجی فایل بگیرید."}
+  ],
+  "queries": [
+    {"id":"en-q1","lang":"en","text":"I cannot remember my login secret","relevant":{"en-password":1}},
+    {"id":"en-q2","lang":"en","text":"How can I get my money back?","relevant":{"en-refund":1}},
+    {"id":"en-q3","lang":"en","text":"Where is my package?","relevant":{"en-delivery":1}},
+    {"id":"en-q4","lang":"en","text":"Do not charge me again next month","relevant":{"en-cancel":1}},
+    {"id":"en-q5","lang":"en","text":"Can I read my files on an airplane without wifi?","relevant":{"en-offline":1}},
+    {"id":"en-q6","lang":"en","text":"Find a sentence expressing the same idea","relevant":{"en-search":1}},
+    {"id":"en-q7","lang":"en","text":"Will my files survive account removal?","relevant":{"en-delete":1}},
+    {"id":"en-q8","lang":"en","text":"Save a copy of my data before I leave","relevant":{"en-export":1}},
+    {"id":"fa-q1","lang":"fa","text":"رمزم یادم رفته چطوری وارد حسابم بشم؟","relevant":{"fa-password":1}},
+    {"id":"fa-q2","lang":"fa","text":"چطور پول خریدم رو پس بگیرم؟","relevant":{"fa-refund":1}},
+    {"id":"fa-q3","lang":"fa","text":"بسته‌ام الان کجاست؟","relevant":{"fa-delivery":1}},
+    {"id":"fa-q4","lang":"fa","text":"نمی‌خوام ماه بعد دوباره ازم پول کم بشه","relevant":{"fa-cancel":1}},
+    {"id":"fa-q5","lang":"fa","text":"توی هواپیما که اینترنت ندارم می‌تونم فایل‌هام رو بخونم؟","relevant":{"fa-offline":1}},
+    {"id":"fa-q6","lang":"fa","text":"جمله‌ای پیدا کن که همین منظور رو برسونه","relevant":{"fa-search":1}},
+    {"id":"fa-q7","lang":"fa","text":"اگه حسابم رو پاک کنم فایل‌هام باقی می‌مونن؟","relevant":{"fa-delete":1}},
+    {"id":"fa-q8","lang":"fa","text":"قبل از رفتن یه نسخه از اطلاعاتم می‌خوام","relevant":{"fa-export":1}}
+  ]
+}
