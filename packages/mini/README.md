@@ -1,86 +1,74 @@
-# @ternlight/mini
+# @usex/ternava — Ternava / ترنوا
 
-**On-device semantic embeddings for JavaScript - the small, fast tier. 5 MB on the wire, ~2.5 ms per embedding, zero API calls.**
+Experimental Persian/English semantic embeddings for Node.js, Bun and browsers.
+Built on [the upstream project](https://github.com/ali-master/ternava#acknowledgments) by Wenshu Tang — thank
+you for the open-source model, Rust/WASM engine and training foundation.
+Original MIT copyright is preserved in LICENSE.
 
-A 1.58-bit (BitNet-style ternary) sentence encoder compiled to WebAssembly. Give it text, get back a 384-dimensional unit vector for semantic search, FAQ matching, deduplication, or clustering — computed entirely on the user's CPU. No network, no GPU, no ML runtime, no model download at runtime: the model ships inside the wasm.
+The bilingual mini has 32,000 WordPiece tokens, 9,901,952 parameters, a 128-token
+input limit, and 384-dimensional normalized embeddings. Weights use int4
+embeddings and ternary linear layers. The default build uses the existing
+`pilot-fa-en-reasoning` reference, not the failed compositional candidate.
+**Persian negation and numeric reasoning remain unreliable.** Translated demos
+and a successful import are not general language-quality evidence.
 
-```bash
-npm install @ternlight/mini
-```
+## Installation
+
+After publication: `npm install @usex/ternava` or `bun add @usex/ternava`.
+Before publication, install the tarball produced by `npm run verify:release`
+from the repository root. Nothing here implies that a release is already live.
 
 ```js
-import { embed, cosineSim, similar } from '@ternlight/mini';
-
-// embed() → Float32Array(384), L2-normalized — compare any two with a dot product
-cosineSim(embed('reset my password'), embed('I forgot my password'));   // 0.91
-
-// or top-K semantic search over any list of strings
-const results = similar('how do I reset my password', faqEntries, { topK: 3 });
-// [{ text: 'Resetting a forgotten password', sim: 0.80 }, ...]
+import { embed, cosineSim, similar, engineInfo } from '@usex/ternava';
+const vector = embed('خیلی دوستت دارم');
+console.log(vector.length); // 384
+console.log(cosineSim(vector, embed('عاشقتم')));
+console.log(similar('forgot my password', [
+  'Reset a forgotten password', 'Track a delivery',
+], { topK: 1 }));
+console.log(engineInfo());
 ```
 
-Works in Node ≥ 18, browsers (via any bundler), Cloudflare Workers, Vercel Edge, Deno, and Bun — one package, the right loader is picked automatically.
+Node.js and Bun can also use `const { embed } = require('@usex/ternava')`.
+The main entry initializes synchronously from local WASM. It makes no API calls.
 
-## mini vs base
+## Portable loader
 
-`mini` is the size/speed tier; [`@ternlight/base`](https://www.npmjs.com/package/@ternlight/base) is the quality tier with the same API:
+```js
+import init, { embed, similar } from '@usex/ternava/runtime';
+await init();
+console.log(embed('سلام دنیا'));
+```
 
-| | **@ternlight/mini** | @ternlight/base |
-|---|---|---|
-| Wire size (gzipped wasm) | **~5.0 MB** | ~7.2 MB |
-| Embed latency (p50, M-series CPU) | **~2.5 ms** | ~5 ms |
-| Teacher fidelity (Spearman) | 0.820 | 0.844 |
-| Paraphrase handling | good | noticeably stronger |
+Node/Bun read adjacent WASM from disk; browsers fetch it relative to the module
+URL. In a plain browser, serve `pkg-web/` and import `./pkg-web/index.mjs`, or use
+an import map for the package name. Keep its generated files together. `init`
+accepts a URL, WASM bytes, or WebAssembly.Module; concurrent calls share a
+promise and failed loads can be retried. Inference is synchronous after init.
 
-Rule of thumb: browser bundles and latency-critical UI → `mini`; server-side, retrieval quality, or paraphrase-heavy matching → `base`. Switching later is a one-line import change.
+`@usex/ternava/web` exposes the raw engine (`embed`, `tokenize`,
+`config_summary`) and default init, without the JS helpers. The main browser
+entry imports WASM as an ESM asset and requires a compatible bundler; webpack 5
+uses `experiments: { asyncWebAssembly: true }`. For custom loaders, prefer
+`/runtime` and explicit initialization.
 
 ## API
 
-| Function | Description |
+| Export | Behavior |
 |---|---|
-| `embed(text)` | → `Float32Array(384)`, unit-length. Sync, ~2.5 ms. Truncates at 128 tokens. |
-| `cosineSim(a, b)` | Cosine similarity of two embeddings (a dot product — they're normalized). |
-| `similar(query, corpus, { topK })` | Embed query + corpus, return top-K `{ text, sim }` sorted. |
-| `engineInfo()` | Build/model info string — dimensions, quantization format. |
-| `TernError` | Typed error (`INVALID_INPUT`, `DIM_MISMATCH`). |
+| `embed(text)` | Float32Array(384), normalized; truncates at 128 tokens |
+| `cosineSim(a, b)` | Dot product of normalized vectors |
+| `similar(query, corpus, { topK })` | Sorted `{ text, sim }` results; default topK 5 |
+| `engineInfo()` | Embedded model and tokenizer configuration |
+| `TernError` | Stable `INVALID_INPUT`, `DIM_MISMATCH` codes; runtime adds `NOT_INITIALIZED` |
 
-For repeated searches, embed your corpus once and reuse the vectors:
+Cache corpus embeddings for repeated searches. Rebuild indexes whenever model
+weights or tokenizer change; vectors from different models are not compatible.
 
-```js
-const index = docs.map((d) => ({ d, v: embed(d.text) }));
-const q = embed(query);
-index.sort((a, b) => cosineSim(q, b.v) - cosineSim(q, a.v));
-```
-
-## Bundler setup (browsers)
-
-The wasm is imported as an ES module. Webpack 5 needs one flag; Vite needs the wasm plugin:
-
-```js
-// webpack.config.js
-experiments: { asyncWebAssembly: true }
-
-// vite.config.js
-import wasm from 'vite-plugin-wasm';
-export default { plugins: [wasm()] };
-```
-
-Node needs nothing — `require()` or `import` and go.
-
-**No bundler at all?** (plain `<script type="module">`, hand-rolled setups) — use the `/web` subpath, which has an explicit `init()` that fetches the wasm:
-
-```js
-import init, { embed } from '@ternlight/mini/web';
-await init();                    // fetches + compiles the wasm (once, then cached)
-const v = embed('hello world');  // Float32Array(384)
-```
-
-Note: `/web` exposes the raw engine exports (`embed`, `tokenize`, `config_summary`) without the JS helper layer — `cosineSim` is a dot product one-liner if you need it.
-
-## How it works
-
-Three ideas stacked: **(1)** a small transformer student is distilled from [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) *while being trained as a ternary model* (QAT), so quantization costs almost nothing; **(2)** ternary weights pack to 2 bits each, putting the whole model + tokenizer + engine in one wasm file; **(3)** the forward pass is hand-written Rust compiled to WASM with explicit SIMD, so it runs at near-native speed in every JS runtime. Details in the [repo docs](https://github.com/soycaporal/ternlight/tree/main/docs).
+[Source and measured pilot reports](https://github.com/ali-master/ternava).
+`tern_engine` asset names and
+`TernError` remain stable engine/API identifiers.
 
 ## License
 
-MIT
+MIT. See LICENSE for the original attribution.
