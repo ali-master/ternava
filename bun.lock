@@ -1,0 +1,37 @@
+{
+  "lockfileVersion": 2,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "ternava-monorepo",
+    },
+    "examples/emoji-search": {
+      "name": "emoji-search",
+      "version": "1.0.0",
+    },
+    "examples/odyssey-cli": {
+      "name": "odyssey-cli",
+      "version": "1.0.0",
+      "dependencies": {
+        "@usex/ternava": "workspace:*",
+      },
+    },
+    "packages/base": {
+      "name": "@usex/ternava-base",
+      "version": "0.1.1",
+    },
+    "packages/mini": {
+      "name": "@usex/ternava",
+      "version": "0.1.1",
+    },
+  },
+  "packages": {
+    "@usex/ternava": ["@usex/ternava@workspace:packages/mini"],
+
+    "@usex/ternava-base": ["@usex/ternava-base@workspace:packages/base"],
+
+    "emoji-search": ["emoji-search@workspace:examples/emoji-search"],
+
+    "odyssey-cli": ["odyssey-cli@workspace:examples/odyssey-cli"],
+  }
+}

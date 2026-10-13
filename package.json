@@ -9,8 +9,8 @@
     "url": "https://github.com/ali-master/ternava.git"
   },
   "scripts": {
-    "build": "npm --prefix packages/mini run build",
-    "test": "npm --prefix packages/mini test && node --test scripts/tests/*.test.mjs",
+    "build": "bun run --cwd packages/mini build",
+    "test": "bun run --cwd packages/mini test && node --test scripts/tests/*.test.mjs examples/tests/*.test.mjs",
     "build:engine": "bash scripts/build-engine.sh",
     "verify:release": "bash scripts/verify-release.sh",
     "eval": "bash scripts/run-eval.sh",
@@ -18,7 +18,12 @@
   },
   "engines": {
     "node": ">=18",
-    "pnpm": ">=8"
+    "bun": ">=1.4.3"
   },
-  "packageManager": "pnpm@12.11.2"
+  "packageManager": "bun@1.4.3",
+  "workspaces": [
+    "packages/*",
+    "examples/emoji-search",
+    "examples/odyssey-cli"
+  ]
 }

@@ -44,7 +44,7 @@ test('one public package with consistent names, repository metadata and upstream
         assert.equal(manifest.homepage, 'https://github.com/ali-master/ternava');
         assert.equal(manifest.bugs.url, 'https://github.com/ali-master/ternava/issues');
     }
-    assert.equal(json('examples/odyssey-cli/package.json').dependencies[mini.name], 'file:../../packages/mini');
+    assert.equal(json('examples/odyssey-cli/package.json').dependencies[mini.name], 'workspace:*');
     const readme = readFileSync(resolve(root, 'README.md'), 'utf8');
     assert.ok(readme.slice(0, 700).includes(credit));
     assert.match(readme.slice(0, 700), /Thank you/);
