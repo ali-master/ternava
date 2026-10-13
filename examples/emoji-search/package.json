@@ -5,7 +5,7 @@
   "private": true,
   "description": "جست‌وجوی ایموجی با متن فارسی در مرورگر",
   "scripts": {
-    "serve": "npx serve -s ./ -p 8000",
+    "serve": "bunx --package serve@14.2.4 serve -s ./ -p 8000",
     "build:index": "node build-index.mjs"
   }
 }
