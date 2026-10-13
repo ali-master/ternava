@@ -1,6 +1,7 @@
 // Install and exercise the exact tarball, retaining the consumer for browser QA.
 import assert from 'node:assert/strict';
-import { mkdirSync, mkdtempSync, writeFileSync, readFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, writeFileSync, readFileSync, statSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { resolve, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -10,13 +11,25 @@ const output = resolve(root, 'dist/release');
 mkdirSync(output, { recursive: true });
 const run = (command, args, cwd = root) => execFileSync(command, args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'] });
 console.log(run('node', ['--test', 'scripts/tests/branding.test.mjs']).trim());
-const [packed] = JSON.parse(run('npm', ['pack', '--json', '--pack-destination', output], join(root, 'packages/mini')));
+const manifest = JSON.parse(readFileSync(join(root, 'packages/mini/package.json')));
+const filename = `${manifest.name.replace('@', '').replace('/', '-')}-${manifest.version}.tgz`;
+const tarball = join(output, filename);
+run('bun', ['pm', 'pack', '--filename', tarball, '--quiet'], join(root, 'packages/mini'));
+const archivePaths = run('tar', ['-tzf', tarball]).trim().split('\n').filter(path => !path.endsWith('/'));
+assert.ok(archivePaths.every(path => path.startsWith('package/') && !path.split('/').includes('..')));
+const packed = { name: manifest.name, version: manifest.version, filename,
+    files: archivePaths.map(path => ({ path: path.slice('package/'.length) })),
+    size: statSync(tarball).size,
+    integrity: `sha512-${createHash('sha512').update(readFileSync(tarball)).digest('base64')}` };
+assert.equal(new Set(archivePaths).size, archivePaths.length, 'Duplicate package entries');
 assert.equal(packed.name, '@usex/ternava');
 assert.ok(packed.files.every(({ path }) => !/^(?:tests|training|node_modules)\//.test(path)));
 const consumer = mkdtempSync(join(output, 'consumer-'));
 writeFileSync(join(consumer, 'package.json'), JSON.stringify({ name: 'ternava-release-consumer', private: true, type: 'module' }));
-run('npm', ['install', '--ignore-scripts', '--no-audit', '--no-fund', join(output, packed.filename)], consumer);
+run('bun', ['add', '--ignore-scripts', '--no-cache', tarball], consumer);
+packed.unpackedSize = 0;
 for (const { path } of packed.files) {
+    packed.unpackedSize += statSync(join(consumer, 'node_modules/@usex/ternava', path)).size;
     assert.deepEqual(readFileSync(join(consumer, 'node_modules/@usex/ternava', path)),
         readFileSync(join(root, 'packages/mini', path)), `Installed package differs: ${path}`);
 }

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { cpSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -20,9 +20,11 @@ for (const [name, mutate, expected] of [
         try {
             cpSync(new URL('../../packages/mini/', import.meta.url), temporary, { recursive: true });
             mutate(temporary);
-            const result = spawnSync(process.execPath, ['--experimental-wasm-modules', 'scripts/check-package.mjs'], { cwd: temporary, encoding: 'utf8' });
+            const tarball = join(temporary, 'rejected.tgz');
+            const result = spawnSync('bun', ['pm', 'pack', '--filename', tarball], { cwd: temporary, encoding: 'utf8' });
             assert.notEqual(result.status, 0);
             assert.match(result.stderr, expected);
+            assert.equal(existsSync(tarball), false, 'Invalid package was packed');
         } finally {
             rmSync(temporary, { recursive: true, force: true });
         }
