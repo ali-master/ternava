@@ -18,6 +18,13 @@ function checkExports(value) {
     }
 }
 checkExports(manifest.exports);
+let unpackedBytes = statSync(new URL('package.json', root)).size;
+for (const path of manifest.files) {
+    const file = statSync(new URL(path, root));
+    assert.ok(file.isFile(), `Publish allowlist must contain individual files: ${path}`);
+    unpackedBytes += file.size;
+}
+assert.ok(unpackedBytes <= 25_000_000, `Package exceeds 25 MB unpacked budget: ${unpackedBytes} bytes`);
 for (const target of ['node', 'bundler', 'web']) {
     const bytes = readFileSync(new URL(`pkg-${target}/tern_engine_bg.wasm`, root));
     assert.ok(WebAssembly.validate(bytes), `Invalid ${target} WASM`);

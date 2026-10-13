@@ -107,7 +107,10 @@ bun run verify:release
 
 Verification packs and installs the real archive, checks Bun/Node exports and
 prints a browser parity URL. The npm archive includes three WASM targets
-(~16.24 MB compressed); a browser loads only one.
+(~16.24 MB compressed); a browser loads only one. An explicit file allowlist and
+`packages/mini/.npmignore` exclude development artifacts. Verification rejects
+unexpected files or archives over **17 MB compressed / 25 MB unpacked**; prepack
+also enforces the unpacked limit. Sizes use decimal MB.
 
 To release, commit your changes on `main`, authenticate with `npm login` using an
 account with publish access to `@usex`, and run:

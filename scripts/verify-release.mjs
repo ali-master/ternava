@@ -23,7 +23,9 @@ const packed = { name: manifest.name, version: manifest.version, filename,
     integrity: `sha512-${createHash('sha512').update(readFileSync(tarball)).digest('base64')}` };
 assert.equal(new Set(archivePaths).size, archivePaths.length, 'Duplicate package entries');
 assert.equal(packed.name, '@usex/ternava');
-assert.ok(packed.files.every(({ path }) => !/^(?:tests|training|node_modules)\//.test(path)));
+assert.deepEqual(packed.files.map(({ path }) => path).sort(), [...manifest.files, 'package.json'].sort(),
+    'Archive must contain exactly the publish allowlist');
+assert.ok(packed.size <= 17_000_000, `Package exceeds 17 MB compressed budget: ${packed.size} bytes`);
 const consumer = mkdtempSync(join(output, 'consumer-'));
 writeFileSync(join(consumer, 'package.json'), JSON.stringify({ name: 'ternava-release-consumer', private: true, type: 'module' }));
 run('bun', ['add', '--ignore-scripts', '--no-cache', tarball], consumer);
@@ -33,6 +35,7 @@ for (const { path } of packed.files) {
     assert.deepEqual(readFileSync(join(consumer, 'node_modules/@usex/ternava', path)),
         readFileSync(join(root, 'packages/mini', path)), `Installed package differs: ${path}`);
 }
+assert.ok(packed.unpackedSize <= 25_000_000, `Package exceeds 25 MB unpacked budget: ${packed.unpackedSize} bytes`);
 writeFileSync(join(consumer, 'smoke.cjs'), `const assert = require('node:assert/strict');
 const api = require('@usex/ternava');
 assert.equal(api.embed('سلام دنیا').length, 384);

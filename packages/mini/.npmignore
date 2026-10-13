@@ -1,0 +1,18 @@
+# package.json files is the primary allowlist; keep development artifacts out.
+tests/
+training/
+examples/
+coverage/
+node_modules/
+**/*.test.*
+**/*.spec.*
+**/*.map
+**/*.log
+**/*.tgz
+**/.env*
+**/.DS_Store
+.release-it.json
+
+# Only the bundler target imports this generated JS module.
+pkg-node/tern_engine_bg.js
+pkg-web/tern_engine_bg.js
