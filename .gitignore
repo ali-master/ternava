@@ -69,3 +69,5 @@ eval/regression/test_data/*.json
 .docs/
 docs-local/
 eval/benchmarks/agentx-ray
+packages/*/pkg-web/
+*.tgz
