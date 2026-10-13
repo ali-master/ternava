@@ -1,0 +1,39 @@
+name: Bilingual pilot contracts
+on:
+  pull_request:
+    paths: ['training/**', 'engine/**', 'packages/*/package.json', 'eval/quality/**', 'scripts/build-engine.sh', 'scripts/check-model.py', '.github/workflows/pilot.yml']
+  push:
+    branches: [main]
+    paths: ['training/**', 'engine/**', 'packages/*/package.json', 'eval/quality/**', 'scripts/build-engine.sh', 'scripts/check-model.py', '.github/workflows/pilot.yml']
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    env:
+      WANDB_MODE: disabled
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.3'
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - run: |
+          python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r training/distill/requirements.txt
+          python -m unittest discover -s training/tests -v
+          python training/tests/make_engine_fixture.py --output dist/pilot-smoke
+      - run: |
+          TERN_MODEL_PATH="$PWD/dist/pilot-smoke/model.bin" TERN_TOKENIZER_PATH="$PWD/dist/pilot-smoke/tokenizer.json" cargo test -p tern-engine --features emb_int4 --lib
+          cargo install wasm-pack --locked
+          BIN="$PWD/dist/pilot-smoke/model.bin" TOKENIZER="$PWD/dist/pilot-smoke/model.tokenizer.json" PKG=packages/mini TARGET=web WEB_OUT=dist/pilot-smoke/web bash scripts/build-engine.sh
+          node engine/tests/test_bilingual.mjs dist/pilot-smoke/web/d256/tern_engine.js dist/pilot-smoke/parity.json
+          node engine/tests/test_runtime.mjs dist/pilot-smoke/web/d256
+          bun engine/tests/test_runtime.mjs dist/pilot-smoke/web/d256
+          python eval/quality/bilingual.py --evaluation dist/pilot-smoke/evaluation.json --candidate dist/pilot-smoke/web/d256/tern_engine.js --candidate-model dist/pilot-smoke/model.bin --retrieval eval/quality/corpus/bilingual-retrieval-smoke.json --output dist/pilot-smoke/comparison.json

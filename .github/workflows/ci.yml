@@ -6,17 +6,13 @@ on:
   pull_request:
     branches: [main]
 
-# Placeholder smoke check. The real JS tests in packages/ternlight/tests/
-# require the WASM artifact to be present and depend on a fresh
-# wasm-pack build, which isn't wired into CI yet. Restore the real
-# `node --test` step once the engine build is reliable in CI.
 jobs:
   js:
-    name: JS package smoke check
+    name: Package branding contracts
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - run: node -e "console.log('CI placeholder — real JS tests pending engine-in-CI work')"
+          node-version: 24
+      - run: node --test scripts/tests/branding.test.mjs
