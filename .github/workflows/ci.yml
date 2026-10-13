@@ -19,4 +19,5 @@ jobs:
         with:
           bun-version: '1.4.3'
       - run: bun install --frozen-lockfile
-      - run: node --test scripts/tests/branding.test.mjs scripts/tests/workspace.test.mjs
+      - run: bun run build:examples
+      - run: node --test scripts/tests/branding.test.mjs scripts/tests/workspace.test.mjs examples/tests/*.test.mjs
