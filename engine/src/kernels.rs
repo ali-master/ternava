@@ -20,6 +20,27 @@
 const BITLINEAR_EPS:          f32 = 1e-5;
 const ACTIVATION_RANGE_MAX:   f32 = 128.0;   // max(|range|) for activation_range = (-128, 127)
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn bitlinear_rounds_halfway_activations_like_pytorch() {
+        let x = [-256.0, -5.0, -1.0, 1.0, 5.0, 256.0];
+        let mut normalized = [0.0; 6];
+        layer_norm_(&x, &mut normalized);
+        let scale = ACTIVATION_RANGE_MAX / normalized[5];
+        assert_eq!(normalized[4] * scale, 2.5);
+        let mut identity = [0i8; 36];
+        for i in 0..6 { identity[i * 6 + i] = 1; }
+        let mut out = [0.0; 6];
+        bitlinear_forward(&x, &identity, 1.0, None, 1, 6, 6, &mut out);
+        for (actual, expected) in out.iter().zip([-128.0, -2.0, 0.0, 0.0, 2.0, 127.0]) {
+            assert!((actual * scale - expected).abs() < 1e-5);
+        }
+    }
+}
+
 /// Engine-equivalent BitLinear forward, mirroring `bitlinear==2.4.6`'s
 /// `BitLinear.forward()` with the model's training-time defaults:
 ///   weight_range = (-1, 1), weight_measure = AbsMedian
@@ -84,7 +105,8 @@ pub fn bitlinear_forward(
 
         // 3) Quantize activations to int8 (round + clamp; STE inactive at inference).
         for i in 0..in_features {
-            let q = (x_norm[i] * x_scale).round().clamp(-128.0, 127.0);
+            // PyTorch round uses ties-to-even, not Rust round's ties-away-from-zero.
+            let q = (x_norm[i] * x_scale).round_ties_even().clamp(-128.0, 127.0);
             x_quant[i] = q as i8;
         }
 
