@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Ternava runtime parity</title>
+<h1>Browser runtime parity</h1>
+<pre id="result">Running…</pre>
+<script type="module">
+    const result = document.querySelector('#result');
+    try {
+        const artifact = new URL(new URLSearchParams(location.search).get('artifact') ?? '../../dist/pilot-fa-en-reasoning/d256/', location.href);
+        const runtime = await import(new URL('index.mjs', artifact));
+        const response = await fetch(new URL('runtime-parity.json', artifact));
+        if (!response.ok) throw new Error('Generate runtime-parity.json with test_runtime.mjs first');
+        const expected = await response.json();
+        const pending = runtime.init();
+        if (pending !== runtime.init()) throw new Error('Concurrent initialization is not shared');
+        await pending;
+        if (runtime.engineInfo() !== expected.config) throw new Error('Engine config mismatch');
+        let maxError = 0;
+        for (let i = 0; i < expected.texts.length; i++) {
+            const vector = runtime.embed(expected.texts[i]);
+            if (!(vector instanceof Float32Array) || vector.length !== 384) throw new Error('Invalid vector');
+            for (let j = 0; j < vector.length; j++) {
+                if (!Number.isFinite(vector[j])) throw new Error('Non-finite vector');
+                maxError = Math.max(maxError, Math.abs(vector[j] - expected.vectors[i][j]));
+            }
+        }
+        if (maxError > 1e-6) throw new Error(`Vector mismatch: ${maxError}`);
+        const matches = runtime.similar(expected.texts[0], expected.texts, { topK: 1 });
+        if (matches[0].text !== expected.texts[0]) throw new Error('Search mismatch');
+        const wasm = await (await fetch(new URL('tern_engine_bg.wasm', artifact))).arrayBuffer();
+        const hash = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', wasm)), byte => byte.toString(16).padStart(2, '0')).join('');
+        if (hash !== expected.wasmSHA256) throw new Error('WASM hash mismatch');
+        result.textContent = JSON.stringify({ status: 'passed', texts: expected.texts.length, dimensions: 384, maxError, wasmBytes: wasm.byteLength, wasmSHA256: hash }, null, 2);
+        document.documentElement.dataset.status = 'passed';
+    } catch (error) {
+        result.textContent = error.stack;
+        document.documentElement.dataset.status = 'failed';
+        throw error;
+    }
+</script>
+</html>
