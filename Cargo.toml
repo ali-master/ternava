@@ -10,4 +10,4 @@ members  = ["engine"]
 version    = "0.1.0"
 edition    = "2024"
 license    = "MIT"
-repository = "https://github.com/soycaporal/ternlight"
+repository = "https://github.com/ali-master/ternava"

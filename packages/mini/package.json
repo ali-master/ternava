@@ -1,16 +1,16 @@
 {
-  "name": "@ternlight/mini",
+  "name": "@usex/ternava",
   "version": "0.1.1",
-  "description": "On-device semantic embeddings for JavaScript \u2014 the small, fast tier. 1.58-bit BitNet-style sentence embedder via WASM. ~5 MB on the wire, ~2.5 ms per embedding, no API calls.",
+  "description": "Ternava — experimental Persian/English semantic embeddings, 32k bilingual tokenizer and local WebAssembly inference for Node.js, Bun and browsers.",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/soycaporal/ternlight.git",
+    "url": "https://github.com/ali-master/ternava.git",
     "directory": "packages/mini"
   },
-  "homepage": "https://github.com/soycaporal/ternlight",
+  "homepage": "https://github.com/ali-master/ternava",
   "bugs": {
-    "url": "https://github.com/soycaporal/ternlight/issues"
+    "url": "https://github.com/ali-master/ternava/issues"
   },
   "keywords": [
     "embeddings",
@@ -23,7 +23,11 @@
     "bitnet",
     "ternary",
     "minilm",
-    "sentence-embeddings"
+    "sentence-embeddings",
+    "persian",
+    "farsi",
+    "bilingual",
+    "ternava"
   ],
   "type": "commonjs",
   "main": "src/index.js",
@@ -43,6 +47,10 @@
       "types": "./pkg-web/tern_engine.d.ts",
       "default": "./pkg-web/tern_engine.js"
     },
+    "./runtime": {
+      "types": "./pkg-web/index.d.mts",
+      "default": "./pkg-web/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -51,7 +59,8 @@
     "pkg-bundler/",
     "pkg-web/",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "scripts/check-package.mjs"
   ],
   "publishConfig": {
     "access": "public"
@@ -60,7 +69,8 @@
     "node": ">=18"
   },
   "scripts": {
-    "build": "PKG=packages/mini BIN=training/pack/out/model-int4.bin bash ../../scripts/build-engine.sh",
-    "test": "node --test tests/"
+    "build": "PKG=packages/mini bash ../../scripts/build-engine.sh",
+    "test": "node --test tests/*.test.js",
+    "prepack": "node --experimental-wasm-modules scripts/check-package.mjs"
   }
 }

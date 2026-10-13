@@ -1,24 +1,24 @@
 {
-  "name": "ternlight-monorepo",
+  "name": "ternava-monorepo",
   "version": "0.0.0",
   "private": true,
-  "description": "Root tooling for the tern monorepo. Not published to npm \u2014 the published packages live under packages/.",
+  "description": "Ternava workspace. The public npm package @usex/ternava lives in packages/mini.",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/soycaporal/ternlight.git"
+    "url": "https://github.com/ali-master/ternava.git"
   },
   "scripts": {
-    "build": "pnpm -r build",
-    "test": "pnpm -r test",
-    "lint": "pnpm -r lint",
+    "build": "npm --prefix packages/mini run build",
+    "test": "npm --prefix packages/mini test && node --test scripts/tests/*.test.mjs",
     "build:engine": "bash scripts/build-engine.sh",
     "verify:release": "bash scripts/verify-release.sh",
-    "eval": "bash scripts/run-eval.sh"
+    "eval": "bash scripts/run-eval.sh",
+    "check:brand": "node --test scripts/tests/branding.test.mjs"
   },
   "engines": {
     "node": ">=18",
     "pnpm": ">=8"
   },
-  "packageManager": "pnpm@8.15.0"
+  "packageManager": "pnpm@12.11.2"
 }
