@@ -15,6 +15,8 @@ To run without W&B:
 """
 
 import argparse
+import random
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -26,6 +28,7 @@ from config  import load_config
 from data    import TernDataset, collate_fn, load_cache
 from model   import StudentEncoder
 from trainer import Trainer
+from tokenization import check_checkpoint_tokenizer, validate_tokenizer, tokenizer_metadata
 
 
 def best_device() -> str:
@@ -51,10 +54,28 @@ def main(config_path: Path) -> None:
     if cfg.train is None:
         raise ValueError(f"Config {config_path} has no `train:` section.")
     tcfg = cfg.train
+    random.seed(tcfg.seed)
+    torch.manual_seed(tcfg.seed)
 
     # ── 1. Load cached dataset ───────────────────────────────────────────────
     print(f"→ Loading cache: {tcfg.cache_dir}/{tcfg.cache_name}.*")
     splits, manifest = load_cache(tcfg.cache_dir, tcfg.cache_name)
+    tokenizer_info = manifest.get("tokenizer")
+    if tokenizer_info:
+        source_tokenizer_path = validate_tokenizer(tokenizer_info)
+        if tokenizer_info["vocab_size"] != tcfg.vocab_size:
+            raise ValueError("Training vocabulary differs from cached token IDs")
+    elif tcfg.vocab_size != 30522:
+        raise ValueError("Custom vocabularies require tokenizer provenance in the cache")
+    for name, samples in splits.items():
+        if not samples:
+            raise ValueError(f"Empty {name} split")
+        for sample in samples:
+            if (sample["input_ids"].numel() != 128 or sample["input_ids"].min() < 0
+                    or sample["input_ids"].max() >= tcfg.vocab_size
+                    or sample["teacher_emb"].shape != (tcfg.output_dim,)
+                    or not torch.isfinite(sample["teacher_emb"]).all()):
+                raise ValueError(f"Invalid token IDs/teacher targets in {name} cache")
     print(f"  train: {len(splits['train']):,}  val: {len(splits['val']):,}  test: {len(splits['test']):,}")
 
     train_loader = DataLoader(
@@ -81,6 +102,7 @@ def main(config_path: Path) -> None:
         ffn_dim    = tcfg.ffn_dim,
         output_dim = tcfg.output_dim,
         dropout    = tcfg.dropout,
+        position_embeddings = tcfg.position_embeddings,
     )
     print(f"  parameters: {model.count_parameters():,}")
 
@@ -97,11 +119,15 @@ def main(config_path: Path) -> None:
     if tcfg.init_from is not None:
         print(f"\n→ Warm-starting from {tcfg.init_from}")
         ckpt = torch.load(tcfg.init_from, weights_only=False, map_location="cpu")
+        check_checkpoint_tokenizer(ckpt, tokenizer_info)
         model.load_state_dict(ckpt["model_state"])
         print(f"  loaded weights from epoch {ckpt['epoch']}")
     elif tcfg.resume_from is not None:
         print(f"\n→ Resuming from {tcfg.resume_from}")
         resume_ckpt = torch.load(tcfg.resume_from, weights_only=False, map_location="cpu")
+        check_checkpoint_tokenizer(resume_ckpt, tokenizer_info)
+        if (resume_ckpt.get("data_manifest") or {}).get("pairs_sha256") != manifest.get("pairs_sha256"):
+            raise ValueError("Resume requires the same prepared dataset")
         model.load_state_dict(resume_ckpt["model_state"])
         print(f"  loaded model state from epoch {resume_ckpt['epoch']}")
 
@@ -110,6 +136,13 @@ def main(config_path: Path) -> None:
     full_run_name = f"{tcfg.run_name}-{short_sha}"
     run_dir = Path(tcfg.runs_dir) / full_run_name
     run_dir.mkdir(parents=True, exist_ok=True)
+    if any(run_dir.glob("checkpoint_ep*.pt")) and tcfg.resume_from is None:
+        raise FileExistsError(f"Run already has checkpoints: {run_dir}; choose a new run_name or resume")
+    if tokenizer_info:
+        snapshot = run_dir / "tokenizer.json"
+        if source_tokenizer_path != snapshot.resolve():
+            shutil.copyfile(source_tokenizer_path, snapshot)
+        tokenizer_info = tokenizer_metadata(snapshot)
     print(f"  run dir: {run_dir}")
 
     # ── 4. W&B (levels 1-3: project, run, job_type) ──────────────────────────
@@ -130,7 +163,8 @@ def main(config_path: Path) -> None:
 
     # ── 5. Train ─────────────────────────────────────────────────────────────
     start_epoch = resume_ckpt["epoch"] if resume_ckpt is not None else 0
-    trainer = Trainer(model, train_loader, val_loader, tcfg, device, run_dir, start_epoch=start_epoch)
+    trainer = Trainer(model, train_loader, val_loader, tcfg, device, run_dir, start_epoch=start_epoch,
+                      tokenizer=tokenizer_info, data_manifest=manifest)
     if resume_ckpt is not None:
         trainer.optimizer.load_state_dict(resume_ckpt["optimizer_state"])
         trainer.scheduler.load_state_dict(resume_ckpt["scheduler_state"])

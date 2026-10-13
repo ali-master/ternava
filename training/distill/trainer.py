@@ -16,10 +16,11 @@ It does NOT own:
     - DataLoader construction (entry point)
 """
 
+import json
 import time
 from pathlib import Path
 
-import evaluate as hf_evaluate
+from scipy.stats import spearmanr
 import torch
 import torch.nn as nn
 import wandb
@@ -41,6 +42,8 @@ class Trainer:
         device:       str,
         run_dir:      Path,
         start_epoch:  int = 0,
+        tokenizer:    dict | None = None,
+        data_manifest: dict | None = None,
     ):
         # ── QAT: swap nn.Linear → BitLinear BEFORE moving to device.
         # Preserves the fp32 weights of any warm-started checkpoint as the
@@ -61,6 +64,8 @@ class Trainer:
         self.device       = device
         self.run_dir      = run_dir
         self.start_epoch  = start_epoch
+        self.tokenizer = tokenizer
+        self.data_manifest = data_manifest
 
         self.optimizer = torch.optim.AdamW(
             self.model.parameters(),
@@ -76,7 +81,6 @@ class Trainer:
             num_training_steps=total_steps,
         )
 
-        self._spearman    = hf_evaluate.load("spearmanr")
         self._global_step = 0
 
         print(f"  optimizer: AdamW lr={cfg.lr} wd={cfg.weight_decay}")
@@ -119,12 +123,15 @@ class Trainer:
                 f"({elapsed:.0f}s)"
             )
 
-            wandb.log({
+            epoch_log = {
                 "epoch":         epoch + 1,
                 "epoch_seconds": elapsed,
                 **train_metrics,
                 **val_metrics,
-            })
+            }
+            wandb.log(epoch_log)
+            with (self.run_dir / "metrics.jsonl").open("a") as log:
+                log.write(json.dumps(epoch_log, allow_nan=False) + "\n")
 
             if (epoch + 1) % self.cfg.save_every == 0 or (epoch + 1) == self.cfg.epochs:
                 self._save_checkpoint(epoch + 1)
@@ -187,6 +194,8 @@ class Trainer:
                 if self.cfg.relational_w > 0:
                     step_log["train_step/relational"] = rel.item()
                 wandb.log(step_log)
+                print(f"  step={self._global_step:,} loss={loss.item():.4f} "
+                      f"lr={self.scheduler.get_last_lr()[0]:.2e}", flush=True)
 
         n = len(self.train_loader)
         out = {
@@ -227,7 +236,7 @@ class Trainer:
 
                 student_emb_chunks.append(student_emb.cpu())
 
-        result = self._spearman.compute(predictions=student_sims, references=teacher_sims)
+        correlation = float(spearmanr(student_sims, teacher_sims).statistic)
 
         # Embedding-distribution diagnostics (collapse detector — matters more in Phase 3 QAT
         # but cheap to track in fp32 too, gives a baseline for what "healthy spread" looks like).
@@ -237,7 +246,7 @@ class Trainer:
 
         metrics = {
             "val/loss":                  total_loss / len(self.val_loader),
-            "val/spearman":              result["spearmanr"],
+            "val/spearman":              correlation,
             "embed/std_mean":            embed_std_mean,
             "embed/max_offdiag_cossim":  max_offdiag,
         }
@@ -261,5 +270,7 @@ class Trainer:
             "optimizer_state": self.optimizer.state_dict(),
             "scheduler_state": self.scheduler.state_dict(),
             "config":          self.cfg.model_dump(mode="json"),
+            "tokenizer":       self.tokenizer,
+            "data_manifest":   self.data_manifest,
         }, path)
         print(f"  ↳ saved {path}")
