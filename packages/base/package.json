@@ -1,6 +1,6 @@
 {
   "name": "@usex/ternava-base",
-  "version": "0.1.1",
+  "version": "0.0.0",
   "description": "Ternava internal base architecture",
   "license": "MIT",
   "repository": {
@@ -11,6 +11,11 @@
   "homepage": "https://ternava.usestrict.dev/",
   "bugs": {
     "url": "https://github.com/ali-master/ternava/issues"
+  },
+  "author": {
+    "url": "https://github.com/ali-master",
+    "name": "Ali Torki",
+    "email": "ali_4286@live.com"
   },
   "keywords": [
     "embeddings",
