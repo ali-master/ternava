@@ -1,0 +1,11 @@
+{
+  "name": "docs-search-example",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Ternava docs search example with Vercel Web Analytics",
+  "license": "MIT",
+  "dependencies": {
+    "@vercel/analytics": "^1.3.1"
+  }
+}
