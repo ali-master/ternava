@@ -1,127 +1,44 @@
-# Ternlight docs-search demo
+# گشت‌وگذار در تاریخ ایران
 
-Standalone single-page demo: semantic search over the [React docs](https://react.dev)
-"Learn" section, running entirely in the browser via ternlight's WASM engine.
+همان نمونهٔ مستقل HTML/CSS/JavaScript با طراحی تیره، راست‌به‌چپ و فونت محلی **استعداد**؛ این بار با **۱۲۰ روایت کوتاه از ۶۰ مقالهٔ ویکی‌پدیا**، حدود **۵۷۰۰ واژه** با احتساب عنوان‌ها و مسیر موضوعی. دادهٔ React از این مثال حذف شده است.
 
-**~1,987 doc paragraphs · 7 MB wasm · ~4 second one-time indexing · sub-3 ms per query.**
+بازه از هخامنشیان تا دورهٔ پهلوی **پیش از سال ۱۳۵۷** است. رویدادهای ۱۳۵۷ و بعد از آن در متن‌ها نیامده‌اند؛ برای مرزبندی روشن، آخرین سال میلادیِ موضوع‌ها ۱۹۷۷ است. متن‌ها گزیده‌های بازنویسی‌شده‌اند، نه تاریخ جامع ایران. موضوع‌ها شامل حکومت‌ها، راه‌ها و تجارت، شهرها و معماری، زبان و ادبیات، پزشکی و نجوم، آموزش نوین و تغییرات سیاسی هستند. لحن متن‌ها فارسی روان و محاوره‌ای است؛ دربارهٔ روایت‌های محل اختلاف، قطعیت ساختگی اضافه نشده است.
 
-## Files
+## اجرا
 
-```
-examples/docs-search/
-├── index.html                 single-page UI (indexing + search phases)
-├── style.css                  editorial styles, no framework
-├── main.js                    ESM module: load wasm, index, search
-├── chunks.json                1,987 paragraph-level chunks of React docs (~1.2 MB)
-├── scripts/
-│   └── gen-corpus.js          one-shot offline prep script (committed for reproducibility)
-├── wasm/                      web-target wasm-pack output (int4 ship build)
-│   ├── tern_engine.js
-│   ├── tern_engine_bg.wasm    ~7.25 MB (model + tokenizer + engine, all baked in)
-│   └── *.d.ts
-└── README.md                  this file
+از ریشهٔ مخزن:
+
+```sh
+python3 -m http.server 8000 --directory examples/docs-search
 ```
 
-The `wasm/` directory is a web-target build
-(`wasm-pack build --target web --features emb_int4`). The engine's
-`model.bin` and `tokenizer.json` are embedded directly into the wasm via
-Rust's `include_bytes!`, so the demo needs nothing beyond the files in
-this directory.
+[صفحه را باز کنید](http://localhost:8000). در شروع، متن‌ها و مدل بارگیری و بردارها در مرورگر ساخته می‌شوند. جست‌وجو پس از بارگیری محلی است. کلیک روی نتیجه، نسخهٔ مشخص مقالهٔ منبع را در ویکی‌پدیا باز می‌کند و به اینترنت نیاز دارد.
 
-## Run it locally
+**مدل همراه صفحه همان mini انگلیسی قبلی است.** تغییر مجموعه به معنی آموزش مدل یا تأیید کیفیت معنایی فارسی نیست. رتبه‌بندی فقط از شباهت بردارها استفاده می‌کند و aliases ندارد. بررسی رتبه‌های واقعی در `scripts/check-retrieval.mjs` قابل تکرار است؛ نتیجهٔ ضعیف هم در گزارش باقی می‌ماند.
 
-Wasm modules can't be loaded from `file://` URLs — you need a real HTTP
-server. Any will do; pick one:
+در بررسی ۱۳ اکتبر ۲۰۲۶، از ۸ پرسش نمایشی، پاسخ مرتبط برای ۳ پرسش رتبهٔ اول و برای ۶ پرسش جزو ۸ نتیجهٔ نخست بود؛ [گزارش کامل](retrieval-report.json). این آزمون کوچک، ادعای کیفیت عمومی یا آزمون ندیدهٔ آموزش نیست. توکنایزر انگلیسی متن فارسی را ریز می‌شکند و ورودی‌های فعلی از سقف ۱۲۸ توکن عبور می‌کنند؛ موتور فقط ابتدای هر متن را می‌خواند. متن کامل بازنویسی‌شده در داده محفوظ است. این محدودیت با تغییر داده برطرف نشده است.
 
-```bash
-# Option 1 — Python (already on macOS)
-cd examples/docs-search
-python3 -m http.server 8000
+## داده‌ها و منابع
 
-# Option 2 — Node, one-liner
-cd examples/docs-search
-npx serve -p 8000
+- `chunks.json`: تنها منبع متن‌های قابل جست‌وجو؛ شامل عنوان، متن، دوره، شناسه و پیوند منبع.
+- `sources.wikipedia.json`: عنوان و نشانی ۶۰ مقالهٔ ویکی‌پدیای انگلیسی، شمارهٔ نسخه، تاریخ دریافت و ارجاع به مشارکت‌کنندگان.
+- `DATA-LICENSE.md`: متن‌ها ترجمه و بازنویسی شده‌اند و با **CC BY-SA 4.0** عرضه می‌شوند؛ مجوز کد و فونت جداست.
+- `index.html`، `main.js` و `style.css`: رابط، نمایه‌سازی محلی و جست‌وجوی برداری.
+- `fonts/`: فونت استعداد با مجوز OFL.
+- `wasm/`: مدل و موتور همراه مثال؛ در این تغییر دست‌کاری نشده‌اند.
+
+`year_start` و `year_end` بازهٔ موضوع را به سال میلادی مشخص می‌کنند؛ عدد منفی یعنی پیش از میلاد. این بازه‌ها تاریخ انتشار منبع نیستند و همیشه تاریخ آغاز و پایان یک دودمان را نشان نمی‌دهند. مقالهٔ اصلی ممکن است دربارهٔ رویدادهای متأخر هم توضیح بدهد، ولی آن بخش‌ها وارد متن‌های این مجموعه نشده‌اند.
+
+## ویرایش و بررسی
+
+پس از ویرایش، صفحه را دوباره بارگیری کنید تا بردارها از دادهٔ جدید ساخته شوند. برای واردکردن فایل دیگری با همین ساختار و منابع ثبت‌شده:
+
+```sh
+node examples/docs-search/scripts/gen-corpus.js /path/to/history-corpus.json
+node --test examples/tests/persian.test.mjs examples/tests/history.test.mjs
+node examples/docs-search/scripts/check-retrieval.mjs
 ```
 
-Open <http://localhost:8000> in a browser.
+واردکننده قبل از نوشتن، فارسی‌بودن متن، یکتایی شناسه، بازهٔ تاریخی، ارجاع منبع و مجوز را بررسی می‌کند. اعتبارسنجی ساختار جای بررسی انسانیِ درستی روایت تاریخی را نمی‌گیرد.
 
-## What you should see
-
-1. **Indexing phase** (~3-5 seconds) — a progress bar with a live throughput
-   counter ("XXX emb/sec"). The engine is loading the corpus, embedding
-   every paragraph against the ternlight model.
-2. **Search appears** once indexing finishes — autofocused input.
-3. **Type or click a suggested query.** Results appear within 2-3 ms per
-   keystroke. The latency badge to the right of the input updates live.
-4. **Footer** shows: engine config (int4), the indexing summary, network
-   requests since indexing (should stay at 0 unless you click a result),
-   and the wasm size.
-
-## Try these queries
-
-These are designed to show the semantic > keyword wins — each finds the
-right doc paragraph even when the query doesn't share keywords with the
-listing:
-
-| Query | What it should match |
-|---|---|
-| "how do I run something when state changes" | useEffect docs |
-| "share state between components" | Lifting State Up docs |
-| "pass data deep without prop drilling" | Context docs |
-| "why is my component re-rendering" | Render and Commit docs |
-| "remember a value across renders" | useRef / useState docs |
-| "skip a re-render" | React.memo / useMemo docs |
-
-A naive keyword search would miss many of these — none of them share words
-with the page they should match.
-
-## Re-generate `chunks.json` from a different react.dev clone
-
-The prep script in `scripts/gen-corpus.js` walks react.dev's
-`src/content/learn/` directory, strips MDX/JSX components we can't render
-meaningfully (`<Sandpack>`, `<YouWillLearn>`, etc.), splits prose into
-paragraphs, and prepends the heading-path breadcrumb to each chunk.
-
-```bash
-node examples/docs-search/scripts/gen-corpus.js /path/to/react.dev
-```
-
-The script is deterministic — same input directory, same output JSON.
-
-## Rebuild the wasm
-
-If you change the engine code, rebuild the web-target output:
-
-```bash
-# Build to engine/pkg first (wasm-pack 0.14 + cargo 1.94 has an --out-dir
-# bug we work around by moving the output)
-mv engine/pkg engine/pkg-backup
-(cd engine && wasm-pack build --target web --release --features emb_int4)
-rm -rf examples/docs-search/wasm
-mv engine/pkg examples/docs-search/wasm
-mv engine/pkg-backup engine/pkg
-```
-
-This pattern is exactly what `scripts/build-engine.sh` does for the
-ternlight npm package, just with `--target web` instead of `--target nodejs`.
-
-## Deploying to Vercel
-
-1. Connect Vercel to your GitHub repo
-2. **Root Directory**: `examples/docs-search`
-3. **Framework Preset**: Other
-4. **Build Command**: (empty)
-5. **Output Directory**: `.`
-
-Vercel sets `Content-Type: application/wasm` correctly by default. Add a
-`vercel.json` at the repo root if you want explicit cache headers for the
-wasm file (recommended — see `vercel.json`).
-
-## Attribution
-
-The bundled corpus is derived from the React documentation source at
-[github.com/reactjs/react.dev](https://github.com/reactjs/react.dev),
-licensed CC BY 4.0. Only the prose paragraphs are included; code samples,
-interactive demos (`<Sandpack>` blocks), and React-specific JSX components
-are stripped during the offline prep step. Each result card links back to
-the source page on react.dev.
+دادهٔ React قبلی، بدون تغییر محتوا، در `eval/quality/corpus/react-docs.fa.json` حفظ شده تا آموزش‌ها و ارزیابی‌های قبلی قابل بازتولید بمانند. این فایل در صفحهٔ تاریخ بارگیری نمی‌شود.
