@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ترنوا · مقایسهٔ پایلوت فارسی</title>
+<style>
+@font-face{font-family:Estedad;src:url('/examples/emoji-search/fonts/estedad-variable.woff2')}*{box-sizing:border-box}body{font:15px Estedad,sans-serif;background:#111318;color:#e4e7ed;max-width:1100px;margin:40px auto;padding:20px}h1{font-size:25px}p{line-height:2;color:#bac1d0}input,select,button{font:inherit;background:#202632;color:inherit;border:1px solid #47526b;border-radius:8px;padding:12px}input{width:100%;margin:16px 0}button{cursor:pointer}select{max-width:100%}.panels{display:grid;grid-template-columns:1fr 1fr;gap:20px}section{background:#191e28;padding:20px;border-radius:12px}li{margin:16px 0;line-height:1.9}small{color:#91abc5}#suggestions{display:flex;flex-wrap:wrap;gap:8px}#suggestions button{font-size:12px;text-align:right}#status{min-height:32px}a{color:#acd0ff}@media(max-width:700px){.panels{grid-template-columns:1fr}}
+</style>
+<h1>ترنوا — مقایسهٔ واقعیِ مدل فارسی</h1>
+<p>پایلوت نفی و اعداد با همان اندازه و توکنایزر و بازیابی وزن‌های انگلیسی دور سوم. رتبه‌ها فقط از شباهت بردارهای مدل محاسبه می‌شوند؛ aliases و تطبیق عبارت خاموش‌اند. مدل جدید تمام شروط حفظ کیفیت را پاس نکرده و آزمایشی است.</p>
+<label for="task">مجموعهٔ جست‌وجو </label><select id="task" disabled><option value="docs">مستندات React</option><option value="emoji">ایموجی</option><option value="unseen_corpus">متن‌های جدید فنی و محاوره‌ای</option><option value="logic">نفی و اعداد</option><option value="odyssey">روایت ادیسه</option><option value="fa_negation">نفی فارسی — آزمون تازه</option><option value="fa_numbers">اعداد فارسی — آزمون تازه</option><option value="en_negation">نفی انگلیسی — آزمون تازه</option><option value="en_numbers">اعداد انگلیسی — آزمون تازه</option></select>
+<label for="baseline">مدل مرجع </label><select id="baseline" disabled><option value="0">دور سوم</option><option value="1">پایلوت فارسی قبلی</option><option value="2" selected>پایلوت فنی و محاوره‌ای</option></select>
+<label for="query"><span> — عبارت دلخواه فارسی یا انگلیسی</span><input id="query" placeholder="جملهٔ تازه‌ای بنویسید…" disabled></label>
+<div id="suggestions"></div><p id="status" role="status" aria-live="polite">در حال بارگیری مدل‌ها…</p>
+<div class="panels"><section><h2 id="reference-title">پایلوت فنی و محاوره‌ای</h2><ol id="before"></ol></section><section><h2>پایلوت جدید نفی و اعداد</h2><ol id="after"></ol></section></div>
+<script type="module">
+const $=id=>document.getElementById(id), engines=[], indices=new Map();
+let fixture;
+async function boot(){
+ const [previous,fresh,reasoning]=await Promise.all(['persian-native-demos','persian-domain-hard','persian-reasoning-hard'].map(name=>fetch(`./corpus/${name}.json`).then(r=>{if(!r.ok)throw Error('دریافت مجموعه ناموفق بود');return r.json()})));
+ fixture={corpora:{...previous.corpora},queries:{...previous.queries}};
+ for(const [name,suite] of Object.entries(fresh.suites)){fixture.corpora[name]=suite.corpus;fixture.queries[name]=suite.queries}
+ for(const [name,suite] of Object.entries(reasoning.suites)){fixture.corpora[name]=suite.corpus;fixture.queries[name]=suite.queries}
+ for(const path of ['/dist/pilot-fa-en-v3/d256/tern_engine.js','/dist/pilot-fa-en-v3-native/d256/tern_engine.js','/dist/pilot-fa-en-domain/d256/tern_engine.js','/dist/pilot-fa-en-reasoning/d256/tern_engine.js']){
+  const engine=await import(path);await engine.default();engines.push(engine);
+ }
+ $('query').disabled=false;$('task').disabled=false;$('baseline').disabled=false;await changeTask();
+}
+async function changeTask(){
+ const task=$('task').value;$('status').textContent='در حال ساخت نمایه…';
+ await new Promise(r=>setTimeout(r,0));
+ if(!indices.has(task))indices.set(task,engines.map(e=>fixture.corpora[task].map(d=>e.embed(d.text))));
+ $('suggestions').replaceChildren();
+ for(const q of fixture.queries[task].slice(0,4)){
+  const b=document.createElement('button');b.textContent=q.text;b.onclick=()=>{$('query').value=q.text;search()};$('suggestions').append(b);
+ }
+ search();
+}
+function search(){
+ const text=$('query').value.trim(),task=$('task').value;
+ for(const id of ['before','after'])$(id).replaceChildren();
+ if(!text){$('status').textContent='آماده؛ می‌توانید جمله‌ای خارج از نمونه‌ها امتحان کنید.';return}
+ const started=performance.now();
+ [Number($('baseline').value),3].forEach((engineIndex,model)=>{
+  const q=engines[engineIndex].embed(text),corpus=fixture.corpora[task],vectors=indices.get(task)[engineIndex];
+  const ranked=vectors.map((v,i)=>({i,score:v.reduce((s,x,j)=>s+x*q[j],0)})).sort((a,b)=>b.score-a.score).slice(0,5);
+  for(const {i,score} of ranked){const li=document.createElement('li'),small=document.createElement('small');li.textContent=(task==='emoji'?corpus[i].id+' — ':'')+corpus[i].text;small.textContent=' · '+score.toLocaleString('fa-IR',{maximumFractionDigits:3});li.append(small);$(model?'after':'before').append(li)}
+ });
+ $('status').textContent=`محاسبهٔ محلیِ هر دو مدل: ${Math.round(performance.now()-started).toLocaleString('fa-IR')} میلی‌ثانیه`;
+}
+let timer;$('query').oninput=()=>{clearTimeout(timer);$('before').replaceChildren();$('after').replaceChildren();$('status').textContent='در حال محاسبه…';timer=setTimeout(search,150)};
+$('task').onchange=()=>changeTask().catch(fail);
+$('baseline').onchange=()=>{$('reference-title').textContent=$('baseline').selectedOptions[0].textContent;search()};
+function fail(e){$('status').textContent='خطا: '+e.message;console.error(e)}
+boot().catch(fail);
+</script>
+</html>
