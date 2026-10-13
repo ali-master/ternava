@@ -15,7 +15,7 @@ and a successful import are not general language-quality evidence.
 ## Installation
 
 After publication: `npm install @usex/ternava` or `bun add @usex/ternava`.
-Before publication, install the tarball produced by `npm run verify:release`
+Before publication, install the tarball produced by `bun run verify:release`
 from the repository root. Nothing here implies that a release is already live.
 
 ```js

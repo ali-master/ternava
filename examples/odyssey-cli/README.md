@@ -7,8 +7,8 @@
 از ریشهٔ مخزن:
 
 ```sh
-npm run build
-npm ci --prefix examples/odyssey-cli
+bun run build
+bun install --frozen-lockfile
 node examples/odyssey-cli/index.mjs
 node examples/odyssey-cli/search.mjs "دلتنگی برای خانه و خانواده"
 node examples/odyssey-cli/probe.mjs
@@ -16,7 +16,7 @@ node examples/odyssey-cli/probe.mjs
 
 ساخت نمایه یک‌بار لازم است. جست‌وجو سه نتیجه و امتیاز شباهت آن‌ها را چاپ می‌کند. اگر عبارتی وارد نکنید، پرسش نمونهٔ فارسی استفاده می‌شود. متن‌ها هنگام نمایه‌سازی و جست‌وجو روی دستگاه پردازش می‌شوند.
 
-**این نمونه از پکیج محلی `@usex/ternava` و پایلوت دوزبانهٔ آزمایشی استفاده می‌کند.** نصب از مسیر `packages/mini` انجام می‌شود و انتشار npm لازم نیست. کیفیت فارسی، به‌ویژه نفی و اعداد، هنوز محدودیت دارد. پس از تعویض مدل، `index.mjs` را دوباره اجرا کنید.
+**این نمونه از پکیج محلی `@usex/ternava` و پایلوت دوزبانهٔ آزمایشی استفاده می‌کند.** با `bun install` در ریشهٔ مخزن، وابستگی workspace به `packages/mini` متصل می‌شود و انتشار npm لازم نیست. کیفیت فارسی، به‌ویژه نفی و اعداد، هنوز محدودیت دارد. پس از تعویض مدل، `index.mjs` را دوباره اجرا کنید.
 
 ## ویرایش متن‌ها
 

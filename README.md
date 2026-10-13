@@ -185,11 +185,12 @@ From the repository root, with Rust, wasm-pack, Python 3 and the packed bilingua
 pilot present (see the [pilot protocol](docs/persian-pilot.md)):
 
 ```bash
-npm run build
-npm test
-npm run verify:release
+bun install --frozen-lockfile
+bun run build
+bun run test
+bun run verify:release
 # Install the tested local tarball before publication:
-npm install ./dist/release/usex-ternava-0.1.1.tgz
+bun add ./dist/release/usex-ternava-0.1.1.tgz
 ```
 
 The verifier installs the actual tarball in an isolated consumer and checks CJS,
@@ -277,6 +278,16 @@ The [technical/colloquial pilot](docs/persian-pilot-domain-results.md) improves 
 and emoji retrieval at unchanged model size; complex negation, numeric reasoning and
 some retention gates still fail. Both remain experimental, with pure-model comparisons
 available in `eval/quality/native-preview.html`.
+
+### Workspace development
+
+Use Bun 1.4.3 or newer to manage the monorepo; CI pins 1.4.3. Run
+`bun install --frozen-lockfile` from the repository root. The single `bun.lock`
+covers both packages and the emoji/Odyssey examples; Odyssey uses the local
+`@usex/ternava` workspace. Use `bun run test` to run the package, release-guard,
+workspace and example contracts. Node.js remains required for compatibility tests
+and the WASM bundler prepack check. `bun run verify:release` creates the npm-compatible
+tarball with `bun pm pack`, installs it with Bun and checks Node/Bun APIs.
 
 ### Moving a local checkout
 

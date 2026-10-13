@@ -9,8 +9,8 @@ These generated files are not committed to git. Reproduce them with the
 
 The model has 32,000 tokens and 5,165,680 bytes of packed weights. It remains
 experimental; see the [current results](../README.md#persian--english-pilot).
-Build with `npm run build`; verify/install the package with
-`npm run verify:release`. No upload or publication occurs automatically.
+Build with `bun run build`; verify/install the package with
+`bun run verify:release`. No upload or publication occurs automatically.
 
 ## Upstream provenance
 

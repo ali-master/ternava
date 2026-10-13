@@ -8,7 +8,7 @@ The repo is organized so contributors only need the toolchain for the layer they
 
 | If you're touching | You need | Read first |
 |---|---|---|
-| `packages/` (JS API) | Node.js, pnpm | [packages/mini/README.md](../packages/mini/README.md) |
+| `packages/` (JS API) | Bun 1.4.3+, Node.js (compatibility tests) | [packages/mini/README.md](../packages/mini/README.md) |
 | `engine/` (Wasm engine) | Rust, wasm-pack | [engine/README.md](../engine/README.md) and [docs/training/model-internals.md](../docs/training/model-internals.md) |
 | `training/` (model training) | Python, PyTorch, GPU | [training/README.md](../training/README.md) and [docs/training/](../docs/training/) |
 | `eval/` (quality + perf) | Node.js + Python | [eval/README.md](../eval/README.md) |
