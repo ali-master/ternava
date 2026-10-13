@@ -3,13 +3,9 @@
   "type": "module",
   "version": "1.0.0",
   "private": true,
-  "description": "Semantic emoji search in the browser on @ternlight/base. Type a feeling, get the emoji.",
+  "description": "جست‌وجوی ایموجی با متن فارسی در مرورگر",
   "scripts": {
-    "serve": "python3 -m http.server 8000",
+    "serve": "npx serve -s ./ -p 8000",
     "build:index": "node build-index.mjs"
-  },
-  "devDependencies": {
-    "@ternlight/base": "^0.1.1",
-    "emojibase-data": "^16.0.0"
   }
 }
