@@ -1,9 +1,8 @@
 # مدل فارسی در Node.js و Bun
 
-از ریشهٔ مخزن اجرا کنید؛ روش ساخت پایلوت در [README اصلی](../../README.md#use-the-experimental-artifact) آمده است:
+از ریشهٔ مخزن اجرا کنید؛ روش ساخت پایلوت در [گزارش پایلوت](../../docs/persian-pilot-reasoning-results.md) آمده است:
 
 ```sh
-node examples/node-bun/search.mjs 'خیلی دوستت دارم'
 bun examples/node-bun/search.mjs 'خیلی دوستت دارم'
 ```
 

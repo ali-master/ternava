@@ -15,8 +15,6 @@ const credit = `**Ternava is built on [${legacy[0].toUpperCase() + legacy.slice(
 const allowed = {
     'README.md': [
         credit,
-        `[surfacing the Vite setup](https://github.com/soycaporal/${legacy}/issues/3)`,
-        `[English model artifacts](https://huggingface.co/wenshutang/${legacy})`,
     ],
     'scripts/tests/branding.test.mjs': [`const legacy = '${legacy}';`, `const persianLegacy = '${persianLegacy}';`],
 };
