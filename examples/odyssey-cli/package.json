@@ -3,13 +3,13 @@
   "type": "module",
   "version": "1.0.0",
   "private": true,
-  "description": "Terminal demo: embed the entire Odyssey and search it semantically, on-device.",
+  "description": "جست‌وجو در گزیده‌های فارسی ادیسه روی دستگاه",
   "scripts": {
     "prep": "node prep.mjs",
     "index": "node index.mjs",
     "search": "node search.mjs"
   },
   "dependencies": {
-    "@ternlight/mini": "^0.1.1"
+    "@usex/ternava": "file:../../packages/mini"
   }
 }

@@ -1,62 +1,34 @@
-# Odyssey CLI — semantic search over Homer, on-device
+# جست‌وجو در گزیده‌های فارسی ادیسه
 
-A terminal demo: embed the **entire Odyssey** (~130k words) and search it by
-meaning, running fully on your CPU via [`@ternlight/mini`](https://www.npmjs.com/package/@ternlight/mini).
-No GPU, no API, no vector database — just `embed()` and a cosine loop.
+این نمونه در خط فرمان اجرا می‌شود و شامل **۲۸ بازنویسی کوتاه فارسی** از رویدادهای ادیسه است؛ ترجمهٔ کامل کتاب یا برگرفته از ترجمهٔ فارسی یک ناشر نیست. دادهٔ انگلیسی قبلی با این مجموعهٔ نمایشی جایگزین شده است.
 
-**3,058 passages · ~17s one-time index · ~2ms per search · zero network calls.**
+## اجرا
 
-## Setup (once, before the demo)
+از ریشهٔ مخزن:
 
-```bash
-cd examples/odyssey-cli
-npm install          # pulls @ternlight/mini from npm (~5 MB wire)
-node index.mjs       # embeds the whole Odyssey -> index.json (~17s)
+```sh
+npm run build
+npm ci --prefix examples/odyssey-cli
+node examples/odyssey-cli/index.mjs
+node examples/odyssey-cli/search.mjs "دلتنگی برای خانه و خانواده"
+node examples/odyssey-cli/probe.mjs
 ```
 
-## Files
+ساخت نمایه یک‌بار لازم است. جست‌وجو سه نتیجه و امتیاز شباهت آن‌ها را چاپ می‌کند. اگر عبارتی وارد نکنید، پرسش نمونهٔ فارسی استفاده می‌شود. متن‌ها هنگام نمایه‌سازی و جست‌وجو روی دستگاه پردازش می‌شوند.
 
-| File | What it does |
-|---|---|
-| `index.mjs`  | Embeds every passage with a live progress bar → `index.json`. The speed flex. |
-| `search.mjs` | Loads the index, embeds one editable `query`, prints the top 3. Instant. |
-| `prep.mjs`   | One-time: raw Gutenberg text → clean `odyssey.json` chunks. Already run. |
-| `probe.mjs`  | Fires a battery of candidate queries — use it to rehearse. |
-| `odyssey.json` | 3,058 pre-chunked passages (committed). |
-| `index.json` | Embeddings cache (git-ignored; created by `index.mjs`). |
+**این نمونه از پکیج محلی `@usex/ternava` و پایلوت دوزبانهٔ آزمایشی استفاده می‌کند.** نصب از مسیر `packages/mini` انجام می‌شود و انتشار npm لازم نیست. کیفیت فارسی، به‌ویژه نفی و اعداد، هنوز محدودیت دارد. پس از تعویض مدل، `index.mjs` را دوباره اجرا کنید.
 
-## Run the demo
+## ویرایش متن‌ها
 
-```bash
-node index.mjs       # watch it embed the whole Odyssey live
-node search.mjs      # semantic search — edit the `query` line and re-run
+متن اصلی در `odyssey.fa.txt` است؛ هر پاراگراف یک گزیده است. پس از ویرایش:
+
+```sh
+node examples/odyssey-cli/prep.mjs
+node examples/odyssey-cli/index.mjs
 ```
 
-Editing the `query` in `search.mjs` and re-running is **instant** — the index
-is already built, so only the query embeds.
+`prep.mjs` فایل `odyssey.json` را می‌سازد و `index.mjs` بردارها را در `index.json` ذخیره می‌کند. جست‌وجو تغییر متن منبع را تشخیص می‌دهد و نمایهٔ قدیمی را رد می‌کند. نمایهٔ تولیدشده در Git قرار نمی‌گیرد.
 
-## Queries that land (zero keyword overlap with the text)
+پیام‌ها و اعداد فارسی‌اند. نمایش راست‌به‌چپ و فونت به برنامهٔ ترمینال بستگی دارد؛ برای استفاده از استعداد، آن را در تنظیمات ترمینال انتخاب کنید. اسکریپت Node فونت ترمینال را تغییر نمی‌دهد.
 
-| Query | Finds |
-|---|---|
-| `tie me to the mast so I can hear the song and survive` | the Sirens |
-| `a witch turns the crew into pigs` | Circe |
-| `stringing the great bow that no other man can bend` | the bow trial |
-| `a monster with one giant eye traps the men in a cave` | the Cyclops |
-
-None of these share words with the passage they find — that's the semantic win
-a keyword search can't do.
-
-## Regenerate the corpus (optional)
-
-`odyssey.json` is committed, so you don't need this. To rebuild from source:
-
-```bash
-curl -sL https://www.gutenberg.org/cache/epub/1727/pg1727.txt -o odyssey_raw.txt
-node prep.mjs                 # -> odyssey.json (default 50-word chunks)
-TARGET=40 node prep.mjs       # smaller chunks: more, tighter, faster per embed
-```
-
-Corpus: Samuel Butler's public-domain prose translation
-([Project Gutenberg #1727](https://www.gutenberg.org/ebooks/1727)).
-`prep.mjs` strips the preface, endnotes, `{Greek}` tokens, and footnote numbers.
+داستان اصلی ادیسه اثر هومر در مالکیت عمومی است. گزیده‌های این نمونه بازگویی آموزشی و کوتاه از روایت‌اند.

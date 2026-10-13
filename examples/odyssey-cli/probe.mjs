@@ -1,20 +1,20 @@
 // probe.mjs — fire a battery of candidate demo queries, show top hit for each.
-import { embed, cosineSim } from '@ternlight/mini';
-import { readFileSync } from 'node:fs';
-const { chunks, vecs } = JSON.parse(readFileSync('index.json', 'utf8'));
+import { embed, cosineSim } from '@usex/ternava';
+import { loadIndex } from './load-index.mjs';
+const { chunks, vecs } = loadIndex();
 
 const QUERIES = [
-  'the faithful wife who waits years for her husband to return',
-  'a monster with one giant eye traps the men in a cave',
-  'sailors lured toward the rocks by an irresistible song',
-  'disguised as a beggar, unrecognized in his own home',
-  'a witch turns the crew into pigs',
-  'stringing the great bow that no other man can bend',
-  'tie me to the mast so I can hear the song and survive',
-  'the goddess who kept him on her island as her lover',
+  "همسری که سال‌ها چشم‌به‌راه بازگشت شوهرش است",
+  "غول یک‌چشم مردان را در غار زندانی می‌کند",
+  "آواز فریبنده دریانوردان را به سوی صخره‌ها می‌کشاند",
+  "بازگشت به خانه در لباس گدایی ناشناس",
+  "جادوگر همراهان را به خوک تبدیل می‌کند",
+  "کشیدن زه کمانی که هیچ‌کس نمی‌تواند آماده‌اش کند",
+  "مرا به دکل ببندید تا آواز را بشنوم و زنده بمانم",
+  "الهه‌ای که قهرمان را در جزیره نگه داشته است"
 ];
 
-console.log(`\n  corpus: ${chunks.length} chunks\n`);
+console.log(`\n  مجموعه: ${chunks.length.toLocaleString('fa-IR')} گزیدهٔ فارسی\n`);
 for (const query of QUERIES) {
   const q = embed(query);
   let best = { score: -1, text: '' };
@@ -23,5 +23,5 @@ for (const query of QUERIES) {
     if (s > best.score) best = { score: s, text: chunks[i] };
   }
   console.log(`▸ ${query}`);
-  console.log(`  ${best.score.toFixed(3)}  ${best.text.slice(0, 150)}${best.text.length > 150 ? '…' : ''}\n`);
+  console.log(`  ${best.score.toLocaleString('fa-IR', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}  ${best.text.slice(0, 150)}${best.text.length > 150 ? '…' : ''}\n`);
 }

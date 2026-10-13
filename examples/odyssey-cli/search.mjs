@@ -1,14 +1,10 @@
 // search.mjs — semantic search over the indexed Odyssey.  `node search.mjs`
-import { embed, cosineSim } from '@ternlight/mini';
-import { readFileSync } from 'node:fs';
+import { embed, cosineSim } from '@usex/ternava';
+import { loadIndex } from './load-index.mjs';
 
-const { chunks, vecs } = JSON.parse(readFileSync('index.json', 'utf8'));
-
-//  ↓↓↓  Swap which line is uncommented, re-run — instant, no re-indexing  ↓↓↓
-// const query = 'weeping on the shore, longing for home';
-// const query = 'a storm wrecks the ship at sea';
-// const query = 'washed ashore, half-drowned and exhausted';
-const query = 'praying to the gods for mercy';
+const { chunks, vecs } = loadIndex();
+const query = process.argv.slice(2).join(' ').trim() || 'دلتنگی برای خانه و خانواده';
+console.log('ترنوا — پایلوت دوزبانهٔ آزمایشی؛ کیفیت عمومی فارسی هنوز تأیید نشده است.');
 
 const q = embed(query);
 const hits = chunks
@@ -17,4 +13,4 @@ const hits = chunks
   .slice(0, 3);
 
 console.log(`\n  "${query}"\n`);
-for (const { text, score } of hits) console.log(`  ${score.toFixed(3)}  ${text}\n`);
+for (const { text, score } of hits) console.log(`  ${score.toLocaleString('fa-IR', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}  ${text}\n`);
