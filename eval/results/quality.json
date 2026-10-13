@@ -8,7 +8,8 @@
     "n_pairs": 1000,
     "seed": 42,
     "teacher_id": "sentence-transformers/all-MiniLM-L6-v2",
-    "notes": "Spearman rank correlation between student-side and teacher-side pair cosines over 1000 deterministic random pairs from the held-out smoke_1k test split. Higher = student ranks pair similarities like the teacher does. 1.0 = perfect distillation fidelity."
+    "notes": "Spearman rank correlation between student-side and teacher-side pair cosines over 1000 deterministic random pairs from the held-out smoke_1k test split. Higher = student ranks pair similarities like the teacher does. 1.0 = perfect distillation fidelity.",
+    "provenance": "Original upstream English model measured before the Ternava bilingual fork; labels and variant IDs renamed only, numerical results unchanged. See ../quality/RESULTS.md and ../../README.md acknowledgments."
   },
   "results": [
     {
@@ -30,15 +31,15 @@
       "bin_size_mb": 37.96,
       "n_params": 9490816,
       "bits_per_param": 32.0,
-      "spearman_vs_teacher": 0.8830,
+      "spearman_vs_teacher": 0.883,
       "pearson_vs_teacher": 0.9066,
       "eval_via": "python",
       "ckpt": "training/distill/runs/fp32-baseline-662956d/checkpoint_ep30.pt",
       "note": "Same architecture as the shipped student, no ternarization. Anchors 'distillation alone, no quantization' quality."
     },
     {
-      "label": "ternlight (emb_int8)",
-      "variant": "ternlight_emb_int8",
+      "label": "Ternava baseline / upstream English (emb_int8)",
+      "variant": "ternava_emb_int8",
       "bin_size_bytes": 8746328,
       "bin_size_mb": 8.35,
       "n_params": 9490816,
@@ -50,21 +51,21 @@
       "note": "Previous ship target (superseded by int4). int8 token embedding lookup + ternary linear weights."
     },
     {
-      "label": "ternlight (emb_int4)",
-      "variant": "ternlight_emb_int4",
+      "label": "Ternava baseline / upstream English (emb_int4)",
+      "variant": "ternava_emb_int4",
       "bin_size_bytes": 4839512,
       "bin_size_mb": 4.62,
       "n_params": 9490816,
       "bits_per_param": 4.08,
-      "spearman_vs_teacher": 0.8350,
+      "spearman_vs_teacher": 0.835,
       "pearson_vs_teacher": 0.8644,
       "eval_via": "wasm",
       "bin": "training/pack/out/model-int4.bin",
       "note": "Ship target. Per-row symmetric int4 PTQ on embedding (16 levels, -7 to +7), ternary linear. Spearman within 0.006 of int8 at ~half the bin size — chosen as the default after the size-quality tradeoff measurement."
     },
     {
-      "label": "ternlight (emb_ternary)",
-      "variant": "ternlight_emb_ternary",
+      "label": "Ternava baseline / upstream English (emb_ternary)",
+      "variant": "ternava_emb_ternary",
       "bin_size_bytes": 2886104,
       "bin_size_mb": 2.89,
       "n_params": 9490816,
