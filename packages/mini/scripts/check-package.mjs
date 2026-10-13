@@ -6,7 +6,7 @@ const root = new URL('../', import.meta.url);
 const manifest = JSON.parse(readFileSync(new URL('package.json', root)));
 assert.equal(manifest.name, '@usex/ternava');
 assert.equal(manifest.repository.url, 'https://github.com/ali-master/ternava.git');
-assert.equal(manifest.homepage, 'https://github.com/ali-master/ternava');
+assert.equal(manifest.homepage, 'https://ternava.usestrict.dev/');
 assert.equal(manifest.bugs.url, 'https://github.com/ali-master/ternava/issues');
 assert.equal(manifest.publishConfig.access, 'public');
 assert.notEqual(manifest.private, true);

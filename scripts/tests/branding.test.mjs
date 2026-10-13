@@ -41,7 +41,7 @@ test('one public package with consistent names, repository metadata and upstream
         assert.equal(manifest.repository.url, 'https://github.com/ali-master/ternava.git');
     }
     for (const manifest of [mini, base]) {
-        assert.equal(manifest.homepage, 'https://github.com/ali-master/ternava');
+        assert.equal(manifest.homepage, 'https://ternava.usestrict.dev/');
         assert.equal(manifest.bugs.url, 'https://github.com/ali-master/ternava/issues');
     }
     assert.equal(json('examples/odyssey-cli/package.json').dependencies[mini.name], 'workspace:*');
