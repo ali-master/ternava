@@ -130,17 +130,25 @@ const vector = embed('راه شاهی برای چی ساخته شد؟');
 
       <section class="content">
 
-        <div class="search-row">
-          <span class="search-prefix" aria-hidden="true">‹</span>
+        <label class="search-label" for="query">جست‌وجو در تاریخ ایران</label>
+        <div class="search-row" dir="rtl">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
+            <circle cx="10.5" cy="10.5" r="6.5" />
+            <path d="m16 16 4.5 4.5" stroke-linecap="round" />
+          </svg>
           <input
             id="query"
             class="query-input"
             type="text"
-            aria-label="جست‌وجو در تاریخ ایران" dir="auto" placeholder="مثلاً راه شاهی برای چی ساخته شد؟"
+            dir="rtl" placeholder="مثلاً: راه شاهی برای چی ساخته شد؟"
+            aria-describedby="query-hint"
             autocomplete="off"
             spellcheck="false"
           />
-          <span id="latency-badge" class="badge">—</span>
+        </div>
+        <div class="search-meta">
+          <p id="query-hint">پرسشت رو بنویس؛ نتیجه‌ها خودکار به‌روز می‌شن.</p>
+          <span id="latency-badge" class="badge" aria-label="زمان بردارسازی">—</span>
         </div>
 
         <div class="try-queries">
