@@ -1,0 +1,967 @@
+{
+  "scope": "Fresh round-three authored challenge, frozen before training; 24 queries per language. Prior pretraining exposure unknown. No aliases or query-specific rules.",
+  "corpus": [
+    {
+      "id": "fa-negation-0-p",
+      "lang": "fa",
+      "text": "برخی درخواست‌های وام پذیرفته شده‌اند."
+    },
+    {
+      "id": "fa-negation-0-n",
+      "lang": "fa",
+      "text": "هیچ درخواست وامی پذیرفته نشده است."
+    },
+    {
+      "id": "en-negation-0-p",
+      "lang": "en",
+      "text": "Some loan applications were accepted."
+    },
+    {
+      "id": "en-negation-0-n",
+      "lang": "en",
+      "text": "No loan application was accepted."
+    },
+    {
+      "id": "fa-negation-1-n",
+      "lang": "fa",
+      "text": "گوینده هرگونه احتمال خطای مالیاتی را رد می‌کند."
+    },
+    {
+      "id": "fa-negation-1-p",
+      "lang": "fa",
+      "text": "گوینده احتمال خطا در محاسبهٔ مالیات را می‌پذیرد."
+    },
+    {
+      "id": "en-negation-1-n",
+      "lang": "en",
+      "text": "The speaker rules out any possible tax calculation error."
+    },
+    {
+      "id": "en-negation-1-p",
+      "lang": "en",
+      "text": "The speaker admits the possibility of a tax calculation error."
+    },
+    {
+      "id": "fa-negation-2-p",
+      "lang": "fa",
+      "text": "پاک بودن آب هنوز اثبات نشده است."
+    },
+    {
+      "id": "fa-negation-2-n",
+      "lang": "fa",
+      "text": "پاک بودن آب به‌طور قطعی ثابت شده است."
+    },
+    {
+      "id": "en-negation-2-p",
+      "lang": "en",
+      "text": "The cleanliness of the water has not been established."
+    },
+    {
+      "id": "en-negation-2-n",
+      "lang": "en",
+      "text": "The water has conclusively been shown to be clean."
+    },
+    {
+      "id": "fa-negation-3-n",
+      "lang": "fa",
+      "text": "نباید بسته را به گیرنده تحویل داد."
+    },
+    {
+      "id": "fa-negation-3-p",
+      "lang": "fa",
+      "text": "بسته را باید به گیرنده تحویل داد."
+    },
+    {
+      "id": "en-negation-3-n",
+      "lang": "en",
+      "text": "The parcel should not be handed to the recipient."
+    },
+    {
+      "id": "en-negation-3-p",
+      "lang": "en",
+      "text": "The parcel should be handed to the recipient."
+    },
+    {
+      "id": "fa-negation-4-p",
+      "lang": "fa",
+      "text": "ارسال پیامک قبلاً فعال بوده و اکنون متوقف شده است."
+    },
+    {
+      "id": "fa-negation-4-n",
+      "lang": "fa",
+      "text": "ارسال پیامک هنوز آغاز نشده و ممکن است بعداً آغاز شود."
+    },
+    {
+      "id": "en-negation-4-p",
+      "lang": "en",
+      "text": "Text messaging was previously active and has now stopped."
+    },
+    {
+      "id": "en-negation-4-n",
+      "lang": "en",
+      "text": "Text messaging has not started yet and may start later."
+    },
+    {
+      "id": "fa-negation-5-n",
+      "lang": "fa",
+      "text": "گوینده قول داده راز را آشکار کند."
+    },
+    {
+      "id": "fa-negation-5-p",
+      "lang": "fa",
+      "text": "گوینده متعهد شده راز را حفظ کند."
+    },
+    {
+      "id": "en-negation-5-n",
+      "lang": "en",
+      "text": "The speaker has promised to disclose the secret."
+    },
+    {
+      "id": "en-negation-5-p",
+      "lang": "en",
+      "text": "The speaker has committed to keeping the secret."
+    },
+    {
+      "id": "fa-negation-6-p",
+      "lang": "fa",
+      "text": "هیچ معترضی عدم مخالفت خود با تمدید قرارداد را اعلام نکرده است."
+    },
+    {
+      "id": "fa-negation-6-n",
+      "lang": "fa",
+      "text": "همهٔ معترضان موافقت خود با تمدید قرارداد را اعلام کرده‌اند."
+    },
+    {
+      "id": "en-negation-6-p",
+      "lang": "en",
+      "text": "No protester declared an absence of opposition to the contract renewal."
+    },
+    {
+      "id": "en-negation-6-n",
+      "lang": "en",
+      "text": "All protesters declared their support for the contract renewal."
+    },
+    {
+      "id": "fa-negation-7-n",
+      "lang": "fa",
+      "text": "دستگاه برچسب‌قرمز روشن و بقیه خاموش هستند."
+    },
+    {
+      "id": "fa-negation-7-p",
+      "lang": "fa",
+      "text": "دستگاه برچسب‌قرمز خاموش و بقیه روشن هستند."
+    },
+    {
+      "id": "en-negation-7-n",
+      "lang": "en",
+      "text": "The red-labelled machine is on and the others are off."
+    },
+    {
+      "id": "en-negation-7-p",
+      "lang": "en",
+      "text": "The red-labelled machine is off and the others are on."
+    },
+    {
+      "id": "fa-numbers-8-p",
+      "lang": "fa",
+      "text": "موجودی کنونی بیست و نه بسته است."
+    },
+    {
+      "id": "fa-numbers-8-n",
+      "lang": "fa",
+      "text": "موجودی کنونی بیست و یک بسته است."
+    },
+    {
+      "id": "en-numbers-8-p",
+      "lang": "en",
+      "text": "The current stock is twenty-nine parcels."
+    },
+    {
+      "id": "en-numbers-8-n",
+      "lang": "en",
+      "text": "The current stock is twenty-one parcels."
+    },
+    {
+      "id": "fa-numbers-9-n",
+      "lang": "fa",
+      "text": "خریدار برای کیف ۲۱۵ واحد می‌پردازد."
+    },
+    {
+      "id": "fa-numbers-9-p",
+      "lang": "fa",
+      "text": "خریدار برای کیف ۱۸۰ واحد می‌پردازد."
+    },
+    {
+      "id": "en-numbers-9-n",
+      "lang": "en",
+      "text": "The buyer pays 215 units for the bag."
+    },
+    {
+      "id": "en-numbers-9-p",
+      "lang": "en",
+      "text": "The buyer pays 180 units for the bag."
+    },
+    {
+      "id": "fa-numbers-10-p",
+      "lang": "fa",
+      "text": "بار مسافر از سقف مجاز تجاوز نکرده است."
+    },
+    {
+      "id": "fa-numbers-10-n",
+      "lang": "fa",
+      "text": "بار مسافر سنگین‌تر از سقف مجاز است."
+    },
+    {
+      "id": "en-numbers-10-p",
+      "lang": "en",
+      "text": "The passenger has not exceeded the baggage limit."
+    },
+    {
+      "id": "en-numbers-10-n",
+      "lang": "en",
+      "text": "The passenger has exceeded the baggage limit."
+    },
+    {
+      "id": "fa-numbers-11-n",
+      "lang": "fa",
+      "text": "هوا چهار درجه سردتر شده است."
+    },
+    {
+      "id": "fa-numbers-11-p",
+      "lang": "fa",
+      "text": "هوا چهار درجه گرم‌تر شده است."
+    },
+    {
+      "id": "en-numbers-11-n",
+      "lang": "en",
+      "text": "It became four degrees colder."
+    },
+    {
+      "id": "en-numbers-11-p",
+      "lang": "en",
+      "text": "It became four degrees warmer."
+    },
+    {
+      "id": "fa-numbers-12-p",
+      "lang": "fa",
+      "text": "دویدن سی و پنج دقیقه طول کشید."
+    },
+    {
+      "id": "fa-numbers-12-n",
+      "lang": "fa",
+      "text": "دویدن هفتاد و پنج دقیقه طول کشید."
+    },
+    {
+      "id": "en-numbers-12-p",
+      "lang": "en",
+      "text": "The run lasted thirty-five minutes."
+    },
+    {
+      "id": "en-numbers-12-n",
+      "lang": "en",
+      "text": "The run lasted seventy-five minutes."
+    },
+    {
+      "id": "fa-numbers-13-n",
+      "lang": "fa",
+      "text": "سی و شش صندلی سالن خالی است."
+    },
+    {
+      "id": "fa-numbers-13-p",
+      "lang": "fa",
+      "text": "دوازده صندلی سالن خالی است."
+    },
+    {
+      "id": "en-numbers-13-n",
+      "lang": "en",
+      "text": "Thirty-six seats in the hall are empty."
+    },
+    {
+      "id": "en-numbers-13-p",
+      "lang": "en",
+      "text": "Twelve seats in the hall are empty."
+    },
+    {
+      "id": "fa-numbers-14-p",
+      "lang": "fa",
+      "text": "احتمال بارندگی پانزده واحد درصد افزایش یافته است."
+    },
+    {
+      "id": "fa-numbers-14-n",
+      "lang": "fa",
+      "text": "احتمال بارندگی هفتاد و پنج واحد درصد افزایش یافته است."
+    },
+    {
+      "id": "en-numbers-14-p",
+      "lang": "en",
+      "text": "The chance of rain increased by fifteen percentage points."
+    },
+    {
+      "id": "en-numbers-14-n",
+      "lang": "en",
+      "text": "The chance of rain increased by seventy-five percentage points."
+    },
+    {
+      "id": "fa-numbers-15-n",
+      "lang": "fa",
+      "text": "متقاضی شرط سنی عضویت را برآورده می‌کند."
+    },
+    {
+      "id": "fa-numbers-15-p",
+      "lang": "fa",
+      "text": "متقاضی هنوز شرط سنی عضویت را برآورده نمی‌کند."
+    },
+    {
+      "id": "en-numbers-15-n",
+      "lang": "en",
+      "text": "The applicant meets the membership age condition."
+    },
+    {
+      "id": "en-numbers-15-p",
+      "lang": "en",
+      "text": "The applicant does not yet meet the membership age condition."
+    },
+    {
+      "id": "fa-role-order-16-p",
+      "lang": "fa",
+      "text": "راننده معرف نگهبان بود."
+    },
+    {
+      "id": "fa-role-order-16-n",
+      "lang": "fa",
+      "text": "نگهبان معرف راننده بود."
+    },
+    {
+      "id": "en-role-order-16-p",
+      "lang": "en",
+      "text": "The driver introduced the guard."
+    },
+    {
+      "id": "en-role-order-16-n",
+      "lang": "en",
+      "text": "The guard introduced the driver."
+    },
+    {
+      "id": "fa-role-order-17-n",
+      "lang": "fa",
+      "text": "لیلا باید به بهزاد پول بدهد."
+    },
+    {
+      "id": "fa-role-order-17-p",
+      "lang": "fa",
+      "text": "بهزاد باید به لیلا پول بدهد."
+    },
+    {
+      "id": "en-role-order-17-n",
+      "lang": "en",
+      "text": "Lila must pay Behzad."
+    },
+    {
+      "id": "en-role-order-17-p",
+      "lang": "en",
+      "text": "Behzad must pay Lila."
+    },
+    {
+      "id": "fa-role-order-18-p",
+      "lang": "fa",
+      "text": "یافتن مصاحبه‌شونده کار عکاس بود."
+    },
+    {
+      "id": "fa-role-order-18-n",
+      "lang": "fa",
+      "text": "یافتن عکاس کار مصاحبه‌شونده بود."
+    },
+    {
+      "id": "en-role-order-18-p",
+      "lang": "en",
+      "text": "The photographer located the interviewee."
+    },
+    {
+      "id": "en-role-order-18-n",
+      "lang": "en",
+      "text": "The interviewee located the photographer."
+    },
+    {
+      "id": "fa-role-order-19-n",
+      "lang": "fa",
+      "text": "مترجم قرار است نویسنده را تحسین کند."
+    },
+    {
+      "id": "fa-role-order-19-p",
+      "lang": "fa",
+      "text": "نویسنده قرار است مترجم را تحسین کند."
+    },
+    {
+      "id": "en-role-order-19-n",
+      "lang": "en",
+      "text": "The translator is expected to praise the writer."
+    },
+    {
+      "id": "en-role-order-19-p",
+      "lang": "en",
+      "text": "The writer is expected to praise the translator."
+    },
+    {
+      "id": "fa-retrieval-20-p",
+      "lang": "fa",
+      "text": "برای بازیابی ورود دومرحله‌ای از کد پشتیبان یا فرایند احراز هویت مجدد استفاده کنید."
+    },
+    {
+      "id": "fa-retrieval-20-n",
+      "lang": "fa",
+      "text": "برای انتقال عکس‌ها از گوشی قدیمی نسخهٔ پشتیبان تهیه کنید."
+    },
+    {
+      "id": "en-retrieval-20-p",
+      "lang": "en",
+      "text": "Recover two-factor access using a backup code or the identity verification process."
+    },
+    {
+      "id": "en-retrieval-20-n",
+      "lang": "en",
+      "text": "Back up your old phone to transfer its photographs."
+    },
+    {
+      "id": "fa-retrieval-21-n",
+      "lang": "fa",
+      "text": "ترتیب نمایش فهرست را با مرتب‌سازی الفبایی تغییر دهید."
+    },
+    {
+      "id": "fa-retrieval-21-p",
+      "lang": "fa",
+      "text": "کش پاسخ را با تغییر داده باطل کنید تا فهرست تازه دریافت شود."
+    },
+    {
+      "id": "en-retrieval-21-n",
+      "lang": "en",
+      "text": "Change the display order of the list using alphabetical sorting."
+    },
+    {
+      "id": "en-retrieval-21-p",
+      "lang": "en",
+      "text": "Invalidate the response cache when data changes so the fresh list is fetched."
+    },
+    {
+      "id": "fa-retrieval-22-p",
+      "lang": "fa",
+      "text": "با کلید یکتای عملیات، درخواست تکراری پرداخت را به نتیجهٔ قبلی متصل کنید."
+    },
+    {
+      "id": "fa-retrieval-22-n",
+      "lang": "fa",
+      "text": "برای تسریع پرداخت، سفارش تازه‌ای با هر بار کلیک ایجاد کنید."
+    },
+    {
+      "id": "en-retrieval-22-p",
+      "lang": "en",
+      "text": "Use an idempotency key to associate repeated payment requests with the original result."
+    },
+    {
+      "id": "en-retrieval-22-n",
+      "lang": "en",
+      "text": "To speed up payment, create a new order on every click."
+    },
+    {
+      "id": "fa-retrieval-23-n",
+      "lang": "fa",
+      "text": "پاسخ برنامه را تا دریافت رسید نهایی ایمیل متوقف کنید."
+    },
+    {
+      "id": "fa-retrieval-23-p",
+      "lang": "fa",
+      "text": "ارسال ایمیل را به صف پردازش پس‌زمینه بسپارید."
+    },
+    {
+      "id": "en-retrieval-23-n",
+      "lang": "en",
+      "text": "Block the application response until final email delivery confirmation arrives."
+    },
+    {
+      "id": "en-retrieval-23-p",
+      "lang": "en",
+      "text": "Put email delivery on a background processing queue."
+    }
+  ],
+  "queries": [
+    {
+      "id": "fa-negation-0",
+      "lang": "fa",
+      "category": "negation",
+      "text": "همهٔ درخواست‌های وام رد نشده‌اند؛ دست‌کم یکی پذیرفته شده است.",
+      "relevant": {
+        "fa-negation-0-p": 1
+      },
+      "contrast": "fa-negation-0-n"
+    },
+    {
+      "id": "en-negation-0",
+      "lang": "en",
+      "category": "negation",
+      "text": "Not every loan application was rejected; at least one was accepted.",
+      "relevant": {
+        "en-negation-0-p": 1
+      },
+      "contrast": "en-negation-0-n"
+    },
+    {
+      "id": "fa-negation-1",
+      "lang": "fa",
+      "category": "negation",
+      "text": "رد نمی‌کنم که در محاسبهٔ مالیات اشتباه کرده باشم.",
+      "relevant": {
+        "fa-negation-1-p": 1
+      },
+      "contrast": "fa-negation-1-n"
+    },
+    {
+      "id": "en-negation-1",
+      "lang": "en",
+      "category": "negation",
+      "text": "I do not deny that I may have made a tax calculation error.",
+      "relevant": {
+        "en-negation-1-p": 1
+      },
+      "contrast": "en-negation-1-n"
+    },
+    {
+      "id": "fa-negation-2",
+      "lang": "fa",
+      "category": "negation",
+      "text": "هیچ شاهدی نداریم که نشان دهد آب آلوده نیست.",
+      "relevant": {
+        "fa-negation-2-p": 1
+      },
+      "contrast": "fa-negation-2-n"
+    },
+    {
+      "id": "en-negation-2",
+      "lang": "en",
+      "category": "negation",
+      "text": "We have no evidence showing that the water is not contaminated.",
+      "relevant": {
+        "en-negation-2-p": 1
+      },
+      "contrast": "en-negation-2-n"
+    },
+    {
+      "id": "fa-negation-3",
+      "lang": "fa",
+      "category": "negation",
+      "text": "تنها در صورتی بسته را تحویل نده که گیرنده کارت شناسایی نداشته باشد؛ گیرنده کارت دارد.",
+      "relevant": {
+        "fa-negation-3-p": 1
+      },
+      "contrast": "fa-negation-3-n"
+    },
+    {
+      "id": "en-negation-3",
+      "lang": "en",
+      "category": "negation",
+      "text": "Withhold the parcel only if the recipient has no identification; the recipient has identification.",
+      "relevant": {
+        "en-negation-3-p": 1
+      },
+      "contrast": "en-negation-3-n"
+    },
+    {
+      "id": "fa-negation-4",
+      "lang": "fa",
+      "category": "negation",
+      "text": "سامانه دیگر پیامک نمی‌فرستد؛ این با اینکه هنوز نفرستاده فرق دارد.",
+      "relevant": {
+        "fa-negation-4-p": 1
+      },
+      "contrast": "fa-negation-4-n"
+    },
+    {
+      "id": "en-negation-4",
+      "lang": "en",
+      "category": "negation",
+      "text": "The system no longer sends text messages; that differs from not having sent any yet.",
+      "relevant": {
+        "en-negation-4-p": 1
+      },
+      "contrast": "en-negation-4-n"
+    },
+    {
+      "id": "fa-negation-5",
+      "lang": "fa",
+      "category": "negation",
+      "text": "قول من این نبود که راز را فاش کنم؛ تعهد دادم هیچ‌گاه فاشش نکنم.",
+      "relevant": {
+        "fa-negation-5-p": 1
+      },
+      "contrast": "fa-negation-5-n"
+    },
+    {
+      "id": "en-negation-5",
+      "lang": "en",
+      "category": "negation",
+      "text": "My promise was not to reveal the secret; I undertook never to disclose it.",
+      "relevant": {
+        "en-negation-5-p": 1
+      },
+      "contrast": "en-negation-5-n"
+    },
+    {
+      "id": "fa-negation-6",
+      "lang": "fa",
+      "category": "negation",
+      "text": "هیچ‌یک از معترضان نگفت که با تمدید قرارداد مخالف نیست.",
+      "relevant": {
+        "fa-negation-6-p": 1
+      },
+      "contrast": "fa-negation-6-n"
+    },
+    {
+      "id": "en-negation-6",
+      "lang": "en",
+      "category": "negation",
+      "text": "None of the protesters said they were not opposed to renewing the contract.",
+      "relevant": {
+        "en-negation-6-p": 1
+      },
+      "contrast": "en-negation-6-n"
+    },
+    {
+      "id": "fa-negation-7",
+      "lang": "fa",
+      "category": "negation",
+      "text": "بجز دستگاهی که برچسب قرمز دارد، هیچ دستگاهی خاموش نیست.",
+      "relevant": {
+        "fa-negation-7-p": 1
+      },
+      "contrast": "fa-negation-7-n"
+    },
+    {
+      "id": "en-negation-7",
+      "lang": "en",
+      "category": "negation",
+      "text": "Except for the machine with the red label, none of the machines is off.",
+      "relevant": {
+        "en-negation-7-p": 1
+      },
+      "contrast": "en-negation-7-n"
+    },
+    {
+      "id": "fa-numbers-8",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "سی و شش بسته داشتیم؛ یازده بسته ارسال و چهار بسته مرجوع شد. اکنون چند بسته داریم؟",
+      "relevant": {
+        "fa-numbers-8-p": 1
+      },
+      "contrast": "fa-numbers-8-n"
+    },
+    {
+      "id": "en-numbers-8",
+      "lang": "en",
+      "category": "numbers",
+      "text": "We had thirty-six parcels, shipped eleven, and received four returns. How many do we now have?",
+      "relevant": {
+        "en-numbers-8-p": 1
+      },
+      "contrast": "en-numbers-8-n"
+    },
+    {
+      "id": "fa-numbers-9",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "بهای کیف ۲۴۰ واحد است و یک‌چهارم آن تخفیف می‌خورد.",
+      "relevant": {
+        "fa-numbers-9-p": 1
+      },
+      "contrast": "fa-numbers-9-n"
+    },
+    {
+      "id": "en-numbers-9",
+      "lang": "en",
+      "category": "numbers",
+      "text": "A bag costs 240 units and is discounted by one quarter.",
+      "relevant": {
+        "en-numbers-9-p": 1
+      },
+      "contrast": "en-numbers-9-n"
+    },
+    {
+      "id": "fa-numbers-10",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "وزن مجاز بار حداکثر ۷٫۵ کیلوگرم است؛ بار مسافر دقیقاً ۷٫۵ کیلوگرم وزن دارد.",
+      "relevant": {
+        "fa-numbers-10-p": 1
+      },
+      "contrast": "fa-numbers-10-n"
+    },
+    {
+      "id": "en-numbers-10",
+      "lang": "en",
+      "category": "numbers",
+      "text": "The baggage limit is at most 7.5 kilograms; the passenger carries exactly 7.5 kilograms.",
+      "relevant": {
+        "en-numbers-10-p": 1
+      },
+      "contrast": "en-numbers-10-n"
+    },
+    {
+      "id": "fa-numbers-11",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "دما از منفی شش درجه به منفی دو درجه رسید.",
+      "relevant": {
+        "fa-numbers-11-p": 1
+      },
+      "contrast": "fa-numbers-11-n"
+    },
+    {
+      "id": "en-numbers-11",
+      "lang": "en",
+      "category": "numbers",
+      "text": "The temperature went from minus six degrees to minus two.",
+      "relevant": {
+        "en-numbers-11-p": 1
+      },
+      "contrast": "en-numbers-11-n"
+    },
+    {
+      "id": "fa-numbers-12",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "دویدن از ساعت ۹:۴۵ شروع شد و ۱۰:۲۰ پایان یافت.",
+      "relevant": {
+        "fa-numbers-12-p": 1
+      },
+      "contrast": "fa-numbers-12-n"
+    },
+    {
+      "id": "en-numbers-12",
+      "lang": "en",
+      "category": "numbers",
+      "text": "The run started at 9:45 and ended at 10:20.",
+      "relevant": {
+        "en-numbers-12-p": 1
+      },
+      "contrast": "en-numbers-12-n"
+    },
+    {
+      "id": "fa-numbers-13",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "از ۴۸ صندلی سالن، سه‌چهارم اشغال شده است.",
+      "relevant": {
+        "fa-numbers-13-p": 1
+      },
+      "contrast": "fa-numbers-13-n"
+    },
+    {
+      "id": "en-numbers-13",
+      "lang": "en",
+      "category": "numbers",
+      "text": "Three quarters of the hall’s 48 seats are occupied.",
+      "relevant": {
+        "en-numbers-13-p": 1
+      },
+      "contrast": "en-numbers-13-n"
+    },
+    {
+      "id": "fa-numbers-14",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "احتمال بارندگی از ۲۰٪ به ۳۵٪ رسیده است؛ اختلاف برحسب واحد درصد چقدر است؟",
+      "relevant": {
+        "fa-numbers-14-p": 1
+      },
+      "contrast": "fa-numbers-14-n"
+    },
+    {
+      "id": "en-numbers-14",
+      "lang": "en",
+      "category": "numbers",
+      "text": "The chance of rain rose from 20% to 35%; what is the change in percentage points?",
+      "relevant": {
+        "en-numbers-14-p": 1
+      },
+      "contrast": "en-numbers-14-n"
+    },
+    {
+      "id": "fa-numbers-15",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "برای عضویت بیش از ۲۱ سال سن لازم است؛ متقاضی تازه ۲۱ ساله شده است.",
+      "relevant": {
+        "fa-numbers-15-p": 1
+      },
+      "contrast": "fa-numbers-15-n"
+    },
+    {
+      "id": "en-numbers-15",
+      "lang": "en",
+      "category": "numbers",
+      "text": "Membership requires an age greater than 21; the applicant has just turned 21.",
+      "relevant": {
+        "en-numbers-15-p": 1
+      },
+      "contrast": "en-numbers-15-n"
+    },
+    {
+      "id": "fa-role-order-16",
+      "lang": "fa",
+      "category": "role-order",
+      "text": "نگهبان را راننده به مسئول انبار معرفی کرد.",
+      "relevant": {
+        "fa-role-order-16-p": 1
+      },
+      "contrast": "fa-role-order-16-n"
+    },
+    {
+      "id": "en-role-order-16",
+      "lang": "en",
+      "category": "role-order",
+      "text": "The guard was introduced to the warehouse manager by the driver.",
+      "relevant": {
+        "en-role-order-16-p": 1
+      },
+      "contrast": "en-role-order-16-n"
+    },
+    {
+      "id": "fa-role-order-17",
+      "lang": "fa",
+      "category": "role-order",
+      "text": "لیلا از بهزاد طلبکار است؛ قرار است بدهی به لیلا پرداخت شود.",
+      "relevant": {
+        "fa-role-order-17-p": 1
+      },
+      "contrast": "fa-role-order-17-n"
+    },
+    {
+      "id": "en-role-order-17",
+      "lang": "en",
+      "category": "role-order",
+      "text": "Lila is owed money by Behzad; the debt is to be paid to Lila.",
+      "relevant": {
+        "en-role-order-17-p": 1
+      },
+      "contrast": "en-role-order-17-n"
+    },
+    {
+      "id": "fa-role-order-18",
+      "lang": "fa",
+      "category": "role-order",
+      "text": "عکاس، نه خبرنگار، مصاحبه‌شونده را پیدا کرد.",
+      "relevant": {
+        "fa-role-order-18-p": 1
+      },
+      "contrast": "fa-role-order-18-n"
+    },
+    {
+      "id": "en-role-order-18",
+      "lang": "en",
+      "category": "role-order",
+      "text": "The photographer, not the reporter, located the interviewee.",
+      "relevant": {
+        "en-role-order-18-p": 1
+      },
+      "contrast": "en-role-order-18-n"
+    },
+    {
+      "id": "fa-role-order-19",
+      "lang": "fa",
+      "category": "role-order",
+      "text": "از نویسنده خواسته شد مترجم را تحسین کند.",
+      "relevant": {
+        "fa-role-order-19-p": 1
+      },
+      "contrast": "fa-role-order-19-n"
+    },
+    {
+      "id": "en-role-order-19",
+      "lang": "en",
+      "category": "role-order",
+      "text": "The writer was asked to praise the translator.",
+      "relevant": {
+        "en-role-order-19-p": 1
+      },
+      "contrast": "en-role-order-19-n"
+    },
+    {
+      "id": "fa-retrieval-20",
+      "lang": "fa",
+      "category": "retrieval",
+      "text": "بعد از تعویض گوشی، ورود به حسابم کد دستگاه قبلی را می‌خواهد؛ چگونه دسترسی را برگردانم؟",
+      "relevant": {
+        "fa-retrieval-20-p": 1
+      },
+      "contrast": "fa-retrieval-20-n"
+    },
+    {
+      "id": "en-retrieval-20",
+      "lang": "en",
+      "category": "retrieval",
+      "text": "After replacing my phone, my account asks for a code from the old device. How can I regain access?",
+      "relevant": {
+        "en-retrieval-20-p": 1
+      },
+      "contrast": "en-retrieval-20-n"
+    },
+    {
+      "id": "fa-retrieval-21",
+      "lang": "fa",
+      "category": "retrieval",
+      "text": "صفحه هر بار همان فهرست قدیمی را نشان می‌دهد، حتی وقتی رکوردها عوض شده‌اند.",
+      "relevant": {
+        "fa-retrieval-21-p": 1
+      },
+      "contrast": "fa-retrieval-21-n"
+    },
+    {
+      "id": "en-retrieval-21",
+      "lang": "en",
+      "category": "retrieval",
+      "text": "The page keeps showing the old list even after its records have changed.",
+      "relevant": {
+        "en-retrieval-21-p": 1
+      },
+      "contrast": "en-retrieval-21-n"
+    },
+    {
+      "id": "fa-retrieval-22",
+      "lang": "fa",
+      "category": "retrieval",
+      "text": "وقتی دوباره روی پرداخت می‌زنم، نباید همان سفارش دو بار از حسابم کم کند.",
+      "relevant": {
+        "fa-retrieval-22-p": 1
+      },
+      "contrast": "fa-retrieval-22-n"
+    },
+    {
+      "id": "en-retrieval-22",
+      "lang": "en",
+      "category": "retrieval",
+      "text": "Clicking pay again must not charge my account twice for the same order.",
+      "relevant": {
+        "en-retrieval-22-p": 1
+      },
+      "contrast": "en-retrieval-22-n"
+    },
+    {
+      "id": "fa-retrieval-23",
+      "lang": "fa",
+      "category": "retrieval",
+      "text": "می‌خواهم برنامه بدون منتظر ماندن برای ارسال نامه به کاربر پاسخ بدهد.",
+      "relevant": {
+        "fa-retrieval-23-p": 1
+      },
+      "contrast": "fa-retrieval-23-n"
+    },
+    {
+      "id": "en-retrieval-23",
+      "lang": "en",
+      "category": "retrieval",
+      "text": "I want the application to respond without waiting for the email to be sent.",
+      "relevant": {
+        "en-retrieval-23-p": 1
+      },
+      "contrast": "en-retrieval-23-n"
+    }
+  ]
+}
