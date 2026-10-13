@@ -1,4 +1,4 @@
-// main.js — ternlight docs-search demo (browser, ESM, no bundler)
+// main.js — ternava Iran history search (browser, ESM, no bundler)
 //
 // Two phases:
 //   1. INDEXING — load wasm, fetch chunks, embed each one, live counters
@@ -40,17 +40,13 @@ const $infoBundle      = $('info-bundle');
 const $infoInit        = $('info-init');
 const $infoTput        = $('info-tput');
 
-// (Network-tracking shim removed — the PACKAGE block now states "cached
-// after load" categorically. Live counters would invite questions about
-// react.dev click-throughs that aren't actually re-fetches of our bundle.)
-
 // ── Cosine similarity ─────────────────────────────────────────────────────
 
 function cosine(a, b) {
     let dot = 0;
     const len = a.length;
     for (let i = 0; i < len; i++) dot += a[i] * b[i];
-    return dot;   // ternlight outputs are L2-normalized → dot == cosine
+    return dot;   // ternava outputs are L2-normalized → dot == cosine
 }
 
 // ── Parse engine config_summary string ────────────────────────────────────
@@ -82,7 +78,7 @@ let LAST_QUERY_VEC = null; // most recent query embedding (for copy-button)
 // ── Boot ──────────────────────────────────────────────────────────────────
 
 (async function boot() {
-    $indexAction.textContent = 'Loading the engine…';
+    $indexAction.textContent = 'در حال بارگیری موتور…';
     const wasmStart = performance.now();
     await init();
     WASM_INIT_MS = Math.round(performance.now() - wasmStart);
@@ -91,11 +87,13 @@ let LAST_QUERY_VEC = null; // most recent query embedding (for copy-button)
 
     // (info-output-dim was removed from the HTML; nothing to update here now)
 
-    $indexAction.textContent = 'Fetching corpus…';
-    const corpusResp = await fetch('./chunks.json');
+    $indexAction.textContent = 'در حال دریافت متن‌ها…';
+    const corpusResp = await fetch('./chunks.json', { cache: 'no-store' });
+    if (!corpusResp.ok) throw new Error('دریافت متن‌های نمونه ناموفق بود.');
     CORPUS = await corpusResp.json();
-    $statCount.textContent = `0 / ${CORPUS.length.toLocaleString()}`;
-    $indexAction.textContent = 'Embedding…';
+    $('corpus-count').textContent = CORPUS.length.toLocaleString('fa-IR');
+    $statCount.textContent = `0 / ${CORPUS.length.toLocaleString('fa-IR')}`;
+    $indexAction.textContent = 'در حال ساخت بردارها…';
 
     // HEAD request for wasm bytes — we surface the actual size in PACKAGE.
     fetch('./wasm/tern_engine_bg.wasm', { method: 'HEAD' })
@@ -110,13 +108,13 @@ let LAST_QUERY_VEC = null; // most recent query embedding (for copy-button)
 })().catch(err => {
     console.error(err);
     $indexingPhase.innerHTML = `
-        <p class="indexing-status" style="color:var(--accent)">DEMO FAILED TO LOAD</p>
+        <p class="indexing-status" style="color:var(--accent)">بارگیری نمونه انجام نشد</p>
         <p style="text-align:center; color:var(--ink); font-weight:600; font-size:20px; margin-bottom:18px">
             ${escapeHtml(err.message)}
         </p>
         <p style="text-align:center; color:var(--ink-mute); font-size:13px">
-            Wasm modules need an HTTP server — open this page via a server,
-            not via file://. See the README for the one-line command.
+            صفحه را با یک سرور محلی باز کنید؛ بازکردن مستقیم فایل کافی نیست.
+            دستور اجرا در راهنما آمده است.
         </p>`;
 });
 
@@ -140,9 +138,9 @@ async function indexCorpus() {
         const elapsed = (performance.now() - start) / 1000;
         const tput    = Math.round(done / Math.max(elapsed, 0.001));
 
-        $statCount.textContent = `${done.toLocaleString()} / ${N.toLocaleString()}`;
-        $statTput.innerHTML    = `${tput.toLocaleString()} <span class="stat-unit">emb/sec</span>`;
-        $statElapsed.innerHTML = `${elapsed.toFixed(1)} <span class="stat-unit">s</span>`;
+        $statCount.textContent = `${done.toLocaleString('fa-IR')} / ${N.toLocaleString('fa-IR')}`;
+        $statTput.innerHTML    = `${tput.toLocaleString('fa-IR')} <span class="stat-unit">بردار/ثانیه</span>`;
+        $statElapsed.innerHTML = `${elapsed.toLocaleString('fa-IR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} <span class="stat-unit">ثانیه</span>`;
         $progressFill.style.width = `${(done / N) * 100}%`;
 
         if (performance.now() - lastFrame > 16) {
@@ -160,22 +158,22 @@ function finishIndexing() {
     const N = CORPUS.length;
 
     // Populate info pane
-    $infoEmb.innerHTML      = `${CONFIG.embedding_format} <span class="muted">(per-row PTQ)</span>`;
-    $infoLayers.textContent = CONFIG.n_layers;
-    $infoHeads.textContent  = CONFIG.n_heads;
-    $infoDmodel.textContent = CONFIG.d_model;
-    $infoOutput.textContent = `${CONFIG.output_dim} dims`;
-    $infoMaxseq.textContent = `${CONFIG.max_seq_len} tokens`;
+    $infoEmb.innerHTML      = `${CONFIG.embedding_format} <span class="muted">(کوانتیزه‌سازی سطری)</span>`;
+    $infoLayers.textContent = CONFIG.n_layers.toLocaleString('fa-IR');
+    $infoHeads.textContent  = CONFIG.n_heads.toLocaleString('fa-IR');
+    $infoDmodel.textContent = CONFIG.d_model.toLocaleString('fa-IR');
+    $infoOutput.textContent = `${CONFIG.output_dim.toLocaleString('fa-IR')} بُعد`;
+    $infoMaxseq.textContent = `${CONFIG.max_seq_len.toLocaleString('fa-IR')} توکن`;
 
     // PACKAGE block
     if (WASM_BYTES > 0) {
-        const mb = (WASM_BYTES / 1024 / 1024).toFixed(1);
-        $infoBundle.textContent = `${mb} MB`;
+        const mb = (WASM_BYTES / 1024 / 1024).toLocaleString('fa-IR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+        $infoBundle.textContent = `${mb} مگابایت`;
     } else {
-        $infoBundle.textContent = '— MB';
+        $infoBundle.textContent = '— مگابایت';
     }
-    $infoInit.textContent = `${WASM_INIT_MS} ms`;
-    $infoTput.textContent = `~${FINAL_TPUT.toLocaleString()} emb/sec`;
+    $infoInit.textContent = `${WASM_INIT_MS.toLocaleString('fa-IR')} میلی‌ثانیه`;
+    $infoTput.textContent = `~${FINAL_TPUT.toLocaleString('fa-IR')} بردار/ثانیه`;
 
     // Swap the indexing phase for the search phase
     $indexingPhase.classList.add('hidden');
@@ -230,8 +228,8 @@ function runSearch() {
     scored.sort((a, b) => b.score - a.score);
     const top = scored.slice(0, TOP_K);
 
-    const embedStr = embedMs.toFixed(1);
-    $latencyBadge.textContent = `${embedStr} ms`;
+    const embedStr = embedMs.toLocaleString('fa-IR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    $latencyBadge.textContent = `${embedStr} میلی‌ثانیه`;
     $latencyBig.textContent   = embedStr;
 
     // Cache the query vector so the Copy button can grab it
@@ -254,41 +252,38 @@ $copyBtn.addEventListener('click', async () => {
         await navigator.clipboard.writeText(formatted);
         $copyBtn.classList.add('copied');
         $copyBtn.querySelector('.copy-btn-label').textContent =
-            `Copied ${LAST_QUERY_VEC.length} floats`;
+            `${LAST_QUERY_VEC.length.toLocaleString('fa-IR')} عدد کپی شد`;
         setTimeout(() => {
             $copyBtn.classList.remove('copied');
             $copyBtn.querySelector('.copy-btn-label').textContent =
-                'Copy query embedding';
+                'کپی بردار پرسش';
         }, 1600);
     } catch (err) {
         console.warn('Clipboard write failed:', err);
+        $copyBtn.querySelector('.copy-btn-label').textContent = 'کپی انجام نشد؛ دوباره تلاش کنید';
     }
 });
 
 function renderEmpty() {
-    $results.innerHTML = '';
+    $results.innerHTML = '<p class="empty-state">پرسشتان را بنویسید یا یکی از پیشنهادها را انتخاب کنید.</p>';
 }
 
 function renderResults(top) {
     if (top.length === 0) {
-        $results.innerHTML = '<div class="empty-state">No matches.</div>';
+        $results.innerHTML = '<div class="empty-state">نتیجه‌ای پیدا نشد.</div>';
         return;
     }
 
     const html = top.map(({ idx, score }) => {
         const item = CORPUS[idx];
-        // Breadcrumb + "Open on react.dev" line both omitted — the whole card
-        // is already a link, and the breadcrumb visual was distracting.
-        // (Breadcrumb is still prepended to `text` at index time so the
-        // embedding has semantic section context — that's why matches are
-        // accurate even without it shown.)
         const snippet = stripBreadcrumbPrefix(item.text, item.breadcrumb);
         return `
             <a class="result-card" href="${escapeAttr(item.url)}" target="_blank" rel="noopener noreferrer">
                 <div class="card-top">
                     <div class="card-title">${escapeHtml(item.title)}</div>
-                    <div class="card-score">cosine <span class="card-score-value">${score.toFixed(3)}</span></div>
+                    <div class="card-score">شباهت <span class="card-score-value">${score.toLocaleString('fa-IR', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}</span></div>
                 </div>
+                <div class="card-source">${escapeHtml(item.period)} · منبع: ویکی‌پدیا ↗</div>
                 <div class="card-snippet">${escapeHtml(snippet)}</div>
             </a>`;
     }).join('');

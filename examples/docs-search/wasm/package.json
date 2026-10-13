@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/soycaporal/ternlight"
+    "url": "https://github.com/ali-master/ternava"
   },
   "files": [
     "tern_engine_bg.wasm",

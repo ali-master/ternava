@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="On-device sentence embeddings — engine, weights, and tokenizer in 7 MB of WASM. Search the React docs entirely on your CPU." />
-  <title>ternlight · semantic search · React docs</title>
+  <meta name="description" content="جست‌وجو در روایت‌های کوتاه و خودمانی تاریخ ایران، از هخامنشیان تا پهلوی پیش از ۱۳۵۷؛ برگرفته از ویکی‌پدیا." />
+  <title>ترنوا · گشت‌وگذار در تاریخ ایران</title>
+  <link rel="preload" href="fonts/estedad-variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -17,28 +18,28 @@
          ─────────────────────────────────────────────────────────────────── -->
     <header class="page-header">
 
-      <h1 class="hero-title">Ternlight</h1>
+      <h1 class="hero-title">ترنوا</h1>
       <div class="hero-tagline">
-        <p>An embedding model in <span class="accent">7 MB</span>.</p>
-        <p>Runs on your <span class="accent">CPU</span>. <span class="accent">No API</span>.</p>
+        <p>مدل بردارسازی متن، در <span class="accent">چند مگابایت</span>.</p>
+        <p>روی <span class="accent">دستگاه شما</span>، <span class="accent">بدون API</span>.</p>
       </div>
-      <p class="hero-pitch">Drop it in, embed text in milliseconds, and never call a server.</p>
+      <p class="hero-pitch">متن را در مرورگر به بردار تبدیل کنید؛ بدون ارسال پرسش‌ها به سرور.</p>
 
       <div class="hero-cards">
 
         <article class="hero-card">
-          <p class="hero-card-line">Runs in your browser</p>
-          <p class="hero-card-sub">no API call</p>
+          <p class="hero-card-line">اجرا در مرورگر شما</p>
+          <p class="hero-card-sub">بدون درخواست به سرویس هوش مصنوعی</p>
         </article>
 
         <article class="hero-card">
-          <p class="hero-card-line">Engine + weights · <span class="hero-card-em">7 MB</span></p>
-          <p class="hero-card-sub">mini variant · 5 MB</p>
+          <p class="hero-card-line">موتور و وزن‌ها · <span class="hero-card-em">یک فایل</span></p>
+          <p class="hero-card-sub">نسخهٔ کوچک mini</p>
         </article>
 
         <article class="hero-card">
-          <p class="hero-card-line">Fast embeddings · <span class="hero-card-em">~5 ms</span></p>
-          <p class="hero-card-sub">CPU only · no GPU</p>
+          <p class="hero-card-line">بردارسازی · <span class="hero-card-em">روی دستگاه</span></p>
+          <p class="hero-card-sub">با پردازندهٔ مرکزی؛ بدون نیاز به GPU</p>
         </article>
 
       </div>
@@ -46,49 +47,50 @@
       <!-- ── USE IT — install + minimal example, links out to npm/GitHub ── -->
       <section class="use-it">
         <div class="use-it-left">
-          <p class="use-it-kicker">USE IT</p>
-          <h2 class="use-it-headline">Three lines to semantic&nbsp;search</h2>
-          <p class="use-it-sub">Ships as a single npm package. No model download step, no server.</p>
+          <p class="use-it-kicker">شروع کنید</p>
+          <h2 class="use-it-headline">چند خط تا جست‌وجوی معنایی</h2>
+          <p class="use-it-sub">پکیج را نصب کنید و بردار متن را بگیرید. مدل همراه پکیج است.</p>
           <div class="use-it-actions">
-            <a class="use-it-btn" href="https://www.npmjs.com/package/@ternlight/base"
+            <a class="use-it-btn" href="https://www.npmjs.com/package/@usex/ternava"
                target="_blank" rel="noopener noreferrer">npm <span class="use-it-arrow">↗</span></a>
-            <a class="use-it-btn" href="https://github.com/soycaporal/ternlight"
+            <a class="use-it-btn" href="https://github.com/ali-master/ternava"
                target="_blank" rel="noopener noreferrer">GitHub <span class="use-it-arrow">↗</span></a>
           </div>
         </div>
         <div class="use-it-right">
           <div class="code-block code-block-cmd">
             <span class="code-prompt">$</span>
-            <code>npm install @ternlight/base</code>
-            <button class="copy-btn" type="button" data-copy="npm install @ternlight/base"
-                    aria-label="Copy install command">⧉</button>
+            <code>npm install @usex/ternava</code>
+            <button class="copy-btn" type="button" data-copy="npm install @usex/ternava"
+                    aria-label="کپی دستور نصب">⧉</button>
           </div>
           <div class="code-block code-block-file">
             <div class="code-block-header">
               <span class="code-filename">example.js</span>
               <button class="copy-btn" type="button"
-                      data-copy="import { embed, similar } from '@ternlight/base';
+                      data-copy="import { embed } from '@usex/ternava';
 
-similar('easy weeknight dinner ideas', recipes, { topK: 3 });
-// → ranked matches · ~5 ms · zero network"
-                      aria-label="Copy example code">⧉</button>
+const vector = embed('راه شاهی برای چی ساخته شد؟');
+// بردار متن، بدون ارسال به سرور"
+                      aria-label="کپی کد نمونه">⧉</button>
             </div>
-            <pre class="code-body"><code><span class="tok-kw">import</span> { <span class="tok-fn">embed</span>, <span class="tok-fn">similar</span> } <span class="tok-kw">from</span> <span class="tok-str">'@ternlight/base'</span>;
+            <pre class="code-body"><code><span class="tok-kw">import</span> { <span class="tok-fn">embed</span> } <span class="tok-kw">from</span> <span class="tok-str">'@usex/ternava'</span>;
 
-<span class="tok-fn">similar</span>(<span class="tok-str">'easy weeknight dinner ideas'</span>, recipes, { topK: <span class="tok-num">3</span> });
-<span class="tok-comment">// → ranked matches · ~5 ms · zero network</span></code></pre>
+<span class="tok-kw">const</span> vector = <span class="tok-fn">embed</span>(<span class="tok-str">'راه شاهی برای چی ساخته شد؟'</span>);
+<span class="tok-comment">// بردار متن، بدون ارسال به سرور</span></code></pre>
           </div>
         </div>
       </section>
 
       <div class="example-section">
-        <p class="example-kicker">EXAMPLE</p>
-        <h2 class="example-headline">React docs search</h2>
+        <p class="example-kicker">روایت‌های کوتاه از یک تاریخ بلند</p>
+        <h2 class="example-headline">گشت‌وگذار در تاریخ ایران</h2>
         <p class="example-text">
-          Search React's docs in your browser. Type a question — powered by
-          <a href="https://www.npmjs.com/package/@ternlight/mini" target="_blank" rel="noopener noreferrer">@ternlight/mini</a>,
-          the 5&nbsp;MB tier.
+          از هخامنشیان تا پهلوی، پیش از سال ۱۳۵۷؛ <span id="corpus-count">—</span> روایت دربارهٔ
+          شاهان، شهرها، علم، هنر و زندگی مردم، با زبان خودمونی و بر پایهٔ ویکی‌پدیا.
+          هر نتیجه رو باز کنید تا به منبعش برسید. جست‌وجو روی همین دستگاه انجام می‌شه.
         </p>
+      <p class="model-note">این نسخه از مدل انگلیسی فعلی استفاده می‌کند؛ کیفیت جست‌وجوی فارسی هنوز تأیید نشده است.</p>
       </div>
 
     </header>
@@ -98,7 +100,7 @@ similar('easy weeknight dinner ideas', recipes, { topK: 3 });
          ─────────────────────────────────────────────────────────────────── -->
     <section id="indexing-phase" class="indexing-phase">
       <p class="indexing-status">
-        <span id="indexing-action">Loading the engine…</span>
+        <span id="indexing-action">در حال بارگیری موتور…</span>
       </p>
 
       <div class="progress">
@@ -107,16 +109,16 @@ similar('easy weeknight dinner ideas', recipes, { topK: 3 });
 
       <div class="indexing-stats">
         <div class="stat">
-          <div class="stat-value" id="stat-count">0 / 0</div>
-          <div class="stat-label">CHUNKS</div>
+          <div class="stat-value" id="stat-count">۰ / ۰</div>
+          <div class="stat-label">بخش‌های متن</div>
         </div>
         <div class="stat stat-throughput">
-          <div class="stat-value" id="stat-tput">— <span class="stat-unit">emb/sec</span></div>
-          <div class="stat-label">ON YOUR CPU</div>
+          <div class="stat-value" id="stat-tput">— <span class="stat-unit">بردار/ثانیه</span></div>
+          <div class="stat-label">روی پردازندهٔ شما</div>
         </div>
         <div class="stat">
-          <div class="stat-value" id="stat-elapsed">0.0 <span class="stat-unit">s</span></div>
-          <div class="stat-label">ELAPSED</div>
+          <div class="stat-value" id="stat-elapsed">۰٫۰ <span class="stat-unit">ثانیه</span></div>
+          <div class="stat-label">زمان سپری‌شده</div>
         </div>
       </div>
     </section>
@@ -129,12 +131,12 @@ similar('easy weeknight dinner ideas', recipes, { topK: 3 });
       <section class="content">
 
         <div class="search-row">
-          <span class="search-prefix">›</span>
+          <span class="search-prefix" aria-hidden="true">‹</span>
           <input
             id="query"
             class="query-input"
             type="text"
-            placeholder="how do I run something when state changes"
+            aria-label="جست‌وجو در تاریخ ایران" dir="auto" placeholder="مثلاً راه شاهی برای چی ساخته شد؟"
             autocomplete="off"
             spellcheck="false"
           />
@@ -142,54 +144,54 @@ similar('easy weeknight dinner ideas', recipes, { topK: 3 });
         </div>
 
         <div class="try-queries">
-          <span class="try-label">ASK</span>
-          <button class="try-q" data-q="share state across components">share state across components</button>
-          <button class="try-q" data-q="skip a re-render">skip a re-render</button>
-          <button class="try-q" data-q="run code after render">run code after render</button>
-          <button class="try-q" data-q="avoid prop drilling">avoid prop drilling</button>
-          <button class="try-q" data-q="form input value">form input value</button>
+          <span class="try-label">امتحان کنید</span>
+          <button class="try-q" data-q="راه شاهی برای چی ساخته شد؟">راه شاهی</button>
+          <button class="try-q" data-q="خیام غیر از شعر چه کارهایی می‌کرد؟">خیام و علم</button>
+          <button class="try-q" data-q="دور میدان نقش‌جهان چه بناهایی ساخته شد؟">اصفهان صفوی</button>
+          <button class="try-q" data-q="امیرکبیر دارالفنون رو برای چی راه انداخت؟">دارالفنون</button>
+          <button class="try-q" data-q="راه‌آهن سراسری شمال رو چطور به جنوب وصل کرد؟">راه‌آهن سراسری</button>
         </div>
 
-        <div id="results" class="results"></div>
+        <div id="results" class="results" aria-live="polite"></div>
 
       </section>
 
       <aside class="info-pane">
 
         <div class="info-block">
-          <p class="info-block-label">EMBED LATENCY</p>
+          <p class="info-block-label">زمان بردارسازی</p>
           <div class="info-block-value">
-            <span id="latency-big">—</span><span class="info-unit">ms</span>
+            <span id="latency-big">—</span><span class="info-unit">میلی‌ثانیه</span>
           </div>
-          <p class="info-block-sub">single <code>embed()</code> call <span class="muted">(@ternlight/mini)</span></p>
+          <p class="info-block-sub">یک بار فراخوانی <code dir="ltr">embed()</code> <span class="muted">(@usex/ternava)</span></p>
           <button id="copy-vector" class="copy-btn" disabled type="button">
             <span class="copy-btn-icon">⧉</span>
-            <span class="copy-btn-label">Copy query embedding</span>
+            <span class="copy-btn-label">کپی بردار پرسش</span>
           </button>
         </div>
 
         <div class="info-block">
-          <p class="info-block-label">MODEL</p>
+          <p class="info-block-label">مدل</p>
           <dl class="info-list">
-            <dt>Embedding</dt>         <dd id="info-emb">—</dd>
-            <dt>Linear weights</dt>    <dd>ternary <span class="muted">(BitLinear)</span></dd>
-            <dt>Transformer layers</dt><dd id="info-layers">—</dd>
-            <dt>Attention heads</dt>   <dd id="info-heads">—</dd>
-            <dt>d_model</dt>           <dd id="info-dmodel">—</dd>
-            <dt>Output</dt>            <dd id="info-output">—</dd>
-            <dt>Max input</dt>         <dd id="info-maxseq">—</dd>
+            <dt>جدول بردارها</dt>         <dd id="info-emb">—</dd>
+            <dt>وزن‌های خطی</dt>    <dd>سه‌مقداری <span class="muted">(BitLinear)</span></dd>
+            <dt>لایه‌های ترنسفورمر</dt><dd id="info-layers">—</dd>
+            <dt>سرهای توجه</dt>   <dd id="info-heads">—</dd>
+            <dt>ابعاد داخلی</dt>           <dd id="info-dmodel">—</dd>
+            <dt>خروجی</dt>            <dd id="info-output">—</dd>
+            <dt>حداکثر ورودی</dt>         <dd id="info-maxseq">—</dd>
           </dl>
         </div>
 
         <div class="info-block">
-          <p class="info-block-label">PACKAGE</p>
+          <p class="info-block-label">بستهٔ اجرایی</p>
           <dl class="info-list">
-            <dt>Runs on</dt>        <dd><a href="https://www.npmjs.com/package/@ternlight/mini" target="_blank" rel="noopener noreferrer">@ternlight/mini&nbsp;↗</a></dd>
-            <dt>Bundle</dt>         <dd id="info-bundle">—</dd>
-            <dt>Engine init</dt>    <dd id="info-init">—</dd>
-            <dt>Throughput</dt>     <dd id="info-tput">—</dd>
-            <dt>License</dt>        <dd>MIT</dd>
-            <dt>After first load</dt><dd>cached <span class="muted">(0 network)</span></dd>
+            <dt>پکیج</dt>        <dd><a href="https://www.npmjs.com/package/@usex/ternava" target="_blank" rel="noopener noreferrer" dir="ltr">@usex/ternava&nbsp;↗</a></dd>
+            <dt>حجم فایل</dt>         <dd id="info-bundle">—</dd>
+            <dt>راه‌اندازی موتور</dt>    <dd id="info-init">—</dd>
+            <dt>سرعت پردازش</dt>     <dd id="info-tput">—</dd>
+            <dt>مجوز</dt>        <dd>MIT</dd>
+            <dt>هنگام جست‌وجو</dt><dd>محلی <span class="muted">(بدون شبکه)</span></dd>
           </dl>
         </div>
 
@@ -200,16 +202,15 @@ similar('easy weeknight dinner ideas', recipes, { topK: 3 });
   </main>
 
   <footer class="footer">
-    React docs from
-    <a href="https://github.com/reactjs/react.dev" target="_blank" rel="noopener noreferrer">reactjs/react.dev</a>
-    · CC BY 4.0 · Demo built with
-    <a href="https://github.com/soycaporal/ternlight" target="_blank" rel="noopener noreferrer">ternlight</a>
+    متن‌ها: ترجمه، خلاصه‌سازی و بازنویسی محاوره‌ای از مشارکت‌کنندگان ویکی‌پدیا
+    · <a href="sources.wikipedia.json" target="_blank" rel="noopener noreferrer">منابع و نسخهٔ مقاله‌ها</a>
+    · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer" dir="ltr">CC BY-SA 4.0</a>
+    · ساخته‌شده با
+    <a href="https://github.com/ali-master/ternava" target="_blank" rel="noopener noreferrer">ternava</a>
   </footer>
 
   <script type="module" src="main.js"></script>
-  <!-- Vercel Web Analytics (cookieless page views). The /_vercel/ route only
-       exists on the deployed site — locally this 404s silently, harmless. -->
-  <script defer src="/_vercel/insights/script.js"></script>
+
   <script>
     // USE IT card — copy-to-clipboard buttons, flash confirmation.
     (function () {
