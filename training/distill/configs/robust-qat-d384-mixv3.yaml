@@ -9,7 +9,7 @@
 # Wall-clock estimate (RTX 4090, from measured pilot 68s/epoch at 250k):
 # ~4.5-5 min/epoch at ~1M → 40 epochs ≈ 3-3.5 h.
 
-wandb_project: ternlight-micro
+wandb_project: ternava-micro
 wandb_group: robust-d384-mixv3
 wandb_tags:
   - tier:small

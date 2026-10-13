@@ -1,7 +1,7 @@
 # Smoke config — validates the pipeline end-to-end in ~1 minute on M-series.
 # Use this before kicking off the full 1M run to catch pipeline bugs cheaply.
 
-wandb_project: ternlight-micro
+wandb_project: ternava-micro
 wandb_group: smoke
 wandb_tags:
   - tier:micro

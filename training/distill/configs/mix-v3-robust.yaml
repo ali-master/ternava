@@ -12,7 +12,7 @@
 # VERIFY the sanity dashboard before training: total ≥ ~1.0M and no source
 # wildly below target. Quora at ~0.09 of 1.15M ≈ its full capacity by design.
 
-wandb_project: ternlight-micro
+wandb_project: ternava-micro
 wandb_group: mix-v3-robust
 wandb_tags:
   - tier:small

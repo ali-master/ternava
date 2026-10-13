@@ -4,7 +4,7 @@
 #   shipped d256 (qat-resume ep40, int8): test/spearman 0.8278, ndcg@10 0.4504,
 #   recall@5 0.5131, recall@10 0.5969  (Stage A, tern-training-pipeline.md)
 
-wandb_project: ternlight-micro
+wandb_project: ternava-micro
 wandb_group: robust-d384-mixv3
 wandb_tags:
   - tier:small

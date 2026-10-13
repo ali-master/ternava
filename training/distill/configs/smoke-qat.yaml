@@ -3,7 +3,7 @@
 # monitoring on the smoke_1k cache. Trains from scratch (no warm-start) — the
 # point is to exercise the wiring, not to produce a useful model.
 
-wandb_project: ternlight-micro
+wandb_project: ternava-micro
 wandb_group: smoke
 wandb_tags:
   - tier:micro

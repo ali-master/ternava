@@ -18,7 +18,7 @@
 #
 # Expected first epoch: val_spearman ~0.79 (matches local ep11=0.7903 ± noise)
 
-wandb_project: ternlight-micro
+wandb_project: ternava-micro
 wandb_group: msmarco-mix-1M-d256
 wandb_tags:
   - tier:micro

@@ -2,7 +2,7 @@
 # 1M samples, 3-source mix, micro architecture (d_model=256).
 # Wall-clock on M-series: teacher encoding ~12-15 min, rest of prep is fast.
 
-wandb_project: ternlight-micro
+wandb_project: ternava-micro
 wandb_group: msmarco-mix-1M-d256
 wandb_tags:
   - tier:micro

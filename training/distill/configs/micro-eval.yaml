@@ -7,7 +7,7 @@
 #
 # Efficiency metrics live in root eval/ and Phase 5, not here.
 
-wandb_project: ternlight-micro
+wandb_project: ternava-micro
 wandb_group: msmarco-mix-1M-d256
 wandb_tags:
   - tier:micro

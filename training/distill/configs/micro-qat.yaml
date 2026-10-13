@@ -12,7 +12,7 @@
 #
 # Wall-clock estimate on M-series: ~8-9 min/epoch × 40 ≈ 5.5-6 hours.
 
-wandb_project: ternlight-micro
+wandb_project: ternava-micro
 wandb_group: msmarco-mix-1M-d256
 wandb_tags:
   - tier:micro

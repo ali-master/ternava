@@ -2,7 +2,7 @@
 # Trains 2 epochs on the existing smoke_1k cache. Use this before kicking off
 # the real micro-fp32.yaml run to catch wiring bugs cheaply.
 
-wandb_project: ternlight-micro
+wandb_project: ternava-micro
 wandb_group: smoke
 wandb_tags:
   - tier:micro
