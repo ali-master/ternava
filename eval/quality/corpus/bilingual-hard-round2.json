@@ -1,0 +1,727 @@
+{
+  "scope": "Round-two authored held-out challenge; frozen before training. Not used for validation or checkpoint selection.",
+  "corpus": [
+    {
+      "id": "fa-negation-0-p",
+      "lang": "fa",
+      "text": "گوینده متعهد شده فایل را نگه دارد."
+    },
+    {
+      "id": "fa-negation-0-n",
+      "lang": "fa",
+      "text": "گوینده متعهد شده فایل را حذف کند."
+    },
+    {
+      "id": "en-negation-0-p",
+      "lang": "en",
+      "text": "The speaker committed to keeping the file."
+    },
+    {
+      "id": "en-negation-0-n",
+      "lang": "en",
+      "text": "The speaker committed to deleting the file."
+    },
+    {
+      "id": "fa-negation-1-n",
+      "lang": "fa",
+      "text": "مصرف دارو همچنان ادامه دارد."
+    },
+    {
+      "id": "fa-negation-1-p",
+      "lang": "fa",
+      "text": "مصرف دارو در گذشته وجود داشت و اکنون متوقف شده است."
+    },
+    {
+      "id": "en-negation-1-n",
+      "lang": "en",
+      "text": "Medication is still being taken."
+    },
+    {
+      "id": "en-negation-1-p",
+      "lang": "en",
+      "text": "Medication was taken in the past but has now stopped."
+    },
+    {
+      "id": "fa-negation-2-p",
+      "lang": "fa",
+      "text": "ورود به اتاق بایگانی ممنوع است."
+    },
+    {
+      "id": "fa-negation-2-n",
+      "lang": "fa",
+      "text": "ورود به اتاق بایگانی مجاز است."
+    },
+    {
+      "id": "en-negation-2-p",
+      "lang": "en",
+      "text": "Visitors cannot enter the archive."
+    },
+    {
+      "id": "en-negation-2-n",
+      "lang": "en",
+      "text": "Visitors can enter the archive."
+    },
+    {
+      "id": "fa-negation-3-n",
+      "lang": "fa",
+      "text": "هیچ فردی گزارش را نخوانده است."
+    },
+    {
+      "id": "fa-negation-3-p",
+      "lang": "fa",
+      "text": "دست‌کم یک نفر گزارش را خوانده است."
+    },
+    {
+      "id": "en-negation-3-n",
+      "lang": "en",
+      "text": "Nobody has read the report."
+    },
+    {
+      "id": "en-negation-3-p",
+      "lang": "en",
+      "text": "At least one person has read the report."
+    },
+    {
+      "id": "fa-negation-4-p",
+      "lang": "fa",
+      "text": "بدون مدرک نمی‌توان وقوع تقلب را رد کرد."
+    },
+    {
+      "id": "fa-negation-4-n",
+      "lang": "fa",
+      "text": "نبود مدرک نشان می‌دهد قطعاً تقلبی رخ نداده است."
+    },
+    {
+      "id": "en-negation-4-p",
+      "lang": "en",
+      "text": "Cheating cannot be ruled out solely because evidence is missing."
+    },
+    {
+      "id": "en-negation-4-n",
+      "lang": "en",
+      "text": "Missing evidence proves that cheating did not happen."
+    },
+    {
+      "id": "fa-negation-5-n",
+      "lang": "fa",
+      "text": "نخوردن غذا به دلیل کیفیت بد آن است."
+    },
+    {
+      "id": "fa-negation-5-p",
+      "lang": "fa",
+      "text": "نخوردن غذا به دلیل حساسیت به بادام است."
+    },
+    {
+      "id": "en-negation-5-n",
+      "lang": "en",
+      "text": "The food is refused because it tastes bad."
+    },
+    {
+      "id": "en-negation-5-p",
+      "lang": "en",
+      "text": "The food is refused because of an almond allergy."
+    },
+    {
+      "id": "fa-numbers-0-p",
+      "lang": "fa",
+      "text": "مبلغ درخواست از سقف مجاز بیشتر است."
+    },
+    {
+      "id": "fa-numbers-0-n",
+      "lang": "fa",
+      "text": "مبلغ درخواست از سقف مجاز کمتر است."
+    },
+    {
+      "id": "en-numbers-0-p",
+      "lang": "en",
+      "text": "The requested amount is above the allowed limit."
+    },
+    {
+      "id": "en-numbers-0-n",
+      "lang": "en",
+      "text": "The requested amount is below the allowed limit."
+    },
+    {
+      "id": "fa-numbers-1-n",
+      "lang": "fa",
+      "text": "تعداد مهمان‌های حاضر سیزده نفر است."
+    },
+    {
+      "id": "fa-numbers-1-p",
+      "lang": "fa",
+      "text": "تعداد مهمان‌های حاضر هفت نفر است."
+    },
+    {
+      "id": "en-numbers-1-n",
+      "lang": "en",
+      "text": "Thirteen guests are present."
+    },
+    {
+      "id": "en-numbers-1-p",
+      "lang": "en",
+      "text": "Seven guests are present."
+    },
+    {
+      "id": "fa-numbers-2-p",
+      "lang": "fa",
+      "text": "شصت پرونده بررسی شده است."
+    },
+    {
+      "id": "fa-numbers-2-n",
+      "lang": "fa",
+      "text": "بیست پرونده بررسی شده است."
+    },
+    {
+      "id": "en-numbers-2-p",
+      "lang": "en",
+      "text": "Sixty cases have been reviewed."
+    },
+    {
+      "id": "en-numbers-2-n",
+      "lang": "en",
+      "text": "Twenty cases have been reviewed."
+    },
+    {
+      "id": "fa-numbers-3-n",
+      "lang": "fa",
+      "text": "قیمت نهایی صد و نود هزار تومان است."
+    },
+    {
+      "id": "fa-numbers-3-p",
+      "lang": "fa",
+      "text": "قیمت نهایی صد و هشتاد هزار تومان است."
+    },
+    {
+      "id": "en-numbers-3-n",
+      "lang": "en",
+      "text": "The final price is one hundred and ninety."
+    },
+    {
+      "id": "en-numbers-3-p",
+      "lang": "en",
+      "text": "The final price is one hundred and eighty."
+    },
+    {
+      "id": "fa-numbers-4-p",
+      "lang": "fa",
+      "text": "شارژ باتری سی واحد درصد بیشتر شده است."
+    },
+    {
+      "id": "fa-numbers-4-n",
+      "lang": "fa",
+      "text": "شارژ باتری سی واحد درصد کمتر شده است."
+    },
+    {
+      "id": "en-numbers-4-p",
+      "lang": "en",
+      "text": "The battery level increased by thirty percentage points."
+    },
+    {
+      "id": "en-numbers-4-n",
+      "lang": "en",
+      "text": "The battery level decreased by thirty percentage points."
+    },
+    {
+      "id": "fa-numbers-5-n",
+      "lang": "fa",
+      "text": "مهسا شرط سنی شرکت را دارد."
+    },
+    {
+      "id": "fa-numbers-5-p",
+      "lang": "fa",
+      "text": "مهسا شرط سنی شرکت را ندارد."
+    },
+    {
+      "id": "en-numbers-5-n",
+      "lang": "en",
+      "text": "Maya satisfies the age requirement."
+    },
+    {
+      "id": "en-numbers-5-p",
+      "lang": "en",
+      "text": "Maya does not satisfy the age requirement."
+    },
+    {
+      "id": "fa-role-order-0-p",
+      "lang": "fa",
+      "text": "آرمان برای رها نامه فرستاد."
+    },
+    {
+      "id": "fa-role-order-0-n",
+      "lang": "fa",
+      "text": "رها برای آرمان نامه فرستاد."
+    },
+    {
+      "id": "en-role-order-0-p",
+      "lang": "en",
+      "text": "Owen sent a letter to Clara."
+    },
+    {
+      "id": "en-role-order-0-n",
+      "lang": "en",
+      "text": "Clara sent a letter to Owen."
+    },
+    {
+      "id": "fa-role-order-1-n",
+      "lang": "fa",
+      "text": "نگار سامان را دعوت کرد."
+    },
+    {
+      "id": "fa-role-order-1-p",
+      "lang": "fa",
+      "text": "سامان نگار را دعوت کرد."
+    },
+    {
+      "id": "en-role-order-1-n",
+      "lang": "en",
+      "text": "Nora invited Felix."
+    },
+    {
+      "id": "en-role-order-1-p",
+      "lang": "en",
+      "text": "Felix invited Nora."
+    },
+    {
+      "id": "fa-role-order-2-p",
+      "lang": "fa",
+      "text": "مهندس از کارآموز کمک خواست."
+    },
+    {
+      "id": "fa-role-order-2-n",
+      "lang": "fa",
+      "text": "کارآموز از مهندس کمک خواست."
+    },
+    {
+      "id": "en-role-order-2-p",
+      "lang": "en",
+      "text": "The engineer asked the apprentice for help."
+    },
+    {
+      "id": "en-role-order-2-n",
+      "lang": "en",
+      "text": "The apprentice asked the engineer for help."
+    },
+    {
+      "id": "fa-role-order-3-n",
+      "lang": "fa",
+      "text": "مربی داور را سرزنش کرد."
+    },
+    {
+      "id": "fa-role-order-3-p",
+      "lang": "fa",
+      "text": "داور مربی را سرزنش کرد."
+    },
+    {
+      "id": "en-role-order-3-n",
+      "lang": "en",
+      "text": "The coach criticized the referee."
+    },
+    {
+      "id": "en-role-order-3-p",
+      "lang": "en",
+      "text": "The referee criticized the coach."
+    },
+    {
+      "id": "fa-role-order-4-p",
+      "lang": "fa",
+      "text": "ناشر به کتابفروش بدهکار است."
+    },
+    {
+      "id": "fa-role-order-4-n",
+      "lang": "fa",
+      "text": "کتابفروش به ناشر بدهکار است."
+    },
+    {
+      "id": "en-role-order-4-p",
+      "lang": "en",
+      "text": "The publisher owes the bookseller money."
+    },
+    {
+      "id": "en-role-order-4-n",
+      "lang": "en",
+      "text": "The bookseller owes the publisher money."
+    },
+    {
+      "id": "fa-role-order-5-n",
+      "lang": "fa",
+      "text": "پرستار بیمار را معرفی کرد."
+    },
+    {
+      "id": "fa-role-order-5-p",
+      "lang": "fa",
+      "text": "بیمار پرستار را معرفی کرد."
+    },
+    {
+      "id": "en-role-order-5-n",
+      "lang": "en",
+      "text": "The nurse introduced the patient."
+    },
+    {
+      "id": "en-role-order-5-p",
+      "lang": "en",
+      "text": "The patient introduced the nurse."
+    }
+  ],
+  "queries": [
+    {
+      "id": "fa-negation-0",
+      "lang": "fa",
+      "category": "negation",
+      "text": "قول ندادم که فایل را پاک کنم؛ قول دادم آن را پاک نکنم.",
+      "relevant": {
+        "fa-negation-0-p": 1
+      },
+      "contrast": "fa-negation-0-n"
+    },
+    {
+      "id": "en-negation-0",
+      "lang": "en",
+      "category": "negation",
+      "text": "I did not promise to erase the file; I promised not to erase it.",
+      "relevant": {
+        "en-negation-0-p": 1
+      },
+      "contrast": "en-negation-0-n"
+    },
+    {
+      "id": "fa-negation-1",
+      "lang": "fa",
+      "category": "negation",
+      "text": "دیگر هیچ دارویی مصرف نمی‌کند، هرچند قبلاً مصرف می‌کرد.",
+      "relevant": {
+        "fa-negation-1-p": 1
+      },
+      "contrast": "fa-negation-1-n"
+    },
+    {
+      "id": "en-negation-1",
+      "lang": "en",
+      "category": "negation",
+      "text": "She no longer takes any medicine, although she used to.",
+      "relevant": {
+        "en-negation-1-p": 1
+      },
+      "contrast": "en-negation-1-n"
+    },
+    {
+      "id": "fa-negation-2",
+      "lang": "fa",
+      "category": "negation",
+      "text": "جز اتاق بایگانی، ورود به همهٔ اتاق‌ها مجاز است.",
+      "relevant": {
+        "fa-negation-2-p": 1
+      },
+      "contrast": "fa-negation-2-n"
+    },
+    {
+      "id": "en-negation-2",
+      "lang": "en",
+      "category": "negation",
+      "text": "Every room except the archive is open to visitors.",
+      "relevant": {
+        "en-negation-2-p": 1
+      },
+      "contrast": "en-negation-2-n"
+    },
+    {
+      "id": "fa-negation-3",
+      "lang": "fa",
+      "category": "negation",
+      "text": "این‌طور نیست که هیچ‌کس گزارش را نخوانده باشد.",
+      "relevant": {
+        "fa-negation-3-p": 1
+      },
+      "contrast": "fa-negation-3-n"
+    },
+    {
+      "id": "en-negation-3",
+      "lang": "en",
+      "category": "negation",
+      "text": "It is not true that nobody has read the report.",
+      "relevant": {
+        "en-negation-3-p": 1
+      },
+      "contrast": "en-negation-3-n"
+    },
+    {
+      "id": "fa-negation-4",
+      "lang": "fa",
+      "category": "negation",
+      "text": "نبودنِ مدرک تقلب، اثباتِ نبودن تقلب نیست.",
+      "relevant": {
+        "fa-negation-4-p": 1
+      },
+      "contrast": "fa-negation-4-n"
+    },
+    {
+      "id": "en-negation-4",
+      "lang": "en",
+      "category": "negation",
+      "text": "An absence of evidence of cheating does not prove an absence of cheating.",
+      "relevant": {
+        "en-negation-4-p": 1
+      },
+      "contrast": "en-negation-4-n"
+    },
+    {
+      "id": "fa-negation-5",
+      "lang": "fa",
+      "category": "negation",
+      "text": "نه اینکه غذا بد باشد؛ من به بادام حساسیت دارم.",
+      "relevant": {
+        "fa-negation-5-p": 1
+      },
+      "contrast": "fa-negation-5-n"
+    },
+    {
+      "id": "en-negation-5",
+      "lang": "en",
+      "category": "negation",
+      "text": "It is not that the food is bad; I am allergic to almonds.",
+      "relevant": {
+        "en-negation-5-p": 1
+      },
+      "contrast": "en-negation-5-n"
+    },
+    {
+      "id": "fa-numbers-0",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "سقف برداشت هفتصد هزار است؛ درخواست نهصد هزار دارم.",
+      "relevant": {
+        "fa-numbers-0-p": 1
+      },
+      "contrast": "fa-numbers-0-n"
+    },
+    {
+      "id": "en-numbers-0",
+      "lang": "en",
+      "category": "numbers",
+      "text": "The withdrawal limit is seven hundred; I requested nine hundred.",
+      "relevant": {
+        "en-numbers-0-p": 1
+      },
+      "contrast": "en-numbers-0-n"
+    },
+    {
+      "id": "fa-numbers-1",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "ده مهمان دعوت شدند؛ سه نفر نیامدند و مهمان تازه‌ای اضافه نشد.",
+      "relevant": {
+        "fa-numbers-1-p": 1
+      },
+      "contrast": "fa-numbers-1-n"
+    },
+    {
+      "id": "en-numbers-1",
+      "lang": "en",
+      "category": "numbers",
+      "text": "Ten guests were invited; three did not come and nobody else joined.",
+      "relevant": {
+        "en-numbers-1-p": 1
+      },
+      "contrast": "en-numbers-1-n"
+    },
+    {
+      "id": "fa-numbers-2",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "از هشتاد پرونده، بیست پرونده هنوز بررسی نشده است.",
+      "relevant": {
+        "fa-numbers-2-p": 1
+      },
+      "contrast": "fa-numbers-2-n"
+    },
+    {
+      "id": "en-numbers-2",
+      "lang": "en",
+      "category": "numbers",
+      "text": "Of eighty cases, twenty have not yet been reviewed.",
+      "relevant": {
+        "en-numbers-2-p": 1
+      },
+      "contrast": "en-numbers-2-n"
+    },
+    {
+      "id": "fa-numbers-3",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "تخفیف ده درصدی روی کالای دویست‌هزارتومانی اعمال شد.",
+      "relevant": {
+        "fa-numbers-3-p": 1
+      },
+      "contrast": "fa-numbers-3-n"
+    },
+    {
+      "id": "en-numbers-3",
+      "lang": "en",
+      "category": "numbers",
+      "text": "A ten percent discount was applied to an item costing two hundred.",
+      "relevant": {
+        "en-numbers-3-p": 1
+      },
+      "contrast": "en-numbers-3-n"
+    },
+    {
+      "id": "fa-numbers-4",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "باتری قبلاً چهل درصد بود و حالا هفتاد درصد است.",
+      "relevant": {
+        "fa-numbers-4-p": 1
+      },
+      "contrast": "fa-numbers-4-n"
+    },
+    {
+      "id": "en-numbers-4",
+      "lang": "en",
+      "category": "numbers",
+      "text": "The battery was at forty percent and is now at seventy percent.",
+      "relevant": {
+        "en-numbers-4-p": 1
+      },
+      "contrast": "en-numbers-4-n"
+    },
+    {
+      "id": "fa-numbers-5",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "شرط شرکت، داشتن حداقل هجده سال است و مهسا هفده سال دارد.",
+      "relevant": {
+        "fa-numbers-5-p": 1
+      },
+      "contrast": "fa-numbers-5-n"
+    },
+    {
+      "id": "en-numbers-5",
+      "lang": "en",
+      "category": "numbers",
+      "text": "Participation requires an age of at least eighteen, and Maya is seventeen.",
+      "relevant": {
+        "en-numbers-5-p": 1
+      },
+      "contrast": "en-numbers-5-n"
+    },
+    {
+      "id": "fa-role-order-0",
+      "lang": "fa",
+      "category": "role-order",
+      "text": "آرمان بود که برای رها نامه فرستاد.",
+      "relevant": {
+        "fa-role-order-0-p": 1
+      },
+      "contrast": "fa-role-order-0-n"
+    },
+    {
+      "id": "en-role-order-0",
+      "lang": "en",
+      "category": "role-order",
+      "text": "It was Owen who sent a letter to Clara.",
+      "relevant": {
+        "en-role-order-0-p": 1
+      },
+      "contrast": "en-role-order-0-n"
+    },
+    {
+      "id": "fa-role-order-1",
+      "lang": "fa",
+      "category": "role-order",
+      "text": "نگار از سوی سامان برای جشن دعوت شد.",
+      "relevant": {
+        "fa-role-order-1-p": 1
+      },
+      "contrast": "fa-role-order-1-n"
+    },
+    {
+      "id": "en-role-order-1",
+      "lang": "en",
+      "category": "role-order",
+      "text": "Nora was invited to the celebration by Felix.",
+      "relevant": {
+        "en-role-order-1-p": 1
+      },
+      "contrast": "en-role-order-1-n"
+    },
+    {
+      "id": "fa-role-order-2",
+      "lang": "fa",
+      "category": "role-order",
+      "text": "مهندس از کارآموز کمک خواست، نه برعکس.",
+      "relevant": {
+        "fa-role-order-2-p": 1
+      },
+      "contrast": "fa-role-order-2-n"
+    },
+    {
+      "id": "en-role-order-2",
+      "lang": "en",
+      "category": "role-order",
+      "text": "The engineer asked the apprentice for help, not the other way around.",
+      "relevant": {
+        "en-role-order-2-p": 1
+      },
+      "contrast": "en-role-order-2-n"
+    },
+    {
+      "id": "fa-role-order-3",
+      "lang": "fa",
+      "category": "role-order",
+      "text": "این داور بود که مربی را سرزنش کرد.",
+      "relevant": {
+        "fa-role-order-3-p": 1
+      },
+      "contrast": "fa-role-order-3-n"
+    },
+    {
+      "id": "en-role-order-3",
+      "lang": "en",
+      "category": "role-order",
+      "text": "It was the referee who criticized the coach.",
+      "relevant": {
+        "en-role-order-3-p": 1
+      },
+      "contrast": "en-role-order-3-n"
+    },
+    {
+      "id": "fa-role-order-4",
+      "lang": "fa",
+      "category": "role-order",
+      "text": "طبق قرارداد، کتابفروش از ناشر طلبکار است.",
+      "relevant": {
+        "fa-role-order-4-p": 1
+      },
+      "contrast": "fa-role-order-4-n"
+    },
+    {
+      "id": "en-role-order-4",
+      "lang": "en",
+      "category": "role-order",
+      "text": "Under the contract, the bookseller is owed money by the publisher.",
+      "relevant": {
+        "en-role-order-4-p": 1
+      },
+      "contrast": "en-role-order-4-n"
+    },
+    {
+      "id": "fa-role-order-5",
+      "lang": "fa",
+      "category": "role-order",
+      "text": "پرستار توسط بیمار به مدیر معرفی شد.",
+      "relevant": {
+        "fa-role-order-5-p": 1
+      },
+      "contrast": "fa-role-order-5-n"
+    },
+    {
+      "id": "en-role-order-5",
+      "lang": "en",
+      "category": "role-order",
+      "text": "The nurse was introduced to the manager by the patient.",
+      "relevant": {
+        "en-role-order-5-p": 1
+      },
+      "contrast": "en-role-order-5-n"
+    }
+  ]
+}
