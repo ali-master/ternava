@@ -1,46 +1,47 @@
-// main.js — semantic emoji search, entirely in the browser on @ternlight/base.
-//
-// The emoji vectors are precomputed offline (build-index.mjs) with the SAME
-// base model, so at runtime we only embed the QUERY per keystroke and cosine
-// it against ~1,800 vectors. Emoji with a slang vector are max-pooled.
+// Persian phrase matching followed by cosine ranking, entirely in the browser.
 
 import init, { embed } from './wasm/tern_engine.js';
+import { rankEmojis } from './search.js';
+import { CHIPS, CHALLENGES } from './queries.js';
 
 const $ = (id) => document.getElementById(id);
 const grid = $('grid'), input = $('q'), latEl = $('lat'), chipsEl = $('chips');
 
 const TOP_K = 8;
-const CHIPS = [
-  'so tired, put me to sleep',
-  "that's hilarious, I'm dying",
-  'the greatest of all time',
-  'when your code finally works',
-  'sending so much love',
-  'I need coffee to survive',
-  'my mind is blown',
-  'party time, we won',
-];
 
-let EMOJIS = [], NAMES = [], VECS = [], DIM = 384;
+let EMOJIS = [], NAMES = [], VECS = [], PHRASES = [];
 
 // ── Boot ────────────────────────────────────────────────────────────────
 (async function boot() {
   input.disabled = true;
-  input.placeholder = 'loading the model…';
+  input.placeholder = 'در حال بارگیری مدل…';
 
-  await init();                                    // compile the base wasm
-  const idx = await (await fetch('./emoji-index.json')).json();
-  EMOJIS = idx.emojis; NAMES = idx.names; DIM = idx.dim;
-  // Each emoji owns 1–2 vectors (broad + slang). Store as Float32Array for speed.
+  const response = await fetch('./emoji-index.json');
+  if (!response.ok) throw new Error('دریافت داده‌های ایموجی ناموفق بود.');
+  const idx = await response.json();
+  const wasmResponse = await fetch('./wasm/tern_engine_bg.wasm');
+  if (!wasmResponse.ok) throw new Error('دریافت مدل ناموفق بود.');
+  const wasmBytes = await wasmResponse.arrayBuffer();
+  await init({ module_or_path: wasmBytes });
+  const digest = await crypto.subtle.digest('SHA-256', wasmBytes);
+  const hash = Array.from(new Uint8Array(digest), b => b.toString(16).padStart(2, '0')).join('');
+  if (idx.wasm_sha256 !== hash) throw new Error('مدل و فهرست ایموجی هماهنگ نیستند؛ فهرست را دوباره بسازید.');
+  if (!Array.isArray(idx.phrases) || idx.phrases.length !== idx.emojis.length ||
+      !idx.phrases.every(list => Array.isArray(list) && list.length && list.every(p => typeof p === 'string' && p.trim()))) {
+    throw new Error('عبارت‌های جست‌وجو آماده نیستند؛ فهرست را دوباره بسازید.');
+  }
+  EMOJIS = idx.emojis; NAMES = idx.names; PHRASES = idx.phrases;
   VECS = idx.vecs.map((list) => list.map((v) => Float32Array.from(v)));
 
-  buildChips();
+  buildChips(chipsEl, CHIPS);
+  buildChips($('challengeChips'), CHALLENGES);
   input.disabled = false;
-  input.placeholder = 'this meeting could’ve been an email…';
+  input.placeholder = 'این جلسه می‌توانست یک پیام باشد…';
   input.focus();
 })().catch((err) => {
   console.error(err);
-  input.placeholder = 'failed to load — serve over http, not file://';
+  $('status').textContent = `بارگیری انجام نشد: ${err.message}`;
+  input.placeholder = 'بارگیری نشد؛ صفحه را با سرور محلی باز کنید';
 });
 
 // ── Search ─────────────────────────────────────────────────────────────
@@ -58,18 +59,7 @@ function runSearch() {
   const qv = embed(q);                              // <-- the only per-keystroke embed
   const embedMs = performance.now() - t0;
 
-  // max-pool cosine (vectors are L2-normalized, so dot == cosine)
-  const scored = new Array(EMOJIS.length);
-  for (let i = 0; i < EMOJIS.length; i++) {
-    let best = -2;
-    for (const v of VECS[i]) {
-      let dot = 0;
-      for (let j = 0; j < DIM; j++) dot += qv[j] * v[j];
-      if (dot > best) best = dot;
-    }
-    scored[i] = { i, best };
-  }
-  scored.sort((a, b) => b.best - a.best);
+  const scored = rankEmojis(q, qv, VECS, PHRASES);
 
   setLatency(embedMs);
   render(scored.slice(0, TOP_K));
@@ -79,22 +69,22 @@ function render(top) {
   grid.innerHTML = top.map(({ i }, rank) => `
     <div class="cell ${rank === 0 ? 'top' : ''}">
       <span class="emoji">${EMOJIS[i]}</span>
-      <span class="name">${escapeHtml(NAMES[i])}</span>
+      <span class="name" title="${escapeHtml(NAMES[i])}">${escapeHtml(NAMES[i])}</span>
     </div>`).join('');
 }
 
 function setLatency(ms) {
-  const num = ms == null ? '&mdash;' : ms.toFixed(1);
-  latEl.innerHTML = `<span class="lat-num">${num}</span><span class="lat-unit">ms</span>`;
+  const num = ms == null ? '&mdash;' : ms.toLocaleString('fa-IR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  latEl.innerHTML = `<span class="lat-num">${num}</span><span class="lat-unit">میلی‌ثانیه</span>`;
   if (ms == null) return;
   latEl.classList.add('flash');
   setTimeout(() => latEl.classList.remove('flash'), 160);
 }
 
 // ── Chips ──────────────────────────────────────────────────────────────
-function buildChips() {
-  chipsEl.innerHTML = CHIPS.map((c) => `<button class="chip">${escapeHtml(c)}</button>`).join('');
-  for (const btn of chipsEl.querySelectorAll('.chip')) {
+function buildChips(container, queries) {
+  container.innerHTML = queries.map((c) => `<button class="chip">${escapeHtml(c)}</button>`).join('');
+  for (const btn of container.querySelectorAll('.chip')) {
     btn.addEventListener('click', () => {
       input.value = btn.textContent;
       input.focus();
@@ -105,11 +95,17 @@ function buildChips() {
 
 // ── QR overlay: click the QR or press "f" for a full-screen finale ──────
 const overlay = $('qrOverlay');
-const toggleQR = () => overlay.hidden = !overlay.hidden;
+const toggleQR = () => {
+  overlay.hidden = !overlay.hidden;
+  document.querySelector('.page').inert = !overlay.hidden;
+  (overlay.hidden ? $('qrBtn') : $('closeQR')).focus();
+};
+$('closeQR').addEventListener('click', e => { e.stopPropagation(); toggleQR(); });
 $('qrBtn').addEventListener('click', toggleQR);
 overlay.addEventListener('click', toggleQR);
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') overlay.hidden = true;
+  if (e.key === 'Escape' && !overlay.hidden) toggleQR();
+  else if (e.key === 'Tab' && !overlay.hidden) { e.preventDefault(); $('closeQR').focus(); }
   else if ((e.key === 'f' || e.key === 'F') && document.activeElement !== input) toggleQR();
 });
 

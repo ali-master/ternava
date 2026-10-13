@@ -1,18 +1,14 @@
-/* ternlight · emoji search — matches ternlight.dev (light theme).
+@font-face {
+  font-family: 'Estedad';
+  src: url('fonts/estedad-variable.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+/* ternava · emoji search — matches ternava.dev (light theme).
    Self-hosted brand fonts (offline). Serif display, burnt-orange accent. */
 
-@font-face {
-  font-family: 'Newsreader'; src: url('fonts/newsreader.woff2') format('woff2');
-  font-weight: 200 800; font-style: normal; font-display: swap;
-}
-@font-face {
-  font-family: 'Geist'; src: url('fonts/geist.woff2') format('woff2');
-  font-weight: 100 900; font-style: normal; font-display: swap;
-}
-@font-face {
-  font-family: 'JetBrains Mono'; src: url('fonts/jetbrains-mono.woff2') format('woff2');
-  font-weight: 100 800; font-style: normal; font-display: swap;
-}
 
 :root {
   --bg:            #fbfaf8;
@@ -28,8 +24,8 @@
   --border-strong: rgba(23, 19, 14, 0.18);
   --shadow:        0 1px 2px rgba(23, 19, 14, 0.04), 0 8px 24px rgba(23, 19, 14, 0.06);
 
-  --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
-  --sans:  'Geist', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --serif: 'Estedad', Tahoma, sans-serif;
+  --sans: 'Estedad', Tahoma, sans-serif;
   --mono:  'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
   --r: 14px;
@@ -61,7 +57,7 @@ body {
   font-family: var(--sans);
   font-weight: 600;
   font-size: 30px;
-  letter-spacing: -0.02em;
+  letter-spacing: normal;
   color: var(--text);
 }
 
@@ -79,7 +75,7 @@ body {
   font-weight: 500;
   font-size: clamp(46px, 6.6vw, 82px);
   line-height: 1.0;
-  letter-spacing: -0.02em;
+  letter-spacing: normal;
   color: var(--text);
 }
 
@@ -101,7 +97,7 @@ body {
   box-shadow: var(--shadow), 0 0 0 4px var(--accent-tint);
 }
 .prompt {
-  font-family: var(--mono);
+  font-family: var(--sans);
   font-size: 26px;
   color: var(--accent);
   line-height: 1;
@@ -120,14 +116,14 @@ body {
 
 /* Latency — inside the search bar, on the right */
 .latency {
-  font-family: var(--mono);
+  font-family: var(--sans);
   font-size: clamp(24px, 2.6vw, 32px);
   color: var(--text-muted);
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
 .latency .lat-num { color: var(--accent); font-weight: 700; }
-.latency .lat-unit { font-size: 0.55em; color: var(--text-faint); margin-left: 4px; }
+.latency .lat-unit { font-size: 0.55em; color: var(--text-faint); margin-inline-start: 4px; }
 .latency.flash .lat-num { color: var(--text); }
 
 /* Suggested chips */
@@ -148,6 +144,10 @@ body {
   transition: all 0.14s ease;
 }
 .chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-tint); }
+.challenges { width: min(780px, 100%); margin: 16px 0 28px; }
+.challenges summary { color: var(--accent); cursor: pointer; font-size: 14px; }
+.challenges .model-note { margin-inline: auto; }
+.challenges summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
 /* ── Results ───────────────────────────────────────────────────────────── */
 .grid {
@@ -170,7 +170,7 @@ body {
   font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
 }
 .cell .name {
-  font-family: var(--mono);
+  font-family: var(--sans);
   font-size: 11px; color: var(--text-muted);
   max-width: 13ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
@@ -203,7 +203,7 @@ body {
   display: flex; flex-direction: column; gap: 8px;
 }
 .social-links li {
-  font-family: var(--mono);
+  font-family: var(--sans);
   font-size: 17px;
   color: var(--text);
   display: flex; align-items: baseline; gap: 12px;
@@ -211,7 +211,7 @@ body {
 .social-links .lk {
   display: inline-block; min-width: 52px;
   color: var(--accent);
-  text-transform: uppercase; font-size: 12px; letter-spacing: 0.08em; font-weight: 600;
+  text-transform: uppercase; font-size: 12px; letter-spacing: normal; font-weight: 600;
 }
 
 .social-qr {
@@ -227,10 +227,10 @@ body {
 .social-qr:hover { transform: translateY(-2px); border-color: var(--accent); }
 .social-qr img { width: 150px; height: 150px; display: block; }
 .qr-url {
-  font-family: var(--mono);
+  font-family: var(--sans);
   font-size: 16px; font-weight: 500;
   color: var(--text);
-  letter-spacing: 0.01em;
+  letter-spacing: normal;
 }
 
 /* Full-screen QR overlay */
@@ -245,7 +245,7 @@ body {
 .qr-big img { width: min(64vh, 560px); height: min(64vh, 560px); }
 .qr-big-url {
   margin-top: 24px;
-  font-family: var(--mono);
+  font-family: var(--sans);
   font-size: clamp(22px, 3vw, 34px);
   font-weight: 600;
   color: var(--accent);
@@ -256,3 +256,30 @@ body {
   .cell { width: 100px; } .cell .emoji { font-size: 48px; }
   .cell.top { width: 144px; } .cell.top .emoji { font-size: 78px; }
 }
+
+.title { line-height: 1.6; font-weight: 700; }
+#q { min-width: 0; }
+.searchbar, .grid { max-width: 100%; }
+.model-note { max-width: 650px; margin-top: 20px; font-size: 12px; line-height: 1.9; color: var(--text-muted); }
+.social-tag { line-height: 1.9; }
+.social-links a { color: inherit; text-decoration: none; overflow-wrap: anywhere; min-width: 0; }
+.social-links a:hover { color: var(--accent); }
+.social-links li { font-size: 14px; }
+.social-links .lk { flex-shrink: 0; min-width: 56px; }
+.qr-url, .qr-big-url { direction: ltr; unicode-bidi: isolate; }
+.qr-close { position: absolute; inset-block-start: 20px; inset-inline-end: 20px; width: 44px; height: 44px; border: 1px solid var(--border-strong); border-radius: 50%; background: var(--surface); color: var(--text); font: 28px var(--sans); cursor: pointer; }
+.qr-big img { width: min(64vh, 75vw, 560px); height: auto; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+@media (max-width: 480px) {
+  .page { padding: 24px 16px; }
+  .title { font-size: 38px; }
+  .searchbar { padding-inline: 12px; gap: 8px; }
+  #q { font-size: 15px; }
+  .latency { font-size: 20px; }
+  .latency .lat-unit { font-size: 10px; }
+  .chip { font-size: 12px; padding: 8px 12px; }
+  .cell { width: 88px; }
+  .social { gap: 24px; }
+  .social-links li { font-size: 12px; gap: 8px; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }

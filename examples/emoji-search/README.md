@@ -1,55 +1,57 @@
-# Emoji search — semantic, in the browser
+# جست‌وجوی ایموجی با عبارت فارسی
 
-Type a feeling, get the emoji. A single page that embeds your query on your CPU
-with [`@ternlight/base`](https://www.npmjs.com/package/@ternlight/base) and cosine-matches
-it against ~1,650 emoji — no server, no API, nothing leaves the page.
+حستان را بنویسید و نتیجه‌ها را ببینید. طراحی روشن، رنگ نارنجی، پیشنهادهای کپسولی و کارت برجستهٔ نتیجهٔ نخست حفظ شده‌اند. رابط راست‌به‌چپ است و فونت استعداد از پوشهٔ محلی بارگیری می‌شود.
 
-**1,652 emoji · 1,794 precomputed vectors · ~2 ms per keystroke · fully offline.**
+مجموعهٔ نمایشی شامل **۷۰ ایموجی** با نام و توضیح فارسی است. دادهٔ انگلیسی و اصطلاحات قبلی با `corpus.fa.json` جایگزین شده‌اند.
 
-## Run it
+## اجرا
 
-WASM can't load from `file://`, so serve over HTTP:
+از ریشهٔ مخزن:
 
-```bash
-cd examples/emoji-search
-python3 -m http.server 8000      # or: npx serve -p 8000
+```sh
+python3 -m http.server 8000 --directory examples/emoji-search
 ```
 
-Open <http://localhost:8000>. No `npm install` needed to run — the base wasm
-and the emoji index are committed.
+[صفحه را باز کنید](http://localhost:8000). برای اجرای صفحه یا بازسازی فهرست، نصب پکیج لازم نیست. با انتخاب یک پیشنهاد یا نوشتن عبارت، هشت نتیجه نمایش داده می‌شود. دکمهٔ QR پنجرهٔ بزرگ‌نمایی را باز می‌کند؛ با دکمهٔ بستن یا Escape بسته می‌شود. کلید F بیرون از ورودی نیز آن را باز می‌کند.
 
-- Type, or click a suggested chip. Results appear per keystroke; the latency
-  readout shows the query embed time.
-- Press **F** (or click the QR) for a full-screen QR to `ternlight.dev`.
+**مدل همراه صفحه هنوز نسخهٔ انگلیسی base است.** جست‌وجو ابتدا عبارت‌های شناخته‌شدهٔ فارسی را تطبیق می‌دهد و سپس از شباهت برداری استفاده می‌کند. این به معنی آموزش فارسی به مدل نیست؛ مدل دوزبانهٔ پایلوت باید ابتدا آموزش و ارزیابی شود.
 
-## How it works
+## رتبه‌بندی فارسی
 
-The emoji vectors are **precomputed offline** with the same base model, so at
-runtime the browser only embeds the *query* — one `embed()` per keystroke —
-then does a plain cosine loop. Emoji never go through the model; each emoji is a
-label on a text vector built from its name + CLDR keywords + a curated slang
-phrase (see `enrichment.mjs`). Emoji with a slang phrase carry a second vector
-that is max-pooled, so idioms ("the greatest of all time" → 🐐) win without
-diluting the base vector.
+نام ایموجی و بخش‌های توضیح که با ویرگول یا نقطه‌ویرگول جدا شده‌اند، عبارت‌های قابل جست‌وجو هستند. «خیلی دوستت دارم» عبارت «دوستت دارم» در توضیح 🥰 را دارد؛ بنابراین آن را پیش از نتیجه‌های صرفاً برداری نشان می‌دهیم. عبارت بلندتر اولویت بیشتری دارد؛ تساوی‌ها و نتیجه‌های بدون تطبیق با cosine مرتب می‌شوند. هیچ نگاشت مخصوصی برای پیشنهادهای صفحه در کد وجود ندارد.
 
-Node-precomputed and browser-computed vectors are bit-identical (verified,
-cosine = 1.000000), which is why precomputing is safe.
+در تطبیق عبارت، ی و ک عربی، اعراب، کشیده، فاصله و نیم‌فاصله یکسان‌سازی می‌شوند. مرز کامل واژه حفظ می‌شود؛ مثلاً «دوستت ندارم» امتیاز تطبیق «دوستت دارم» را نمی‌گیرد. این روش فهم عمومی نفی یا کنایه ندارد و برای بازنویسی‌های ناشناخته همچنان به مدل انگلیسی متکی است.
 
-## Files
+علت خطای اولیه: مدل انگلیسی عبارت سه‌واژه‌ای «خیلی دوستت دارم» را به ۱۳ قطعهٔ حرفی تبدیل می‌کند. در نمایهٔ فعلی، cosine برای 🧐 برابر ۰٫۷۰۳ و برای 🥰 برابر ۰٫۶۶۸ بود؛ 🥰 رتبهٔ ششم می‌گرفت. تطبیق عبارت آن را به رتبهٔ نخست می‌آورد، بدون تغییر وزن‌ها یا حجم مدل.
 
-| File | Role |
-|---|---|
-| `index.html` · `style.css` · `main.js` | the page (no framework, no bundler) |
-| `emoji-index.json` | precomputed vectors + emoji + names (shipped) |
-| `wasm/` | base web-target build (model + tokenizer + engine) |
-| `qr.svg` | offline QR to ternlight.dev |
-| `build-index.mjs` · `enrichment.mjs` | offline pipeline to rebuild the index |
+«بهترینِ تمام دوران» در نسخهٔ فارسی به 🏆 مربوط است. توضیح قدیمیِ 🐐 اصطلاح انگلیسی GOAT را به فارسی منتقل کرده بود و حتی تست قبلی همان پاسخ را درست فرض می‌کرد؛ اکنون توضیح بز فقط معنای حیوان را دارد و جفت «بهترینِ تمام دوران / بز کوهی» جداگانه آزموده می‌شود.
 
-## Rebuild the index
+بخش بازشوندهٔ **عبارت‌های چالش‌برانگیز را امتحان کنید**، ۱۲ پیشنهاد قابل‌کلیک دارد؛ چند نمونه:
 
-Only needed if you change the enrichment or the model:
+| عبارت | نتیجهٔ نخست |
+| --- | --- |
+| از خنده دارم می‌میرم، نه از ناراحتی! | 😂 |
+| نه قهوه می‌خوام نه چای؛ فقط می‌خوام بخوابم | 😴 |
+| با اینکه شکست خوردیم، هنوز ناامید نیستم | 💪 |
+| نه باگ داره نه خطا، بالاخره درست شد | ✅ |
+| از استرس قلبم داره میاد تو دهنم | 😬 |
 
-```bash
-npm install                 # pulls @ternlight/base + emojibase-data (dev only)
-npm run build:index         # -> emoji-index.json
+آزمون‌های بازگشت با WASM واقعی، ۱۴ مورد پایه و ۳۴ مورد چالشی در `../tests/fixtures/emoji-challenges.fa.json` را بررسی می‌کنند. مجموعهٔ چالشی شامل نگارش عربی/فارسی، نیم‌فاصله، اصطلاح، متن ترکیبی و جفت‌های متضاد است. پیشنهادهای صفحه نیز باید در این تست‌ها پوشش داشته باشند. این‌ها تست رگرسیونِ عبارت‌های پوشش‌داده‌شده‌اند، نه ارزیابی مستقل تعمیم مدل به جمله‌های ندیده.
+
+```sh
+node --test examples/tests/persian.test.mjs
 ```
+
+## تغییر داده یا مدل
+
+`corpus.fa.json` منبع اصلی است. هر رکورد سه فیلد `emoji`، `name` و `text` دارد و می‌تواند آرایهٔ اختیاری `aliases` برای عبارت‌های محاوره‌ای داشته باشد. هر alias یک عبارت کامل است، حتی اگر ویرگول داشته باشد. این عبارت‌ها فقط وارد نمایهٔ تطبیق می‌شوند؛ بردار همچنان از نام و توضیح اصلی ساخته می‌شود. برای جمله‌های متضاد، عبارت کامل‌تر را اضافه کنید؛ مثلاً «بهترین تمام دوران نیست» از «بهترین تمام دوران» طولانی‌تر است و اولویت می‌گیرد. این سازوکار جای تحلیل عمومی نفی را نمی‌گیرد.
+
+متن پیشنهادها در `queries.js` است و هیچ نتیجهٔ ازپیش‌تعیین‌شده‌ای به تابع جست‌وجو نمی‌دهد. بعد از تغییر داده یا تعویض خروجی کامل `wasm/`، از ریشهٔ مخزن اجرا کنید:
+
+```sh
+node examples/emoji-search/build-index.mjs
+```
+
+اسکریپت از **همان WASM همراه صفحه** برای ساخت بردار استفاده می‌کند. فایل `emoji-index.json` شامل هش مدل و متن منبع و عبارت‌های نرمال‌شده است. مرورگر ناسازگاری مدل و نمایه یا نبود عبارت‌ها در نمایهٔ قدیمی را رد می‌کند تا بازسازی نمایه فراموش نشود. متن کاربر به API خارجی ارسال نمی‌شود.
+
+فایل `qr.svg` به مخزن GitHub ترنوا اشاره می‌کند. فونت [استعداد](https://github.com/aminabedi68/Estedad) و مجوز OFL 1.1 آن در `fonts/` قرار دارند.
