@@ -13,6 +13,7 @@ numpy>=1.24
 # Eval metrics (Phase 4 — kept here so one venv covers all phases)
 evaluate>=0.4
 scikit-learn>=1.3
+scipy>=1.10
 
 # Tracking
 wandb>=0.16
