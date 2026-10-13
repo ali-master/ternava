@@ -1,0 +1,1287 @@
+{
+  "scope": "Round4 authored challenge frozen before training: 32 queries per language. Exact/span audit cannot establish independence from pretraining or semantic templates.",
+  "corpus": [
+    {
+      "id": "fa-negation-0-n",
+      "lang": "fa",
+      "text": "همهٔ باغچه‌ها خشک هستند."
+    },
+    {
+      "id": "fa-negation-0-p",
+      "lang": "fa",
+      "text": "دست‌کم یک باغچه خشک نیست."
+    },
+    {
+      "id": "en-negation-0-p",
+      "lang": "en",
+      "text": "At least one garden bed is not dry."
+    },
+    {
+      "id": "en-negation-0-n",
+      "lang": "en",
+      "text": "All garden beds are dry."
+    },
+    {
+      "id": "fa-negation-1-n",
+      "lang": "fa",
+      "text": "تعمیر آسانسور مفید است."
+    },
+    {
+      "id": "fa-negation-1-p",
+      "lang": "fa",
+      "text": "تعمیر آسانسور فایده‌ای ندارد."
+    },
+    {
+      "id": "en-negation-1-n",
+      "lang": "en",
+      "text": "Repairing the lift is useful."
+    },
+    {
+      "id": "en-negation-1-p",
+      "lang": "en",
+      "text": "Repairing the lift serves no purpose."
+    },
+    {
+      "id": "fa-negation-2-n",
+      "lang": "fa",
+      "text": "سلامت عسل به اثبات رسیده است."
+    },
+    {
+      "id": "fa-negation-2-p",
+      "lang": "fa",
+      "text": "سلامت عسل هنوز نامعلوم است."
+    },
+    {
+      "id": "en-negation-2-p",
+      "lang": "en",
+      "text": "The safety of the honey is still unknown."
+    },
+    {
+      "id": "en-negation-2-n",
+      "lang": "en",
+      "text": "The honey has been proven safe."
+    },
+    {
+      "id": "fa-negation-3-n",
+      "lang": "fa",
+      "text": "تمام چراغ‌ها خاموش‌اند."
+    },
+    {
+      "id": "fa-negation-3-p",
+      "lang": "fa",
+      "text": "حداقل یک چراغ روشن است."
+    },
+    {
+      "id": "en-negation-3-p",
+      "lang": "en",
+      "text": "At least one light is on."
+    },
+    {
+      "id": "en-negation-3-n",
+      "lang": "en",
+      "text": "Every light is off."
+    },
+    {
+      "id": "fa-negation-4-n",
+      "lang": "fa",
+      "text": "تحویل نان از سر گرفته شده است."
+    },
+    {
+      "id": "fa-negation-4-p",
+      "lang": "fa",
+      "text": "تحویل نان همچنان متوقف است."
+    },
+    {
+      "id": "en-negation-4-n",
+      "lang": "en",
+      "text": "Bread deliveries have resumed."
+    },
+    {
+      "id": "en-negation-4-p",
+      "lang": "en",
+      "text": "Bread deliveries remain suspended."
+    },
+    {
+      "id": "fa-negation-5-p",
+      "lang": "fa",
+      "text": "ممکن است حسگر خراب باشد."
+    },
+    {
+      "id": "fa-negation-5-n",
+      "lang": "fa",
+      "text": "خرابی حسگر غیرممکن است."
+    },
+    {
+      "id": "en-negation-5-n",
+      "lang": "en",
+      "text": "A sensor fault is impossible."
+    },
+    {
+      "id": "en-negation-5-p",
+      "lang": "en",
+      "text": "The sensor might be faulty."
+    },
+    {
+      "id": "fa-negation-6-n",
+      "lang": "fa",
+      "text": "نمایشگاه اکنون بسته است."
+    },
+    {
+      "id": "fa-negation-6-p",
+      "lang": "fa",
+      "text": "ورود به نمایشگاه اکنون امکان‌پذیر است."
+    },
+    {
+      "id": "en-negation-6-n",
+      "lang": "en",
+      "text": "The exhibition is currently closed."
+    },
+    {
+      "id": "en-negation-6-p",
+      "lang": "en",
+      "text": "Visitors can enter the exhibition now."
+    },
+    {
+      "id": "fa-negation-7-n",
+      "lang": "fa",
+      "text": "یکی از دو گزارش دقیق بود."
+    },
+    {
+      "id": "fa-negation-7-p",
+      "lang": "fa",
+      "text": "هیچ‌یک از دو گزارش دقیق نبود."
+    },
+    {
+      "id": "en-negation-7-n",
+      "lang": "en",
+      "text": "One of the two reports was accurate."
+    },
+    {
+      "id": "en-negation-7-p",
+      "lang": "en",
+      "text": "Neither of the two reports was accurate."
+    },
+    {
+      "id": "fa-negation-8-n",
+      "lang": "fa",
+      "text": "تمرین برگزار شد."
+    },
+    {
+      "id": "fa-negation-8-p",
+      "lang": "fa",
+      "text": "تمرین برگزار نشد."
+    },
+    {
+      "id": "en-negation-8-n",
+      "lang": "en",
+      "text": "The rehearsal took place."
+    },
+    {
+      "id": "en-negation-8-p",
+      "lang": "en",
+      "text": "The rehearsal did not take place."
+    },
+    {
+      "id": "fa-negation-9-p",
+      "lang": "fa",
+      "text": "ارسال تصویر زنده در رصدخانه متوقف شده است."
+    },
+    {
+      "id": "fa-negation-9-n",
+      "lang": "fa",
+      "text": "ارسال تصویر زنده در رصدخانه هنوز آغاز نشده است."
+    },
+    {
+      "id": "en-negation-9-p",
+      "lang": "en",
+      "text": "The observatory has stopped streaming live images."
+    },
+    {
+      "id": "en-negation-9-n",
+      "lang": "en",
+      "text": "The observatory has yet to start streaming live images."
+    },
+    {
+      "id": "fa-negation-10-p",
+      "lang": "fa",
+      "text": "آوا با خرید تلسکوپ موافق بود."
+    },
+    {
+      "id": "fa-negation-10-n",
+      "lang": "fa",
+      "text": "آوا با خرید تلسکوپ مخالف بود."
+    },
+    {
+      "id": "en-negation-10-n",
+      "lang": "en",
+      "text": "Ava opposed buying the telescope."
+    },
+    {
+      "id": "en-negation-10-p",
+      "lang": "en",
+      "text": "Ava supported buying the telescope."
+    },
+    {
+      "id": "fa-negation-11-p",
+      "lang": "fa",
+      "text": "نگهبان مجاز به تحویل گرفتن کلید است."
+    },
+    {
+      "id": "fa-negation-11-n",
+      "lang": "fa",
+      "text": "نگهبان مجاز به تحویل گرفتن کلید نیست."
+    },
+    {
+      "id": "en-negation-11-p",
+      "lang": "en",
+      "text": "The guard is entitled to collect the key."
+    },
+    {
+      "id": "en-negation-11-n",
+      "lang": "en",
+      "text": "The guard is not entitled to collect the key."
+    },
+    {
+      "id": "fa-numbers-12-n",
+      "lang": "fa",
+      "text": "۳۹ نهال برای کاشت باقی مانده است."
+    },
+    {
+      "id": "fa-numbers-12-p",
+      "lang": "fa",
+      "text": "۵۱ نهال برای کاشت باقی مانده است."
+    },
+    {
+      "id": "en-numbers-12-n",
+      "lang": "en",
+      "text": "39 saplings remain to be planted."
+    },
+    {
+      "id": "en-numbers-12-p",
+      "lang": "en",
+      "text": "51 saplings remain to be planted."
+    },
+    {
+      "id": "fa-numbers-13-n",
+      "lang": "fa",
+      "text": "قیمت بوم پس از تخفیف ۳۳۵ واحد است."
+    },
+    {
+      "id": "fa-numbers-13-p",
+      "lang": "fa",
+      "text": "قیمت بوم پس از تخفیف ۲۷۰ واحد است."
+    },
+    {
+      "id": "en-numbers-13-p",
+      "lang": "en",
+      "text": "The discounted canvas costs 270 units."
+    },
+    {
+      "id": "en-numbers-13-n",
+      "lang": "en",
+      "text": "The discounted canvas costs 335 units."
+    },
+    {
+      "id": "fa-numbers-14-n",
+      "lang": "fa",
+      "text": "کپسول شرط وزن را برآورده می‌کند."
+    },
+    {
+      "id": "fa-numbers-14-p",
+      "lang": "fa",
+      "text": "کپسول شرط وزن را برآورده نمی‌کند."
+    },
+    {
+      "id": "en-numbers-14-p",
+      "lang": "en",
+      "text": "The cylinder fails the weight requirement."
+    },
+    {
+      "id": "en-numbers-14-n",
+      "lang": "en",
+      "text": "The cylinder meets the weight requirement."
+    },
+    {
+      "id": "fa-numbers-15-p",
+      "lang": "fa",
+      "text": "حوضچه پنج درجه گرم‌تر شده است."
+    },
+    {
+      "id": "fa-numbers-15-n",
+      "lang": "fa",
+      "text": "حوضچه پنج درجه سردتر شده است."
+    },
+    {
+      "id": "en-numbers-15-p",
+      "lang": "en",
+      "text": "The pool became five degrees warmer."
+    },
+    {
+      "id": "en-numbers-15-n",
+      "lang": "en",
+      "text": "The pool became five degrees colder."
+    },
+    {
+      "id": "fa-numbers-16-n",
+      "lang": "fa",
+      "text": "سهم انرژی خورشیدی ۷۵ واحد درصد افزایش یافت."
+    },
+    {
+      "id": "fa-numbers-16-p",
+      "lang": "fa",
+      "text": "سهم انرژی خورشیدی ۱۲ واحد درصد افزایش یافت."
+    },
+    {
+      "id": "en-numbers-16-p",
+      "lang": "en",
+      "text": "Solar energy increased by 12 percentage points."
+    },
+    {
+      "id": "en-numbers-16-n",
+      "lang": "en",
+      "text": "Solar energy increased by 75 percentage points."
+    },
+    {
+      "id": "fa-numbers-17-n",
+      "lang": "fa",
+      "text": "خشک‌کردن سفال هشتادوپنج دقیقه طول کشید."
+    },
+    {
+      "id": "fa-numbers-17-p",
+      "lang": "fa",
+      "text": "خشک‌کردن سفال چهل‌وپنج دقیقه طول کشید."
+    },
+    {
+      "id": "en-numbers-17-n",
+      "lang": "en",
+      "text": "Drying the pottery took eighty-five minutes."
+    },
+    {
+      "id": "en-numbers-17-p",
+      "lang": "en",
+      "text": "Drying the pottery took forty-five minutes."
+    },
+    {
+      "id": "fa-numbers-18-p",
+      "lang": "fa",
+      "text": "نوزده بادکنک سالم مانده است."
+    },
+    {
+      "id": "fa-numbers-18-n",
+      "lang": "fa",
+      "text": "سی‌وهشت بادکنک سالم مانده است."
+    },
+    {
+      "id": "en-numbers-18-n",
+      "lang": "en",
+      "text": "Thirty-eight balloons remain intact."
+    },
+    {
+      "id": "en-numbers-18-p",
+      "lang": "en",
+      "text": "Nineteen balloons remain intact."
+    },
+    {
+      "id": "fa-numbers-19-p",
+      "lang": "fa",
+      "text": "داوطلب شرط سابقه را دارد."
+    },
+    {
+      "id": "fa-numbers-19-n",
+      "lang": "fa",
+      "text": "داوطلب شرط سابقه را ندارد."
+    },
+    {
+      "id": "en-numbers-19-p",
+      "lang": "en",
+      "text": "The applicant meets the experience requirement."
+    },
+    {
+      "id": "en-numbers-19-n",
+      "lang": "en",
+      "text": "The applicant fails the experience requirement."
+    },
+    {
+      "id": "fa-numbers-20-p",
+      "lang": "fa",
+      "text": "اکنون چهل کبوتر حضور دارند."
+    },
+    {
+      "id": "fa-numbers-20-n",
+      "lang": "fa",
+      "text": "اکنون سی‌وچهار کبوتر حضور دارند."
+    },
+    {
+      "id": "en-numbers-20-n",
+      "lang": "en",
+      "text": "Thirty-four pigeons are present now."
+    },
+    {
+      "id": "en-numbers-20-p",
+      "lang": "en",
+      "text": "Forty pigeons are present now."
+    },
+    {
+      "id": "fa-numbers-21-p",
+      "lang": "fa",
+      "text": "خطا سه واحد درصد کاهش یافته است."
+    },
+    {
+      "id": "fa-numbers-21-n",
+      "lang": "fa",
+      "text": "خطا بیست‌وپنج واحد درصد کاهش یافته است."
+    },
+    {
+      "id": "en-numbers-21-n",
+      "lang": "en",
+      "text": "The error rate fell by twenty-five percentage points."
+    },
+    {
+      "id": "en-numbers-21-p",
+      "lang": "en",
+      "text": "The error rate fell by three percentage points."
+    },
+    {
+      "id": "fa-numbers-22-p",
+      "lang": "fa",
+      "text": "بیست‌وسه پیچ باقی مانده است."
+    },
+    {
+      "id": "fa-numbers-22-n",
+      "lang": "fa",
+      "text": "سی‌وهفت پیچ باقی مانده است."
+    },
+    {
+      "id": "en-numbers-22-n",
+      "lang": "en",
+      "text": "Thirty-seven screws remain."
+    },
+    {
+      "id": "en-numbers-22-p",
+      "lang": "en",
+      "text": "Twenty-three screws remain."
+    },
+    {
+      "id": "fa-numbers-23-p",
+      "lang": "fa",
+      "text": "مبلغ قابل پرداخت هفتاد واحد است."
+    },
+    {
+      "id": "fa-numbers-23-n",
+      "lang": "fa",
+      "text": "مبلغ قابل پرداخت پنجاه واحد است."
+    },
+    {
+      "id": "en-numbers-23-p",
+      "lang": "en",
+      "text": "The payable amount is seventy units."
+    },
+    {
+      "id": "en-numbers-23-n",
+      "lang": "en",
+      "text": "The payable amount is fifty units."
+    },
+    {
+      "id": "fa-role-order-24-p",
+      "lang": "fa",
+      "text": "شایان نقشه را به مهسا قرض داد."
+    },
+    {
+      "id": "fa-role-order-24-n",
+      "lang": "fa",
+      "text": "مهسا نقشه را به شایان قرض داد."
+    },
+    {
+      "id": "en-role-order-24-p",
+      "lang": "en",
+      "text": "Sean lent the map to Maya."
+    },
+    {
+      "id": "en-role-order-24-n",
+      "lang": "en",
+      "text": "Maya lent the map to Sean."
+    },
+    {
+      "id": "fa-role-order-25-n",
+      "lang": "fa",
+      "text": "پرستار مربی را صدا زد."
+    },
+    {
+      "id": "fa-role-order-25-p",
+      "lang": "fa",
+      "text": "مربی پرستار را صدا زد."
+    },
+    {
+      "id": "en-role-order-25-n",
+      "lang": "en",
+      "text": "The nurse called the coach."
+    },
+    {
+      "id": "en-role-order-25-p",
+      "lang": "en",
+      "text": "The coach called the nurse."
+    },
+    {
+      "id": "fa-role-order-26-n",
+      "lang": "fa",
+      "text": "نویسنده کاوه و گیرنده ناهید بود."
+    },
+    {
+      "id": "fa-role-order-26-p",
+      "lang": "fa",
+      "text": "نویسنده ناهید و گیرنده کاوه بود."
+    },
+    {
+      "id": "en-role-order-26-p",
+      "lang": "en",
+      "text": "Nora was the writer and Kevin the recipient."
+    },
+    {
+      "id": "en-role-order-26-n",
+      "lang": "en",
+      "text": "Kevin was the writer and Nora the recipient."
+    },
+    {
+      "id": "fa-role-order-27-n",
+      "lang": "fa",
+      "text": "عکاس نوازنده را دعوت کرد."
+    },
+    {
+      "id": "fa-role-order-27-p",
+      "lang": "fa",
+      "text": "نوازنده عکاس را دعوت کرد."
+    },
+    {
+      "id": "en-role-order-27-p",
+      "lang": "en",
+      "text": "The musician invited the photographer."
+    },
+    {
+      "id": "en-role-order-27-n",
+      "lang": "en",
+      "text": "The photographer invited the musician."
+    },
+    {
+      "id": "fa-retrieval-28-n",
+      "lang": "fa",
+      "text": "برای سریع‌تر شدن وب‌سایت، زمان پاسخ سرور را کاهش دهید."
+    },
+    {
+      "id": "fa-retrieval-28-p",
+      "lang": "fa",
+      "text": "ترجمهٔ متن و تنظیم جهت راست‌به‌چپ، وب‌سایت را برای فارسی آماده می‌کند."
+    },
+    {
+      "id": "en-retrieval-28-p",
+      "lang": "en",
+      "text": "Translate the text and set right-to-left direction to adapt the website for Persian readers."
+    },
+    {
+      "id": "en-retrieval-28-n",
+      "lang": "en",
+      "text": "Reduce server response time to make the website faster."
+    },
+    {
+      "id": "fa-retrieval-29-p",
+      "lang": "fa",
+      "text": "برای بررسی ماندگاری اطلاعات، بازیابی داده پس از قطع برق را آزمایش کنید."
+    },
+    {
+      "id": "fa-retrieval-29-n",
+      "lang": "fa",
+      "text": "برای افزایش سرعت شبکه، پهنای باند بیشتری تهیه کنید."
+    },
+    {
+      "id": "en-retrieval-29-n",
+      "lang": "en",
+      "text": "Purchase more bandwidth to improve network speed."
+    },
+    {
+      "id": "en-retrieval-29-p",
+      "lang": "en",
+      "text": "Test data recovery after a power failure to verify persistence."
+    },
+    {
+      "id": "fa-retrieval-30-n",
+      "lang": "fa",
+      "text": "تعداد نویسه‌های رشتهٔ تاریخ را بشمارید."
+    },
+    {
+      "id": "fa-retrieval-30-p",
+      "lang": "fa",
+      "text": "اختلاف دو تاریخ را پس از تبدیل آن‌ها به یک تقویم محاسبه کنید."
+    },
+    {
+      "id": "en-retrieval-30-p",
+      "lang": "en",
+      "text": "Convert the two dates to a common calendar and compute their difference."
+    },
+    {
+      "id": "en-retrieval-30-n",
+      "lang": "en",
+      "text": "Count the characters in the date string."
+    },
+    {
+      "id": "fa-retrieval-31-n",
+      "lang": "fa",
+      "text": "نسخهٔ اجرای زنده، صدای خواننده و تماشاگران را دارد."
+    },
+    {
+      "id": "fa-retrieval-31-p",
+      "lang": "fa",
+      "text": "نسخهٔ بی‌کلام آهنگ، موسیقی بدون صدای خواننده است."
+    },
+    {
+      "id": "en-retrieval-31-p",
+      "lang": "en",
+      "text": "An instrumental version contains the music without the singer vocals."
+    },
+    {
+      "id": "en-retrieval-31-n",
+      "lang": "en",
+      "text": "A live version includes the singer and the audience."
+    }
+  ],
+  "queries": [
+    {
+      "id": "fa-negation-0",
+      "lang": "fa",
+      "category": "negation",
+      "text": "هیچ‌کس نگفته تمام باغچه‌ها خشک‌اند؛ فقط این را می‌دانیم که باغچهٔ شمالی هنوز خیس است.",
+      "relevant": {
+        "fa-negation-0-p": 1
+      },
+      "contrast": "fa-negation-0-n"
+    },
+    {
+      "id": "en-negation-0",
+      "lang": "en",
+      "category": "negation",
+      "text": "Nobody said all the garden beds were dry; the northern bed is still wet.",
+      "relevant": {
+        "en-negation-0-p": 1
+      },
+      "contrast": "en-negation-0-n"
+    },
+    {
+      "id": "fa-negation-1",
+      "lang": "fa",
+      "category": "negation",
+      "text": "این‌طور نیست که تعمیر آسانسور بی‌فایده نباشد؛ ارزیابی نهایی آن را کاملاً بی‌فایده دانسته است.",
+      "relevant": {
+        "fa-negation-1-p": 1
+      },
+      "contrast": "fa-negation-1-n"
+    },
+    {
+      "id": "en-negation-1",
+      "lang": "en",
+      "category": "negation",
+      "text": "It is not the case that repairing the lift is not pointless; the final assessment calls it entirely pointless.",
+      "relevant": {
+        "en-negation-1-p": 1
+      },
+      "contrast": "en-negation-1-n"
+    },
+    {
+      "id": "fa-negation-2",
+      "lang": "fa",
+      "category": "negation",
+      "text": "از نبود شاهد برای آلودگی عسل نمی‌توان سالم‌بودنش را نتیجه گرفت؛ هر دو احتمال بازند.",
+      "relevant": {
+        "fa-negation-2-p": 1
+      },
+      "contrast": "fa-negation-2-n"
+    },
+    {
+      "id": "en-negation-2",
+      "lang": "en",
+      "category": "negation",
+      "text": "The absence of evidence that the honey is contaminated does not establish its safety; both possibilities remain open.",
+      "relevant": {
+        "en-negation-2-p": 1
+      },
+      "contrast": "en-negation-2-n"
+    },
+    {
+      "id": "fa-negation-3",
+      "lang": "fa",
+      "category": "negation",
+      "text": "بازرس ادعای «هیچ چراغی روشن نیست» را رد کرد و چراغ روشن راهرو را نشان داد.",
+      "relevant": {
+        "fa-negation-3-p": 1
+      },
+      "contrast": "fa-negation-3-n"
+    },
+    {
+      "id": "en-negation-3",
+      "lang": "en",
+      "category": "negation",
+      "text": "The inspector rejected the claim that no lights were on and pointed to the lit corridor lamp.",
+      "relevant": {
+        "en-negation-3-p": 1
+      },
+      "contrast": "en-negation-3-n"
+    },
+    {
+      "id": "fa-negation-4",
+      "lang": "fa",
+      "category": "negation",
+      "text": "ما توقف تحویل نان را لغو نکردیم؛ دستور توقف همچنان برقرار است.",
+      "relevant": {
+        "fa-negation-4-p": 1
+      },
+      "contrast": "fa-negation-4-n"
+    },
+    {
+      "id": "en-negation-4",
+      "lang": "en",
+      "category": "negation",
+      "text": "We did not revoke the suspension of bread deliveries; the suspension remains in force.",
+      "relevant": {
+        "en-negation-4-p": 1
+      },
+      "contrast": "en-negation-4-n"
+    },
+    {
+      "id": "fa-negation-5",
+      "lang": "fa",
+      "category": "negation",
+      "text": "احتمال خرابی حسگر را رد نمی‌کنم، ولی وقوع خرابی هم هنوز ثابت نشده است.",
+      "relevant": {
+        "fa-negation-5-p": 1
+      },
+      "contrast": "fa-negation-5-n"
+    },
+    {
+      "id": "en-negation-5",
+      "lang": "en",
+      "category": "negation",
+      "text": "I do not rule out a sensor fault, although no fault has been established.",
+      "relevant": {
+        "en-negation-5-p": 1
+      },
+      "contrast": "en-negation-5-n"
+    },
+    {
+      "id": "fa-negation-6",
+      "lang": "fa",
+      "category": "negation",
+      "text": "نمایشگاه فقط وقتی بسته می‌ماند که برق قطع باشد؛ برق قطع نیست و طبق همین قاعده نمایشگاه باز است.",
+      "relevant": {
+        "fa-negation-6-p": 1
+      },
+      "contrast": "fa-negation-6-n"
+    },
+    {
+      "id": "en-negation-6",
+      "lang": "en",
+      "category": "negation",
+      "text": "The exhibition stays closed only during a power outage; there is no outage and under this rule it is open.",
+      "relevant": {
+        "en-negation-6-p": 1
+      },
+      "contrast": "en-negation-6-n"
+    },
+    {
+      "id": "fa-negation-7",
+      "lang": "fa",
+      "category": "negation",
+      "text": "نه گزارش اول دقیق بود و نه گزارش دوم؛ بازرس هر دو را نادرست اعلام کرد.",
+      "relevant": {
+        "fa-negation-7-p": 1
+      },
+      "contrast": "fa-negation-7-n"
+    },
+    {
+      "id": "en-negation-7",
+      "lang": "en",
+      "category": "negation",
+      "text": "Neither the first report nor the second was accurate; the inspector declared both incorrect.",
+      "relevant": {
+        "en-negation-7-p": 1
+      },
+      "contrast": "en-negation-7-n"
+    },
+    {
+      "id": "fa-negation-8",
+      "lang": "fa",
+      "category": "negation",
+      "text": "لغو نکردن تمرین به معنی برگزارشدنش نبود؛ تمرین اصلاً شروع نشد.",
+      "relevant": {
+        "fa-negation-8-p": 1
+      },
+      "contrast": "fa-negation-8-n"
+    },
+    {
+      "id": "en-negation-8",
+      "lang": "en",
+      "category": "negation",
+      "text": "Not cancelling the rehearsal did not mean it took place; it never began.",
+      "relevant": {
+        "en-negation-8-p": 1
+      },
+      "contrast": "en-negation-8-n"
+    },
+    {
+      "id": "fa-negation-9",
+      "lang": "fa",
+      "category": "negation",
+      "text": "این رصدخانه دیگر تصویر زنده نمی‌فرستد، هرچند تا هفتهٔ قبل می‌فرستاد.",
+      "relevant": {
+        "fa-negation-9-p": 1
+      },
+      "contrast": "fa-negation-9-n"
+    },
+    {
+      "id": "en-negation-9",
+      "lang": "en",
+      "category": "negation",
+      "text": "This observatory no longer streams live images, although it did until last week.",
+      "relevant": {
+        "en-negation-9-p": 1
+      },
+      "contrast": "en-negation-9-n"
+    },
+    {
+      "id": "fa-negation-10",
+      "lang": "fa",
+      "category": "negation",
+      "text": "به‌جز آوا که موافقت کرد، هیچ‌کدام از اعضای هیئت با خرید تلسکوپ موافق نبودند.",
+      "relevant": {
+        "fa-negation-10-p": 1
+      },
+      "contrast": "fa-negation-10-n"
+    },
+    {
+      "id": "en-negation-10",
+      "lang": "en",
+      "category": "negation",
+      "text": "Apart from Ava, who agreed, none of the panel members supported buying the telescope.",
+      "relevant": {
+        "en-negation-10-p": 1
+      },
+      "contrast": "en-negation-10-n"
+    },
+    {
+      "id": "fa-negation-11",
+      "lang": "fa",
+      "category": "negation",
+      "text": "برای تحویل کلید، داشتن رسید هم لازم است و هم کافی؛ نگهبان رسید دارد.",
+      "relevant": {
+        "fa-negation-11-p": 1
+      },
+      "contrast": "fa-negation-11-n"
+    },
+    {
+      "id": "en-negation-11",
+      "lang": "en",
+      "category": "negation",
+      "text": "A receipt is both necessary and sufficient for collecting the key; the guard has a receipt.",
+      "relevant": {
+        "en-negation-11-p": 1
+      },
+      "contrast": "en-negation-11-n"
+    },
+    {
+      "id": "fa-numbers-12",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "از ۷۳ نهال، ۲۸ نهال کاشته شد و ۶ نهال تازه آوردند؛ چند نهال برای کاشت مانده؟",
+      "relevant": {
+        "fa-numbers-12-p": 1
+      },
+      "contrast": "fa-numbers-12-n"
+    },
+    {
+      "id": "en-numbers-12",
+      "lang": "en",
+      "category": "numbers",
+      "text": "Of 73 saplings, 28 were planted and 6 new ones arrived. How many remain to be planted?",
+      "relevant": {
+        "en-numbers-12-p": 1
+      },
+      "contrast": "en-numbers-12-n"
+    },
+    {
+      "id": "fa-numbers-13",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "قیمت بوم نقاشی ۳۶۰ واحد بود و فروشنده یک‌چهارم آن را کم کرد.",
+      "relevant": {
+        "fa-numbers-13-p": 1
+      },
+      "contrast": "fa-numbers-13-n"
+    },
+    {
+      "id": "en-numbers-13",
+      "lang": "en",
+      "category": "numbers",
+      "text": "A canvas cost 360 units before the seller reduced it by a quarter.",
+      "relevant": {
+        "en-numbers-13-p": 1
+      },
+      "contrast": "en-numbers-13-n"
+    },
+    {
+      "id": "fa-numbers-14",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "کپسول با وزن ۴٫۲ کیلوگرم باید کمتر از ۴٫۲ کیلوگرم باشد تا پذیرفته شود.",
+      "relevant": {
+        "fa-numbers-14-p": 1
+      },
+      "contrast": "fa-numbers-14-n"
+    },
+    {
+      "id": "en-numbers-14",
+      "lang": "en",
+      "category": "numbers",
+      "text": "A cylinder weighing 4.2 kilograms must weigh less than 4.2 kilograms to be accepted.",
+      "relevant": {
+        "en-numbers-14-p": 1
+      },
+      "contrast": "en-numbers-14-n"
+    },
+    {
+      "id": "fa-numbers-15",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "حوضچه از منفی نه درجه به منفی چهار درجه رسید.",
+      "relevant": {
+        "fa-numbers-15-p": 1
+      },
+      "contrast": "fa-numbers-15-n"
+    },
+    {
+      "id": "en-numbers-15",
+      "lang": "en",
+      "category": "numbers",
+      "text": "The pool moved from minus nine degrees to minus four.",
+      "relevant": {
+        "en-numbers-15-p": 1
+      },
+      "contrast": "en-numbers-15-n"
+    },
+    {
+      "id": "fa-numbers-16",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "سهم انرژی خورشیدی از ۱۶ درصد به ۲۸ درصد رسید؛ افزایش را با واحد درصد بیان کن.",
+      "relevant": {
+        "fa-numbers-16-p": 1
+      },
+      "contrast": "fa-numbers-16-n"
+    },
+    {
+      "id": "en-numbers-16",
+      "lang": "en",
+      "category": "numbers",
+      "text": "Solar energy rose from 16 percent to 28 percent; express the increase in percentage points.",
+      "relevant": {
+        "en-numbers-16-p": 1
+      },
+      "contrast": "en-numbers-16-n"
+    },
+    {
+      "id": "fa-numbers-17",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "خشک‌کردن سفال از ساعت ۱۱:۵۰ تا ۱۲:۳۵ ادامه داشت.",
+      "relevant": {
+        "fa-numbers-17-p": 1
+      },
+      "contrast": "fa-numbers-17-n"
+    },
+    {
+      "id": "en-numbers-17",
+      "lang": "en",
+      "category": "numbers",
+      "text": "Drying the pottery lasted from 11:50 until 12:35.",
+      "relevant": {
+        "en-numbers-17-p": 1
+      },
+      "contrast": "en-numbers-17-n"
+    },
+    {
+      "id": "fa-numbers-18",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "دو سوم از ۵۷ بادکنک ترکیده‌اند؛ چند بادکنک سالم مانده است؟",
+      "relevant": {
+        "fa-numbers-18-p": 1
+      },
+      "contrast": "fa-numbers-18-n"
+    },
+    {
+      "id": "en-numbers-18",
+      "lang": "en",
+      "category": "numbers",
+      "text": "Two thirds of 57 balloons have burst; how many remain intact?",
+      "relevant": {
+        "en-numbers-18-p": 1
+      },
+      "contrast": "en-numbers-18-n"
+    },
+    {
+      "id": "fa-numbers-19",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "حداقل سابقهٔ لازم ۱۴ ماه است؛ داوطلب دقیقاً چهارده ماه سابقه دارد.",
+      "relevant": {
+        "fa-numbers-19-p": 1
+      },
+      "contrast": "fa-numbers-19-n"
+    },
+    {
+      "id": "en-numbers-19",
+      "lang": "en",
+      "category": "numbers",
+      "text": "The minimum experience is 14 months; the applicant has exactly fourteen months.",
+      "relevant": {
+        "en-numbers-19-p": 1
+      },
+      "contrast": "en-numbers-19-n"
+    },
+    {
+      "id": "fa-numbers-20",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "شمار کبوترها ۴۶ بود؛ ۹ تا رفتند و ۳ تا برگشتند.",
+      "relevant": {
+        "fa-numbers-20-p": 1
+      },
+      "contrast": "fa-numbers-20-n"
+    },
+    {
+      "id": "en-numbers-20",
+      "lang": "en",
+      "category": "numbers",
+      "text": "There were 46 pigeons; 9 left and 3 returned.",
+      "relevant": {
+        "en-numbers-20-p": 1
+      },
+      "contrast": "en-numbers-20-n"
+    },
+    {
+      "id": "fa-numbers-21",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "خطا از ۱۲ درصد به ۹ درصد رسید؛ کاهش با واحد درصد چقدر است؟",
+      "relevant": {
+        "fa-numbers-21-p": 1
+      },
+      "contrast": "fa-numbers-21-n"
+    },
+    {
+      "id": "en-numbers-21",
+      "lang": "en",
+      "category": "numbers",
+      "text": "The error rate fell from 12 percent to 9 percent. What is the decrease in percentage points?",
+      "relevant": {
+        "en-numbers-21-p": 1
+      },
+      "contrast": "en-numbers-21-n"
+    },
+    {
+      "id": "fa-numbers-22",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "هر بسته شش پیچ دارد؛ از پنج بسته، هفت پیچ مصرف شده است.",
+      "relevant": {
+        "fa-numbers-22-p": 1
+      },
+      "contrast": "fa-numbers-22-n"
+    },
+    {
+      "id": "en-numbers-22",
+      "lang": "en",
+      "category": "numbers",
+      "text": "Each packet holds six screws; seven screws were used from five packets.",
+      "relevant": {
+        "en-numbers-22-p": 1
+      },
+      "contrast": "en-numbers-22-n"
+    },
+    {
+      "id": "fa-numbers-23",
+      "lang": "fa",
+      "category": "numbers",
+      "text": "هزینهٔ ورود ۸۰ بود؛ اول ۲۵ درصد تخفیف خورد، سپس ده واحد کارمزد اضافه شد.",
+      "relevant": {
+        "fa-numbers-23-p": 1
+      },
+      "contrast": "fa-numbers-23-n"
+    },
+    {
+      "id": "en-numbers-23",
+      "lang": "en",
+      "category": "numbers",
+      "text": "Admission cost 80 units; a 25 percent discount was applied, then a ten-unit fee was added.",
+      "relevant": {
+        "en-numbers-23-p": 1
+      },
+      "contrast": "en-numbers-23-n"
+    },
+    {
+      "id": "fa-role-order-24",
+      "lang": "fa",
+      "category": "role-order",
+      "text": "مهسا نقشه را از شایان قرض گرفت؛ قرض‌دهنده چه کسی بود؟",
+      "relevant": {
+        "fa-role-order-24-p": 1
+      },
+      "contrast": "fa-role-order-24-n"
+    },
+    {
+      "id": "en-role-order-24",
+      "lang": "en",
+      "category": "role-order",
+      "text": "Maya borrowed the map from Sean; who lent it?",
+      "relevant": {
+        "en-role-order-24-p": 1
+      },
+      "contrast": "en-role-order-24-n"
+    },
+    {
+      "id": "fa-role-order-25",
+      "lang": "fa",
+      "category": "role-order",
+      "text": "مربی که پرستار را صدا زد، از اتاق بیرون رفت.",
+      "relevant": {
+        "fa-role-order-25-p": 1
+      },
+      "contrast": "fa-role-order-25-n"
+    },
+    {
+      "id": "en-role-order-25",
+      "lang": "en",
+      "category": "role-order",
+      "text": "The coach who called the nurse left the room.",
+      "relevant": {
+        "en-role-order-25-p": 1
+      },
+      "contrast": "en-role-order-25-n"
+    },
+    {
+      "id": "fa-role-order-26",
+      "lang": "fa",
+      "category": "role-order",
+      "text": "نامه را ناهید برای کاوه نوشت، نه برعکس.",
+      "relevant": {
+        "fa-role-order-26-p": 1
+      },
+      "contrast": "fa-role-order-26-n"
+    },
+    {
+      "id": "en-role-order-26",
+      "lang": "en",
+      "category": "role-order",
+      "text": "Nora wrote the letter to Kevin, not the other way around.",
+      "relevant": {
+        "en-role-order-26-p": 1
+      },
+      "contrast": "en-role-order-26-n"
+    },
+    {
+      "id": "fa-role-order-27",
+      "lang": "fa",
+      "category": "role-order",
+      "text": "این عکاس بود که از سوی نوازنده دعوت شد.",
+      "relevant": {
+        "fa-role-order-27-p": 1
+      },
+      "contrast": "fa-role-order-27-n"
+    },
+    {
+      "id": "en-role-order-27",
+      "lang": "en",
+      "category": "role-order",
+      "text": "It was the photographer who was invited by the musician.",
+      "relevant": {
+        "en-role-order-27-p": 1
+      },
+      "contrast": "en-role-order-27-n"
+    },
+    {
+      "id": "fa-retrieval-28",
+      "lang": "fa",
+      "category": "retrieval",
+      "text": "چطور نوشته‌های یک وب‌سایت را بدون تغییر زمان اجرا برای خوانندهٔ فارسی آماده کنم؟",
+      "relevant": {
+        "fa-retrieval-28-p": 1
+      },
+      "contrast": "fa-retrieval-28-n"
+    },
+    {
+      "id": "en-retrieval-28",
+      "lang": "en",
+      "category": "retrieval",
+      "text": "How can I adapt website text for Persian readers without changing its runtime?",
+      "relevant": {
+        "en-retrieval-28-p": 1
+      },
+      "contrast": "en-retrieval-28-n"
+    },
+    {
+      "id": "fa-retrieval-29",
+      "lang": "fa",
+      "category": "retrieval",
+      "text": "پس از خاموشی برق، می‌خواهم بدانم کدام اطلاعات ذخیره‌شده واقعاً باقی مانده‌اند.",
+      "relevant": {
+        "fa-retrieval-29-p": 1
+      },
+      "contrast": "fa-retrieval-29-n"
+    },
+    {
+      "id": "en-retrieval-29",
+      "lang": "en",
+      "category": "retrieval",
+      "text": "After a power cut, I need to find out which saved information actually survived.",
+      "relevant": {
+        "en-retrieval-29-p": 1
+      },
+      "contrast": "en-retrieval-29-n"
+    },
+    {
+      "id": "fa-retrieval-30",
+      "lang": "fa",
+      "category": "retrieval",
+      "text": "می‌خواهم فاصلهٔ بین دو مبدأ تقویمی را حساب کنم، نه طول متن تاریخ را.",
+      "relevant": {
+        "fa-retrieval-30-p": 1
+      },
+      "contrast": "fa-retrieval-30-n"
+    },
+    {
+      "id": "en-retrieval-30",
+      "lang": "en",
+      "category": "retrieval",
+      "text": "I need the interval between two calendar dates rather than the length of their written strings.",
+      "relevant": {
+        "en-retrieval-30-p": 1
+      },
+      "contrast": "en-retrieval-30-n"
+    },
+    {
+      "id": "fa-retrieval-31",
+      "lang": "fa",
+      "category": "retrieval",
+      "text": "برای آهنگی که صدای خواننده رویش نیست چه عبارتی جستجو کنم؟",
+      "relevant": {
+        "fa-retrieval-31-p": 1
+      },
+      "contrast": "fa-retrieval-31-n"
+    },
+    {
+      "id": "en-retrieval-31",
+      "lang": "en",
+      "category": "retrieval",
+      "text": "What should I search for if I want a song without the singer vocal track?",
+      "relevant": {
+        "en-retrieval-31-p": 1
+      },
+      "contrast": "en-retrieval-31-n"
+    }
+  ]
+}
