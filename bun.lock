@@ -22,11 +22,11 @@
     },
     "packages/base": {
       "name": "@usex/ternava-base",
-      "version": "0.1.1",
+      "version": "0.0.0",
     },
     "packages/mini": {
       "name": "@usex/ternava",
-      "version": "0.1.1",
+      "version": "0.0.0",
     },
   },
   "packages": {
