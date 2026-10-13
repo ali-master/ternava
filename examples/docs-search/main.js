@@ -7,7 +7,7 @@
 // All on-device after first load. The info pane reports live latency, model
 // architecture, and corpus stats.
 
-import init, { embed, config_summary } from './wasm/tern_engine.js';
+import init, { embed, engineInfo } from './wasm/0.2.0/index.mjs';
 
 // ── Element refs ────────────────────────────────────────────────────────────
 
@@ -49,7 +49,7 @@ function cosine(a, b) {
     return dot;   // ternava outputs are L2-normalized → dot == cosine
 }
 
-// ── Parse engine config_summary string ────────────────────────────────────
+// ── Parse engine engineInfo string ────────────────────────────────────
 //
 // Input: "tern-engine v1 | embedding_format=int4 | vocab=30522 d_model=256 n_layers=2 n_heads=4 ffn_dim=1024 output_dim=384 max_seq_len=128"
 // Output: { embedding_format: "int4", vocab: 30522, d_model: 256, ... }
@@ -83,7 +83,7 @@ let LAST_QUERY_VEC = null; // most recent query embedding (for copy-button)
     await init();
     WASM_INIT_MS = Math.round(performance.now() - wasmStart);
 
-    CONFIG = parseConfigSummary(config_summary());
+    CONFIG = parseConfigSummary(engineInfo());
 
     // (info-output-dim was removed from the HTML; nothing to update here now)
 
@@ -96,7 +96,7 @@ let LAST_QUERY_VEC = null; // most recent query embedding (for copy-button)
     $indexAction.textContent = 'در حال ساخت بردارها…';
 
     // HEAD request for wasm bytes — we surface the actual size in PACKAGE.
-    fetch('./wasm/tern_engine_bg.wasm', { method: 'HEAD' })
+    fetch('./wasm/0.2.0/tern_engine_bg.wasm', { method: 'HEAD' })
         .then(r => {
             const bytes = parseInt(r.headers.get('content-length') || '0', 10);
             if (bytes > 0) WASM_BYTES = bytes;

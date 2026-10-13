@@ -2,12 +2,12 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
-import init, { embed } from '../wasm/tern_engine.js';
+import init, { embed } from '../wasm/0.2.0/index.mjs';
 
 const source = await readFile(new URL('../chunks.json', import.meta.url));
 const corpus = JSON.parse(source);
-const wasm = await readFile(new URL('../wasm/tern_engine_bg.wasm', import.meta.url));
-await init({ module_or_path: wasm });
+const wasm = await readFile(new URL('../wasm/0.2.0/tern_engine_bg.wasm', import.meta.url));
+await init(wasm);
 const vectors = corpus.map(row => embed(row.text));
 for (const vector of vectors) {
     assert.equal(vector.length, 384);
@@ -33,7 +33,7 @@ const results = checks.map(([query, expected]) => {
     const rank = ranked.findIndex(row => expected.includes(row.title)) + 1;
     return { query, expected, rank, top1: ranked[0].title, pass_at_8: rank <= 8 };
 });
-console.log(JSON.stringify({ model: 'bundled English mini; unchanged', aliases: false,
+console.log(JSON.stringify({ model: '@usex/ternava@0.2.0; bilingual mini', aliases: false,
     corpus_sha256: createHash('sha256').update(source).digest('hex'),
     wasm_sha256: createHash('sha256').update(wasm).digest('hex'),
     corpus_count: corpus.length, top1: results.filter(row => row.rank === 1).length,

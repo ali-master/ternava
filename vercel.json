@@ -1,5 +1,6 @@
 {
-  "buildCommand": null,
+  "installCommand": "bun install --cwd examples --frozen-lockfile",
+  "buildCommand": "bun examples/build.mjs",
   "outputDirectory": "examples/docs-search",
   "cleanUrls": true,
   "headers": [
@@ -11,7 +12,7 @@
       ]
     },
     {
-      "source": "/wasm/(.*\\.js)",
+      "source": "/wasm/(.*\\.m?js)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
