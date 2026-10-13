@@ -14,10 +14,11 @@
     "build:engine": "bash scripts/build-engine.sh",
     "verify:release": "bash scripts/verify-release.sh",
     "eval": "bash scripts/run-eval.sh",
-    "check:brand": "node --test scripts/tests/branding.test.mjs"
+    "check:brand": "node --test scripts/tests/branding.test.mjs",
+    "release": "bun run --cwd packages/mini release"
   },
   "engines": {
-    "node": ">=18",
+    "node": "^22.22.2 || ^24.15.0 || >=26.0.0",
     "bun": ">=1.4.3"
   },
   "packageManager": "bun@1.4.3",
@@ -25,5 +26,9 @@
     "packages/*",
     "examples/emoji-search",
     "examples/odyssey-cli"
-  ]
+  ],
+  "devDependencies": {
+    "@release-it/conventional-changelog": "^12.0.2",
+    "release-it": "^21.1.1"
+  }
 }

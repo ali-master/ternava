@@ -1,0 +1,29 @@
+{
+  "$schema": "https://unpkg.com/release-it@21/schema/release-it.json",
+  "git": {
+    "requireBranch": "main",
+    "commitMessage": "chore(release): v${version}",
+    "tagName": "v${version}"
+  },
+  "npm": {
+    "publishPackageManager": "bun",
+    "publishPath": ""
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "preset": {
+        "name": "conventionalcommits"
+      },
+      "infile": "CHANGELOG.md"
+    }
+  },
+  "hooks": {
+    "after:bump": [
+      "bun install --cwd ../.. --lockfile-only",
+      "bun run --cwd ../.. build",
+      "bun run --cwd ../.. test"
+    ],
+    "before:git:release": "git add ../../bun.lock",
+    "before:npm:release": "bun run --cwd ../.. verify:release"
+  }
+}

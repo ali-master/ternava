@@ -59,6 +59,7 @@
     "pkg-bundler/",
     "pkg-web/",
     "README.md",
+    "CHANGELOG.md",
     "LICENSE",
     "scripts/check-package.mjs"
   ],
@@ -71,6 +72,7 @@
   "scripts": {
     "build": "PKG=packages/mini bash ../../scripts/build-engine.sh",
     "test": "node --test tests/*.test.js",
-    "prepack": "node --experimental-wasm-modules scripts/check-package.mjs"
+    "prepack": "node --experimental-wasm-modules scripts/check-package.mjs",
+    "release": "release-it"
   }
 }

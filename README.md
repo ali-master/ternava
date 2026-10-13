@@ -93,9 +93,9 @@ and [training protocol](docs/persian-pilot.md) before choosing it for your data.
 
 ## Build, verify, and publish
 
-Development requires **Bun 1.4.3+**, Rust, wasm-pack and Python 3. Node.js is also
-needed for compatibility tests. Prepare the packed bilingual model using the
-[pilot protocol](docs/persian-pilot.md); weights and build outputs are not in Git.
+Development requires **Bun 1.4.3+**, Rust, wasm-pack and Python 3. Use Node.js
+24.15+ for release tooling and compatibility tests. Prepare the packed bilingual
+model using the [pilot protocol](docs/persian-pilot.md); weights and build outputs are not in Git.
 Then, from the repository root:
 
 ```sh
@@ -107,15 +107,24 @@ bun run verify:release
 
 Verification packs and installs the real archive, checks Bun/Node exports and
 prints a browser parity URL. The npm archive includes three WASM targets
-(~16.24 MB compressed); a browser loads only one. To publish the verified archive
-with an account authorized for the `@usex` scope:
+(~16.24 MB compressed); a browser loads only one.
+
+To release, commit your changes on `main`, authenticate with `npm login` using an
+account with publish access to `@usex`, and run:
 
 ```sh
-bun publish ./dist/release/usex-ternava-0.1.1.tgz --access public
+bun run release
+# Preview without publishing or changing files:
+bun run release --dry-run
 ```
 
-Build and verification never publish automatically. `packages/mini` is the public
-package; `packages/base` is a private research workspace.
+[release-it](https://github.com/release-it/release-it) recommends the next version
+from Conventional Commits, updates the package and Bun lockfile, builds and tests,
+writes [CHANGELOG.md](packages/mini/CHANGELOG.md), publishes `@usex/ternava` with Bun,
+and creates and pushes the release commit and tag. It uses your existing Git
+identity/signing and npm authentication; confirm the version and release steps when prompted.
+`packages/base` and the workspace root stay private and keep their own versions.
+Build and verification alone never publish.
 
 ## Acknowledgments
 
