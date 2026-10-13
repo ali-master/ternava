@@ -1,6 +1,6 @@
 {
   "name": "@usex/ternava",
-  "version": "0.0.0",
+  "version": "0.2.0",
   "description": "Ternava — experimental Persian/English semantic embeddings, 32k bilingual tokenizer and local WebAssembly inference for Node.js, Bun and browsers.",
   "license": "MIT",
   "repository": {
