@@ -26,7 +26,7 @@ fi
 echo "Attaching $BIN_PATH to release $TAG..."
 gh release create "$TAG" "$BIN_PATH" \
     --title "$TAG" \
-    --notes "Model binary for tern $TAG. See README and eval/REPORT.md for quality + perf scorecard." \
+    --notes "Model binary for Ternava $TAG. See README and eval/REPORT.md for quality + perf scorecard." \
     || gh release upload "$TAG" "$BIN_PATH"
 
 echo "Done."
