@@ -7,7 +7,11 @@
 // All on-device after first load. The info pane reports live latency, model
 // architecture, and corpus stats.
 
+import { inject } from '@vercel/analytics';
 import init, { embed, config_summary } from './wasm/tern_engine.js';
+
+// Initialize Vercel Web Analytics
+inject();
 
 // ── Element refs ────────────────────────────────────────────────────────────
 
