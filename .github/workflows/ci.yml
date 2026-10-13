@@ -15,4 +15,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      - run: node --test scripts/tests/branding.test.mjs
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.3'
+      - run: bun install --frozen-lockfile
+      - run: node --test scripts/tests/branding.test.mjs scripts/tests/workspace.test.mjs

@@ -1,10 +1,10 @@
 name: Bilingual pilot contracts
 on:
   pull_request:
-    paths: ['training/**', 'engine/**', 'packages/*/package.json', 'eval/quality/**', 'scripts/build-engine.sh', 'scripts/check-model.py', '.github/workflows/pilot.yml']
+    paths: ['training/**', 'engine/**', 'packages/*/package.json', 'eval/quality/**', 'scripts/build-engine.sh', 'scripts/check-model.py', 'package.json', 'bun.lock', '.github/workflows/pilot.yml']
   push:
     branches: [main]
-    paths: ['training/**', 'engine/**', 'packages/*/package.json', 'eval/quality/**', 'scripts/build-engine.sh', 'scripts/check-model.py', '.github/workflows/pilot.yml']
+    paths: ['training/**', 'engine/**', 'packages/*/package.json', 'eval/quality/**', 'scripts/build-engine.sh', 'scripts/check-model.py', 'package.json', 'bun.lock', '.github/workflows/pilot.yml']
 jobs:
   contracts:
     runs-on: ubuntu-latest
@@ -21,6 +21,7 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: '1.4.3'
+      - run: bun install --frozen-lockfile
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: wasm32-unknown-unknown
