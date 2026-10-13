@@ -49,12 +49,12 @@ import torch.nn as nn
 import wandb
 from datasets import load_dataset
 from torch.utils.data import DataLoader
-from transformers import AutoTokenizer
 
 import ternary_qat
 from config  import EvalConfig, load_config
 from data    import TernDataset, collate_fn, load_cache
 from model   import StudentEncoder
+from tokenization import load_tokenizer, check_checkpoint_tokenizer
 
 
 # ── Device + git helpers (lifted from train.py — small enough to duplicate) ──
@@ -87,6 +87,7 @@ class EvalModel:
     src_run_name:     str          # ckpt["config"]["run_name"]
     src_config:       dict         # ckpt["config"] verbatim
     embedding_format: str          # "fp32" | "int8" | "ternary" — what we applied at load time
+    tokenizer: dict | None = None
 
 
 def load_for_eval(ckpt_path: Path, device: str, embedding_format: str = "ternary") -> EvalModel:
@@ -126,6 +127,7 @@ def load_for_eval(ckpt_path: Path, device: str, embedding_format: str = "ternary
         ffn_dim    = src_cfg["ffn_dim"],
         output_dim = src_cfg["output_dim"],
         dropout    = src_cfg["dropout"],
+        position_embeddings = src_cfg.get("position_embeddings", False),
     )
 
     # Load weights BEFORE the swap. BitLinear inherits nn.Linear's state_dict
@@ -160,6 +162,7 @@ def load_for_eval(ckpt_path: Path, device: str, embedding_format: str = "ternary
         model=model, is_qat=is_qat, src_epoch=src_epoch,
         src_run_name=src_run, src_config=src_cfg,
         embedding_format=applied_format,
+        tokenizer=ckpt.get("tokenizer"),
     )
 
 
@@ -174,6 +177,7 @@ def eval_test_split(em: EvalModel, ecfg: EvalConfig, device: str) -> dict[str, f
     """
     print(f"\n→ Task 1/3: held-out test split")
     splits, manifest = load_cache(ecfg.cache_dir, ecfg.cache_name)
+    check_checkpoint_tokenizer({"tokenizer": em.tokenizer}, manifest.get("tokenizer"))
     loader = DataLoader(
         TernDataset(splits["test"]),
         batch_size=ecfg.batch_size,
@@ -295,7 +299,7 @@ def eval_retrieval(em: EvalModel, ecfg: EvalConfig, device: str) -> dict[str, fl
     # ── Tokenize + encode ────────────────────────────────────────────────────
     # Match training prep: bert-base-uncased, max_len=128. Concat title + text
     # for corpus docs (BEIR convention); query is just the text field.
-    tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+    tokenizer = load_tokenizer(em.tokenizer)
     max_len = 128
     bs = ecfg.batch_size
 

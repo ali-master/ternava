@@ -23,11 +23,11 @@ from pathlib import Path
 
 import torch
 import torch.nn.functional as F
-from transformers import AutoTokenizer
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "training" / "distill"))
 from model import StudentEncoder
+from tokenization import load_tokenizer
 
 CORPUS_DIR = ROOT / "eval" / "quality" / "corpus"
 
@@ -97,6 +97,8 @@ def main() -> None:
 
     # Load checkpoint
     ckpt = torch.load(args.ckpt, weights_only=False, map_location="cpu")
+    if ckpt.get("config", {}).get("enable_qat"):
+        raise ValueError("This evaluator is fp32-only; use the packed WASM bilingual evaluator for QAT")
     state = ckpt["model_state"]
 
     # Infer arch from state_dict (vocab + d_model from embedding weight shape, etc.)
@@ -109,7 +111,8 @@ def main() -> None:
 
     model = StudentEncoder(
         vocab_size=vocab_size, d_model=d_model, n_layers=n_layers,
-        n_heads=4, ffn_dim=ffn_dim, output_dim=output_dim, dropout=0.0,
+        n_heads=ckpt.get("config", {}).get("n_heads", 4), ffn_dim=ffn_dim, output_dim=output_dim, dropout=0.0,
+        position_embeddings=ckpt.get("config", {}).get("position_embeddings", False),
     )
     model.load_state_dict(state)
     model.eval()
@@ -118,7 +121,7 @@ def main() -> None:
     fp32_size_mb = n_params * 4 / 1e6
 
     # Tokenize + embed (same tokenizer as the prep step, no re-decoding here)
-    tok = AutoTokenizer.from_pretrained("bert-base-uncased")
+    tok = load_tokenizer(ckpt.get("tokenizer"))
     batch = tok([it["text"] for it in items], padding=True, truncation=True,
                 max_length=128, return_tensors="pt")
 

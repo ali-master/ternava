@@ -22,12 +22,14 @@ Usage:
 import argparse
 import json
 import random
+import sys
 from pathlib import Path
 
 import torch
-from transformers import AutoTokenizer
 
 ROOT       = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "training/distill"))
+from tokenization import load_tokenizer
 CACHE_DIR  = ROOT / "training" / "distill" / "cache"
 CORPUS_DIR = ROOT / "eval" / "quality" / "corpus"
 
@@ -36,11 +38,12 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("name", nargs="?", default="smoke_1k",
                     help="cache name (matches <name>.test.pt). Default: smoke_1k")
+    ap.add_argument("--cache-dir", type=Path, default=CACHE_DIR)
     ap.add_argument("--sample", type=int, default=None,
                     help="If set, take a random subsample of N items (with seed=42).")
     args = ap.parse_args()
 
-    src = CACHE_DIR / f"{args.name}.test.pt"
+    src = args.cache_dir / f"{args.name}.test.pt"
     if not src.exists():
         raise SystemExit(f"missing: {src}")
 
@@ -53,11 +56,12 @@ def main() -> None:
         samples = samples[: args.sample]
         print(f"  subsampled to {len(samples)}")
 
-    tok = AutoTokenizer.from_pretrained("bert-base-uncased")
+    manifest = json.loads((args.cache_dir / f"{args.name}.manifest.json").read_text())
+    tok = load_tokenizer(manifest.get("tokenizer"))
 
     out = []
     for s in samples:
-        text = tok.decode(s["input_ids"].tolist(), skip_special_tokens=True)
+        text = s.get("text") or tok.decode(s["input_ids"].tolist(), skip_special_tokens=True)
         out.append({
             "text":        text,
             "teacher_emb": s["teacher_emb"].tolist(),
