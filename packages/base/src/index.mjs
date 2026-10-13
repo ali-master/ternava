@@ -1,4 +1,4 @@
-// ternlight — public ESM entry. Wraps the WASM engine.
+// ternava — public ESM entry. Wraps the WASM engine.
 //
 // The compiled engine lives in ../pkg-node/ as wasm-pack's nodejs-target output
 // (CommonJS). We bridge to it via createRequire — this keeps a single WASM
@@ -38,7 +38,7 @@ export function embed(text) {
 /**
  * Cosine similarity between two embeddings.
  *
- * Since ternlight embeddings are L2-normalized, this reduces to a dot product
+ * Since ternava embeddings are L2-normalized, this reduces to a dot product
  * — no per-call sqrt or division.
  */
 export function cosineSim(a, b) {

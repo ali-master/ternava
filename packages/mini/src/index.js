@@ -1,4 +1,4 @@
-// ternlight — public API.
+// ternava — public API.
 //
 // Thin JS wrapper around the WASM engine. The engine does the real work
 // (tokenization, BitLinear forward pass, returning a normalized embedding);
@@ -40,7 +40,7 @@ function embed(text) {
 /**
  * Cosine similarity between two embeddings.
  *
- * Since ternlight embeddings are L2-normalized, this reduces to a dot product
+ * Since ternava embeddings are L2-normalized, this reduces to a dot product
  * — no per-call sqrt or division.
  */
 function cosineSim(a, b) {

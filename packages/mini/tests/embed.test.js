@@ -1,5 +1,5 @@
 // Basic smoke test that the package's public API actually works end-to-end.
-// Run with: node --test packages/ternlight/tests/
+// Run with: node --test packages/mini/tests/
 //
 // Requires that `pkg/` has been populated by scripts/build-engine.sh.
 

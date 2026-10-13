@@ -1,10 +1,10 @@
-// ternlight — public browser/bundler ESM entry.
+// ternava — public browser/bundler ESM entry.
 //
 // Routed to by the package.json "browser"/"default" export conditions. Wraps
 // wasm-pack's bundler-target output in ../pkg-bundler/, whose glue imports the
 // .wasm as an ESM asset — Vite, webpack ≥5 (asyncWebAssembly), Next.js, and
 // Cloudflare Workers handle the instantiation as part of the module graph, so
-// consumers just `import { embed } from '@ternlight/...'` with no init call.
+// consumers just `import { embed } from '@usex/ternava'` with no init call.
 //
 // Same public API as the Node entries (src/index.js / src/index.mjs).
 
@@ -38,7 +38,7 @@ export function embed(text) {
 /**
  * Cosine similarity between two embeddings.
  *
- * Since ternlight embeddings are L2-normalized, this reduces to a dot product
+ * Since ternava embeddings are L2-normalized, this reduces to a dot product
  * — no per-call sqrt or division.
  */
 export function cosineSim(a, b) {

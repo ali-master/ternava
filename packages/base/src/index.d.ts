@@ -14,7 +14,7 @@ export interface SimilarityResult {
 }
 
 /**
- * Common error class for ternlight. The `code` property gives a stable
+ * Common error class for ternava. The `code` property gives a stable
  * identifier for catching specific error categories programmatically:
  *
  *   - `INVALID_INPUT` — argument was not the expected type
@@ -45,7 +45,7 @@ export function embed(text: string): Embedding;
 /**
  * Cosine similarity between two embeddings.
  *
- * Since ternlight embeddings are L2-normalized, this reduces to a dot product
+ * Since ternava embeddings are L2-normalized, this reduces to a dot product
  * (no per-call sqrt or division).
  *
  * @returns Scalar in `[-1, 1]`. For typical text, output is in `[0, 1]`.
