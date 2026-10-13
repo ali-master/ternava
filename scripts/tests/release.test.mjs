@@ -79,8 +79,8 @@ test('release preview generates notes for the public package without modifying r
         'packages/mini/package.json', 'packages/mini/CHANGELOG.md'];
     const snapshot = () => files.map(file => readFileSync(resolve(root, file), 'utf8'));
     const before = snapshot();
-    // Disable Git/auth checks only for this read-only preview, including on CI branches.
-    const result = spawnSync('bun', ['run', 'release', '--dry-run', '--ci', '--no-git', '--npm.skipChecks'],
+    // Test root command wiring independently of Git history; fixtures above test the real Git baseline.
+    const result = spawnSync('bun', ['run', 'release', 'patch', '--dry-run', '--ci', '--no-git', '--no-npm.ignoreVersion', '--npm.skipChecks'],
         { cwd: root, encoding: 'utf8', timeout: 30000 });
     const output = result.stdout + result.stderr;
     assert.equal(result.status, 0, output);
