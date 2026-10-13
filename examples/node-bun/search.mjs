@@ -1,4 +1,4 @@
-import init, { similar, engineInfo } from '../../dist/pilot-fa-en-reasoning/d256/index.mjs';
+import init, { similar, engineInfo } from '@usex/ternava/runtime';
 
 await init();
 console.log(engineInfo());

@@ -8,8 +8,5 @@
     "prep": "node prep.mjs",
     "index": "node index.mjs",
     "search": "node search.mjs"
-  },
-  "dependencies": {
-    "@usex/ternava": "workspace:*"
   }
 }

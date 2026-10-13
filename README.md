@@ -13,20 +13,20 @@ an inference API or GPU. Model, tokenizer and engine ship together in WebAssembl
 [![Iranian history search demo](docs/assets/history-demo.jpg)](https://ternava.usestrict.dev/)
 
 *Actual screenshot of the deployed history-search demo: 120 Persian passages,
-RTL layout and Estedad typography. The demo still uses the earlier English model;
-this familiar query illustrates the interface, not bilingual benchmark quality.*
+RTL layout and Estedad typography. This screenshot predates the switch to the
+published bilingual package; it illustrates the interface, not benchmark quality.*
 
 ## Install
 
-Package name: **`@usex/ternava`**. Once published to npm:
+Published on npm as **`@usex/ternava`**:
 
 ```sh
-bun add @usex/ternava
+bun add @usex/ternava@0.2.0
 ```
 
-Until publication, [build the package](#build-verify-and-publish), then run
-`bun add /absolute/path/to/ternava/dist/release/usex-ternava-0.1.1.tgz`
-from your application directory. Both installation methods use the imports below.
+Run `bun run build:examples` to prepare the demos from the published `0.2.0`
+package. Their separate lockfile prevents local workspace builds from replacing
+the npm dependency.
 
 ## Quick start
 

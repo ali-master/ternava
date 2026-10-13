@@ -70,3 +70,4 @@ docs-local/
 eval/benchmarks/agentx-ray
 packages/*/pkg-web/
 *.tgz
+examples/*/wasm/

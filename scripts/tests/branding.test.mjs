@@ -42,7 +42,7 @@ test('one public package with consistent names, repository metadata and upstream
         assert.equal(manifest.homepage, 'https://ternava.usestrict.dev/');
         assert.equal(manifest.bugs.url, 'https://github.com/ali-master/ternava/issues');
     }
-    assert.equal(json('examples/odyssey-cli/package.json').dependencies[mini.name], 'workspace:*');
+    assert.equal(json('examples/package.json').dependencies[mini.name], '0.2.0');
     const readme = readFileSync(resolve(root, 'README.md'), 'utf8');
     assert.ok(readme.slice(0, 700).includes(credit));
     assert.match(readme.slice(0, 700), /Thank you/);
