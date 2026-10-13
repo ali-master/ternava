@@ -8,11 +8,11 @@
 //! engine and training share tokenization implementation, not just compatibility.
 
 use std::sync::OnceLock;
-use tokenizers::Tokenizer;
+use tokenizers::{Tokenizer, TruncationParams, PaddingParams, PaddingStrategy};
 
 /// BERT-base-uncased vocab, committed at `engine/assets/tokenizer.json`.
 /// Updating this asset requires rebuilding all WASM artifacts.
-static TOKENIZER_BYTES: &[u8] = include_bytes!("../assets/tokenizer.json");
+static TOKENIZER_BYTES: &[u8] = include_bytes!(env!("TERN_TOKENIZER_PATH"));
 
 static TOKENIZER: OnceLock<Tokenizer> = OnceLock::new();
 
@@ -26,8 +26,17 @@ pub const MAX_SEQ_LEN: usize = 128;
 
 fn get_tokenizer() -> &'static Tokenizer {
     TOKENIZER.get_or_init(|| {
-        Tokenizer::from_bytes(TOKENIZER_BYTES)
-            .expect("embedded tokenizer.json is invalid — rebuild engine with a fresh asset")
+        let mut tokenizer = Tokenizer::from_bytes(TOKENIZER_BYTES)
+            .expect("embedded tokenizer.json is invalid — rebuild engine with a fresh asset");
+        assert_eq!(tokenizer.token_to_id("[PAD]"), Some(PAD_TOKEN_ID));
+        tokenizer.with_truncation(Some(TruncationParams {
+            max_length: MAX_SEQ_LEN, ..Default::default()
+        })).expect("invalid truncation settings");
+        tokenizer.with_padding(Some(PaddingParams {
+            strategy: PaddingStrategy::Fixed(MAX_SEQ_LEN),
+            pad_id: PAD_TOKEN_ID, pad_token: "[PAD]".into(), ..Default::default()
+        }));
+        tokenizer
     })
 }
 
@@ -39,13 +48,36 @@ fn get_tokenizer() -> &'static Tokenizer {
 ///
 /// Returns a Vec<u32> of length MAX_SEQ_LEN.
 pub fn tokenize(text: &str) -> Vec<u32> {
-    let tk = get_tokenizer();
-    let encoding = tk.encode(text, true).expect("tokenizer.encode failed");
-    let mut ids: Vec<u32> = encoding.get_ids().iter().take(MAX_SEQ_LEN).copied().collect();
-    while ids.len() < MAX_SEQ_LEN {
-        ids.push(PAD_TOKEN_ID);
+    encode(text).get_ids().to_vec()
+}
+
+pub fn encode(text: &str) -> tokenizers::Encoding {
+    get_tokenizer().encode(text, true).expect("tokenizer.encode failed")
+}
+
+pub fn vocab_size() -> usize {
+    get_tokenizer().get_vocab_size(true)
+}
+
+pub fn sha256() -> String {
+    use sha2::{Digest, Sha256};
+    Sha256::digest(TOKENIZER_BYTES).iter().map(|b| format!("{b:02x}")).collect()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn truncation_keeps_separator_and_padding() {
+        let long = tokenize(&"hello ".repeat(200));
+        assert_eq!(long.len(), MAX_SEQ_LEN);
+        assert_eq!(long[MAX_SEQ_LEN - 1], get_tokenizer().token_to_id("[SEP]").unwrap());
+        let short = tokenize("");
+        assert_eq!(short[0], get_tokenizer().token_to_id("[CLS]").unwrap());
+        assert_eq!(short[1], get_tokenizer().token_to_id("[SEP]").unwrap());
+        assert!(short[2..].iter().all(|&id| id == PAD_TOKEN_ID));
     }
-    ids
 }
 
 /// Attention mask companion to `tokenize()`. Returns 1s for real tokens,

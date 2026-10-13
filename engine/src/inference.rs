@@ -45,21 +45,26 @@ pub fn embed(text: &str) -> Vec<f32> {
     let seq_len    = tokenizer::MAX_SEQ_LEN;
 
     // ── 1) Tokenize ─────────────────────────────────────────────────────────
-    let input_ids = tokenizer::tokenize(text);
+    let encoding = tokenizer::encode(text);
+    let input_ids = encoding.get_ids();
 
     // [Phase A1] Skip padded positions in the forward pass. The tokenizer
     // right-pads with PAD_TOKEN_ID, so the real tokens occupy 0..n_active and
     // the rest is padding the attention mask would zero out anyway. Every
     // downstream per-row op (LN, BitLinear, attention, mean pool) iterates
     // only over 0..n_active — for typical UI queries this is 3–5× less work.
-    let n_active = input_ids.iter()
-        .filter(|&&id| id != tokenizer::PAD_TOKEN_ID)
+    // A literal [PAD] in user text is a real token; only tokenizer-added padding is masked.
+    let n_active = encoding.get_attention_mask().iter()
+        .filter(|&&mask| mask != 0)
         .count();
 
     // ── 2) Embedding lookup → [n_active, d_model] ───────────────────────────
     // Buffer is sized for max seq_len; we only initialize the active prefix.
     let mut x = vec![0.0f32; seq_len * d_model];
     do_embedding_lookup(&input_ids[..n_active], m, &mut x[..n_active * d_model]);
+    if !m.weights.positions.is_empty() {
+        for i in 0..n_active * d_model { x[i] += m.weights.positions[i]; }
+    }
 
     // ── Scratch buffers reused across layers ────────────────────────────────
     // Sized at max seq_len so we don't re-alloc per query; only the first

@@ -87,3 +87,15 @@ pub fn tokenize(text: &str) -> Vec<u32> {
 pub fn config_summary() -> String {
     model::config_summary()
 }
+
+/// Identity of the exact tokenizer embedded in this build.
+#[wasm_bindgen]
+pub fn tokenizer_sha256() -> String {
+    tokenizer::sha256()
+}
+
+/// Identity of the exact packed model embedded in this build.
+#[wasm_bindgen]
+pub fn model_sha256() -> String {
+    model::sha256()
+}

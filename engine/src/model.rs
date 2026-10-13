@@ -34,9 +34,14 @@ use crate::format::{
 ///
 /// During scaffolding, this is empty — guard accesses with `is_empty()` and
 /// don't try to parse.
-static MODEL_BYTES: &[u8] = include_bytes!("../assets/model.bin");
+static MODEL_BYTES: &[u8] = include_bytes!(env!("TERN_MODEL_PATH"));
 
 static MODEL: OnceLock<LoadedModel> = OnceLock::new();
+
+pub fn sha256() -> String {
+    use sha2::{Digest, Sha256};
+    Sha256::digest(MODEL_BYTES).iter().map(|b| format!("{b:02x}")).collect()
+}
 
 // ── Byte-offset layout (computed once from the header) ──────────────────────
 
@@ -77,6 +82,7 @@ pub struct WeightLayout {
     pub embedding_weights_bytes:  usize,
     pub embedding_scales_offset:  usize,   // 0 if format is fp32 (no scales)
     pub embedding_scales_bytes:   usize,
+    pub position_offset: Option<usize>,
 
     // Per-layer offsets
     pub layers: Vec<LayerLayout>,
@@ -131,6 +137,7 @@ pub struct RuntimeWeights {
     /// Per-row scales for the embedding table. Empty for `emb_fp32` builds
     /// (no scales section in that format).
     pub embedding_scales: Vec<f32>,
+    pub positions: Vec<f32>,
     pub layers:           Vec<LayerWeights>,
     pub ln_final_w:       Vec<f32>,
     pub ln_final_b:       Vec<f32>,
@@ -160,6 +167,8 @@ pub fn get() -> &'static LoadedModel {
         );
         let body    = format::verify_sha256(MODEL_BYTES).expect("sha256 mismatch — corrupted model.bin");
         let header  = format::parse_header(body).expect("invalid .bin header");
+        assert_eq!(header.max_seq_len as usize, crate::tokenizer::MAX_SEQ_LEN, "Unsupported sequence length");
+        assert_eq!(header.vocab_size as usize, crate::tokenizer::vocab_size(), "Model/tokenizer vocabulary mismatch");
         let layout  = compute_layout(&header, body);
         let weights = decode_runtime_weights(&layout, body);
         LoadedModel { layout, weights, body }
@@ -190,6 +199,11 @@ fn compute_layout(header: &Header, body: &[u8]) -> WeightLayout {
     off += embedding_weights_bytes;
     let embedding_scales_offset = off;
     off += embedding_scales_bytes;
+    let position_offset = if header.format_version == 2 {
+        let start = off;
+        off += header.max_seq_len as usize * d_model * 4;
+        Some(start)
+    } else { None };
 
     // Per-layer transformer blocks
     let ln_bytes = d_model * 4 * 2;   // weight (d_model fp32) + bias (d_model fp32)
@@ -229,7 +243,7 @@ fn compute_layout(header: &Header, body: &[u8]) -> WeightLayout {
     let projection_bias_offset = off;
     off += output_dim * 4;
 
-    debug_assert_eq!(
+    assert_eq!(
         off, body.len(),
         "compute_layout consumed {} bytes, body has {} (wire-format drift between packer and engine)",
         off, body.len(),
@@ -240,6 +254,7 @@ fn compute_layout(header: &Header, body: &[u8]) -> WeightLayout {
         header: *header,
         embedding_weights_offset, embedding_weights_bytes,
         embedding_scales_offset,  embedding_scales_bytes,
+        position_offset,
         layers,
         ln_final_offset,
         projection_weights_offset, projection_bias_offset,
@@ -312,6 +327,9 @@ fn decode_runtime_weights(layout: &WeightLayout, body: &[u8]) -> RuntimeWeights 
 
     RuntimeWeights {
         embedding_scales, layers,
+        positions: layout.position_offset.map(|offset|
+            read_f32_vec(body, offset, h.max_seq_len as usize * d_model)
+        ).unwrap_or_default(),
         ln_final_w, ln_final_b,
         projection_w, projection_b,
     }

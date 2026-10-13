@@ -1,4 +1,4 @@
-//! `.bin` v1 wire format — header parsing, format-tag dispatch, sha256 verify.
+//! `.bin` v1/v2 wire format — v2 adds fp32 positions after token embeddings.
 //!
 //! Mirrors `training/pack/format.py`. Constants here are the single source of
 //! truth for the WASM side; if you change them, change the Python side too.
@@ -79,7 +79,7 @@ pub fn parse_header(buf: &[u8]) -> Result<Header, FormatError> {
         return Err(FormatError::BadMagic);
     }
     let format_version = u16::from_le_bytes([buf[4], buf[5]]);
-    if format_version != FORMAT_VERSION {
+    if format_version != FORMAT_VERSION && format_version != 2 {
         return Err(FormatError::UnsupportedVersion(format_version));
     }
     let embedding_format = buf[6];
@@ -128,4 +128,22 @@ pub fn verify_sha256(buf: &[u8]) -> Result<&[u8], FormatError> {
         return Err(FormatError::Sha256Mismatch);
     }
     Ok(body)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn versions_are_explicit_and_old_models_remain_supported() {
+        let mut bytes = [0u8; HEADER_SIZE];
+        bytes[..4].copy_from_slice(MAGIC);
+        bytes[6] = BUILD_EMBEDDING_FORMAT;
+        for version in [1u16, 2] {
+            bytes[4..6].copy_from_slice(&version.to_le_bytes());
+            assert_eq!(parse_header(&bytes).unwrap().format_version, version);
+        }
+        bytes[4..6].copy_from_slice(&3u16.to_le_bytes());
+        assert!(matches!(parse_header(&bytes), Err(FormatError::UnsupportedVersion(3))));
+    }
 }
