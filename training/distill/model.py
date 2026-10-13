@@ -21,9 +21,8 @@ Why explicit Q/K/V (not nn.MultiheadAttention): BitLinear's `replace_modules`
 needs to find individual nn.Linear instances. nn.MultiheadAttention bundles
 Q/K/V into a single Parameter that the swap can't reach.
 
-Why no positional encoding: short sequences + mean pooling task means the
-model can learn token-level features without explicit position info. POC
-validated this — adding sinusoidal positions did not help.
+Legacy checkpoints omit positions. The second bilingual pilot enables learned
+positions to distinguish role reversals that a permutation-invariant model cannot.
 """
 
 import math
@@ -124,10 +123,12 @@ class StudentEncoder(nn.Module):
         output_dim:  int   = 384,
         dropout:     float = 0.1,
         padding_idx: int   = 0,
+        position_embeddings: bool = False,
     ):
         super().__init__()
 
         self.embedding = nn.Embedding(vocab_size, d_model, padding_idx=padding_idx)
+        self.position_embedding = nn.Embedding(128, d_model) if position_embeddings else None
         self.layers    = nn.ModuleList([
             TransformerLayer(d_model, n_heads, ffn_dim, dropout)
             for _ in range(n_layers)
@@ -139,6 +140,8 @@ class StudentEncoder(nn.Module):
 
     def _init_weights(self) -> None:
         nn.init.normal_(self.embedding.weight, mean=0.0, std=0.02)
+        if self.position_embedding is not None:
+            nn.init.normal_(self.position_embedding.weight, mean=0.0, std=0.002)
         with torch.no_grad():
             self.embedding.weight[self.embedding.padding_idx].fill_(0.0)
         for module in self.modules():
@@ -154,6 +157,8 @@ class StudentEncoder(nn.Module):
     ) -> torch.Tensor:
         """Returns (B, output_dim) L2-normalized embedding."""
         x = self.embedding(input_ids)
+        if self.position_embedding is not None:
+            x = x + self.position_embedding.weight[:input_ids.shape[1]]
 
         for layer in self.layers:
             x = layer(x, attention_mask)

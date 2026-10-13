@@ -45,6 +45,8 @@ def relational_loss(
     Lineage: relational knowledge distillation (Park et al., RKD); see
     docs-local/tern-distillation-improvements.md — Recommendation 1.
     """
+    if student_emb.size(0) < 2:
+        return student_emb.sum() * 0
     s_sim = student_emb @ student_emb.T
     t_sim = teacher_emb @ teacher_emb.T
     off_diag = ~torch.eye(s_sim.size(0), dtype=torch.bool, device=s_sim.device)

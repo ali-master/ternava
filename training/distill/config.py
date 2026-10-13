@@ -67,6 +67,8 @@ class TrainConfig(BaseModel):
     ffn_dim:           int   = 1_024
     output_dim:        int   = 384           # MiniLM-L6-v2 teacher dim
     dropout:           float = 0.1
+    position_embeddings: bool = False
+    seed:              int = 42
 
     # Data cache reference (consumes prep's output)
     cache_dir:         Path  = Path("cache")
@@ -149,11 +151,29 @@ class EvalConfig(BaseModel):
     run_name:            str
 
 
+class PilotConfig(BaseModel):
+    """A balanced en/fa pilot built from deduplicated translation pairs."""
+    model_config = ConfigDict(extra="forbid")
+    dataset: str = "sentence-transformers/parallel-sentences-opus-100"
+    dataset_config: str = "en-fa"
+    dataset_revision: str = "main"
+    teacher_id: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+    teacher_revision: str = "main"
+    pairs: int = Field(default=100_000, ge=20)
+    vocab_size: int = Field(default=32_000, ge=256)
+    seed: int = 42
+    val_ratio: float = Field(default=0.05, gt=0, lt=0.5)
+    test_ratio: float = Field(default=0.05, gt=0, lt=0.5)
+    teacher_batch_size: int = Field(default=128, gt=0)
+    eval_pairs: int = Field(default=1000, ge=3)
+    output_dir: Path = Path("training/distill/cache/mini-fa-en-32k")
+
+
 # ── Top-level ─────────────────────────────────────────────────────────────────
 
 class Config(BaseModel):
     # W&B (shared across phases — levels 1-3: project, run, job_type)
-    wandb_project: str = "ternlight-micro"
+    wandb_project: str = "ternava-micro"
     wandb_group:   str
     wandb_tags:    list[str] = Field(default_factory=list)
 
@@ -161,6 +181,7 @@ class Config(BaseModel):
     data:  Optional[DataConfig]  = None      # Phase 1
     train: Optional[TrainConfig] = None      # Phase 2/3
     eval:  Optional[EvalConfig]  = None      # Phase 4
+    pilot: Optional[PilotConfig] = None
 
 
 def load_config(path: Path) -> Config:

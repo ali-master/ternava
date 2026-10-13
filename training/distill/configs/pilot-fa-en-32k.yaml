@@ -1,0 +1,35 @@
+wandb_project: ternava-persian
+wandb_group: mini-fa-en-32k-pilot
+wandb_tags: [pilot, bilingual, mini, int4]
+
+pilot:
+  dataset: sentence-transformers/parallel-sentences-opus-100
+  dataset_config: en-fa
+  pairs: 100000
+  vocab_size: 32000
+  teacher_id: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+  teacher_batch_size: 128
+  eval_pairs: 1000
+  output_dir: training/distill/cache/mini-fa-en-32k
+
+train:
+  vocab_size: 32000
+  d_model: 256
+  n_layers: 2
+  n_heads: 4
+  ffn_dim: 1024
+  output_dim: 384
+  dropout: 0.1
+  seed: 42
+  cache_dir: training/distill/cache/mini-fa-en-32k
+  cache_name: bilingual
+  epochs: 10
+  batch_size: 64
+  lr: 0.0001
+  enable_qat: true
+  qat_warmup_epochs: 2
+  contrastive_w: 0.0
+  relational_w: 0.1
+  run_name: mini-fa-en-32k-pilot
+  runs_dir: training/distill/runs
+  save_every: 2
