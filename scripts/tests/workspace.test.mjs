@@ -28,7 +28,8 @@ test('examples install the pinned npm release independently of local workspaces'
             { cwd: consumer, encoding: 'utf8' });
         assert.equal(resolved.status, 0, resolved.stderr);
         assert.equal(realpathSync(resolved.stdout.trim()), realpathSync(join(examples, 'node_modules/@usex/ternava/package.json')));
-        assert.equal(JSON.parse(readFileSync(resolved.stdout.trim())).version, '0.2.0');
+        assert.equal(JSON.parse(readFileSync(resolved.stdout.trim())).version,
+            JSON.parse(readFileSync(join(root, 'examples/package.json'))).dependencies['@usex/ternava']);
         assert.notEqual(realpathSync(resolved.stdout.trim()), realpathSync(join(directory, 'packages/mini/package.json')));
         const file = join(examples, 'package.json');
         const manifest = JSON.parse(readFileSync(file));

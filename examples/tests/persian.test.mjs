@@ -16,8 +16,8 @@ const json = path => JSON.parse(read(path));
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const persian = text => typeof text === 'string' && /[\u0600-\u06ff]/u.test(text);
 
-test('both browser demos ship the unmodified runtime from npm 0.2.0', () => {
-  assert.equal(json('node_modules/@usex/ternava/package.json').version, '0.2.0');
+test('both browser demos ship the unmodified runtime of the pinned npm version', () => {
+  assert.equal(json('node_modules/@usex/ternava/package.json').version, json('package.json').dependencies['@usex/ternava']);
   for (const demo of ['docs-search', 'emoji-search']) {
     for (const file of readdirSync(new URL('node_modules/@usex/ternava/pkg-web/', root))) {
       assert.deepEqual(read(`${demo}/wasm/0.2.0/${file}`), read(`node_modules/@usex/ternava/pkg-web/${file}`), `${demo}: ${file}`);

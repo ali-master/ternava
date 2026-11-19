@@ -25,7 +25,11 @@
       "bun run --cwd ../.. build",
       "bun run --cwd ../.. test"
     ],
-    "before:git:release": "git add ../../bun.lock",
+    "before:git:release": [
+      "node ../../scripts/sync-examples-version.mjs ${version}",
+      "bun run --cwd ../.. test",
+      "git add --update ../.."
+    ],
     "before:npm:release": "bun run --cwd ../.. verify:release"
   }
 }
