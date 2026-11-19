@@ -17,6 +17,8 @@ def bilingual_normalizer():
         normalizers.NFC(),
         normalizers.Replace("ي", "ی"), normalizers.Replace("ك", "ک"),
         normalizers.Replace("\u200c", " "),
+        # Persian/Arabic-Indic digits → ASCII; engine/src/tokenizer.rs does the same at inference.
+        *(normalizers.Replace(d, str(i % 10)) for i, d in enumerate("۰۱۲۳۴۵۶۷۸۹٠١٢٣٤٥٦٧٨٩")),
         normalizers.BertNormalizer(lowercase=True, strip_accents=False),
     ])
 

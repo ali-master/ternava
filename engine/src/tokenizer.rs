@@ -52,7 +52,19 @@ pub fn tokenize(text: &str) -> Vec<u32> {
 }
 
 pub fn encode(text: &str) -> tokenizers::Encoding {
-    get_tokenizer().encode(text, true).expect("tokenizer.encode failed")
+    get_tokenizer().encode(ascii_digits(text), true).expect("tokenizer.encode failed")
+}
+
+/// Persian (۰-۹) and Arabic-Indic (٠-٩) digits → ASCII, so "۵ مگابیت" and
+/// "5 مگابیت" get the same tokens. Done here rather than in tokenizer.json so
+/// the tokenizer's SHA (pinned by checkpoints and packed models) is unchanged;
+/// `bilingual_normalizer()` in training/distill/tokenization.py mirrors it.
+fn ascii_digits(text: &str) -> String {
+    text.chars().map(|c| match c {
+        '۰'..='۹' => char::from(b'0' + (c as u32 - '۰' as u32) as u8),
+        '٠'..='٩' => char::from(b'0' + (c as u32 - '٠' as u32) as u8),
+        _ => c,
+    }).collect()
 }
 
 pub fn vocab_size() -> usize {
@@ -77,6 +89,12 @@ mod tests {
         assert_eq!(short[0], get_tokenizer().token_to_id("[CLS]").unwrap());
         assert_eq!(short[1], get_tokenizer().token_to_id("[SEP]").unwrap());
         assert!(short[2..].iter().all(|&id| id == PAD_TOKEN_ID));
+    }
+
+    #[test]
+    fn persian_and_arabic_digits_tokenize_as_ascii() {
+        assert_eq!(ascii_digits("۰۹ ٠٩ x5"), "09 09 x5");
+        assert_eq!(tokenize("۵ مگابیت ٤٢"), tokenize("5 مگابیت 42"));
     }
 }
 
