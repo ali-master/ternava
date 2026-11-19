@@ -1,9 +1,11 @@
 # /// script
 # dependencies = ["torch", "numpy", "scipy", "transformers", "tokenizers", "bitlinear==2.4.6"]
 # ///
-"""Run the repo's frozen ranking corpora (and optionally STS-B) on checkpoints, as shipped (ternary + int4).
+"""Run the repo's frozen ranking corpora (and optionally STS sets) on checkpoints, as shipped (ternary + int4).
 
-    uv run gates.py [--stsb stsb-test.jsonl] run/a.pt run/b.pt
+    uv run gates.py [--sts name=pairs.jsonl ...] run/a.pt run/b.pt
+
+An STS file has one {"sentence1", "sentence2", "score"} object per line.
 
 Needs no training cache. Not the release protocol: no overlap audit, no WASM. The
 shipped model was tuned and selected on several of these corpora; a fresh model was not.
@@ -50,8 +52,12 @@ def rank_suite(model, corpus, queries):
 
 if __name__ == "__main__":
     args = sys.argv[1:]
-    stsb = [json.loads(line) for line in open(args[1])] if args[0] == "--stsb" else None
-    paths = args[2:] if stsb else args
+    sts = {}
+    while args[0] == "--sts":
+        name, path = args[1].split("=", 1)
+        sts[name] = [json.loads(line) for line in open(path)]
+        args = args[2:]
+    paths = args
     models = [load(RUNS / p, True) for p in paths]
     print("suite".ljust(26) + "".join(p.split("/")[0][-22:].rjust(34) for p in paths))
     print(" " * 26 + "    top1   ndcg@10   contrast     " * len(paths))
@@ -61,8 +67,8 @@ if __name__ == "__main__":
             t, n, c, p = rank_suite(m, corpus, queries)
             cells.append(f"{t:>4}/{len(queries):<3} {n:>8.3f}   {f'{c}/{p}' if p else '-':>8}     ")
         print(name.ljust(26) + "".join(c.rjust(34) for c in cells))
-    if stsb:
-        gold = [r["score"] for r in stsb]
+    for name, rows in sts.items():
+        gold = [r["score"] for r in rows]
         for p, m in zip(paths, models):
-            a, b = embed(m, [r["sentence1"] for r in stsb]), embed(m, [r["sentence2"] for r in stsb])
-            print(f"STS-B test spearman  {p}: {spearmanr((a * b).sum(-1).numpy(), gold).statistic:.4f}")
+            a, b = embed(m, [r["sentence1"] for r in rows]), embed(m, [r["sentence2"] for r in rows])
+            print(f"STS {name} spearman  {p}: {spearmanr((a * b).sum(-1).numpy(), gold).statistic:.4f}")

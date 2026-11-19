@@ -1,7 +1,10 @@
 """Domain listwise QAT on the v2 pilot, gated by tool-search retention.
 
     MIKROTIK_MCP=... bun eval/toolsearch/diag.ts --dump /tmp/toolsearch.json
-    python training/distill/domain_v2.py --toolsearch /tmp/toolsearch.json [--smoke]
+    python training/distill/domain_v2.py --toolsearch /tmp/toolsearch.json [--sts DIR] [--smoke]
+
+--sts DIR adds CoSENT on the STS train splits in DIR (stsb-en-train.jsonl and
+synthetic-fa-train.jsonl, one {"sentence1", "sentence2", "score"} object per line).
 
 Unlike domain.py this needs no round2/3/4 cache: the only supervision is the authored
 docs/emoji queries, and retention is the frozen v2 pilot's own geometry on OPUS replay.
@@ -25,13 +28,16 @@ from native import int4_ste  # noqa: E402
 from prep.domain import domain_rows  # noqa: E402
 from prep.round2 import normalize  # noqa: E402
 from reasoning import geometry_loss  # noqa: E402
+from round2 import cosent_loss  # noqa: E402
 
 RUNS = ROOT / "training/distill/runs"
 SOURCE = RUNS / "mini-fa-en-32k-pilot-v2-9f183ec/checkpoint_ep10.pt"
 PAIRS = ROOT / "training/distill/cache/mini-fa-en-32k-v2/pairs.json"
 CORPUS = ROOT / "eval/quality/corpus"
 RECIPE = dict(seed=613, epochs=6, steps=250, embedding_lr=1.2e-4, body_lr=3e-6, domain_batch=24, replay_batch=48,
-              loss="1 domain listwise + 1 geometry retention to the frozen v2 pilot on OPUS replay",
+              sts_batch=16, sts_weight=.1,
+              loss="1 domain listwise + 1 geometry retention to the frozen v2 pilot on OPUS replay"
+                   " (+ sts_weight CoSENT per language on STS train pairs when --sts is given)",
               selection="Highest mean docs/emoji validation NDCG among epochs whose tool-search MRR "
                         "(EN, FA informal, FA formal) each stay within .02 of the v2 pilot. No fresh-test selection.")
 
@@ -64,11 +70,11 @@ def assess(path, fixtures, tools):
     return result
 
 
-def train(toolsearch: Path, smoke: bool):
+def train(toolsearch: Path, smoke: bool, sts_dir: Path | None = None):
     torch.manual_seed(RECIPE["seed"])
     rng = random.Random(RECIPE["seed"])
     device = "mps" if torch.backends.mps.is_available() else "cpu"
-    run = RUNS / ("mini-fa-en-32k-v2-domain" + ("-smoke" if smoke else ""))
+    run = RUNS / ("mini-fa-en-32k-v2-domain" + ("-sts" if sts_dir else "") + ("-smoke" if smoke else ""))
     if run.exists():
         raise FileExistsError("Preserve all runs")
     tools = json.loads(toolsearch.read_text())
@@ -91,6 +97,8 @@ def train(toolsearch: Path, smoke: bool):
             relevant[i, [lookup[k] for k in q["relevant"]]] = True
         tasks[task] = (tokens([d["text"] for d in corpus]), [q["text"] for q in queries], relevant.to(device))
     replay = [p[lang] for p in json.loads(PAIRS.read_text())["train"] for lang in ("en", "fa")]
+    scored = [[json.loads(line) for line in (sts_dir / f"{name}-train.jsonl").open()]
+              for name in ("stsb-en", "synthetic-fa")] if sts_dir else []
 
     model = checkpoints.load(SOURCE, False)  # fp32 embedding; int4 is applied straight-through below
     model.embedding.register_forward_hook(int4_ste)
@@ -120,6 +128,10 @@ def train(toolsearch: Path, smoke: bool):
                 target = anchor(*batch)
             retention = geometry_loss(model(*batch), target)
             loss = rank + retention
+            for rows in scored:  # one CoSENT term per language
+                pairs = rng.sample(rows, RECIPE["sts_batch"])
+                v = torch.stack([model(*tokens([r[k] for r in pairs])) for k in ("sentence1", "sentence2")], dim=1)
+                loss = loss + RECIPE["sts_weight"] * cosent_loss(v, torch.tensor([r["score"] for r in pairs], device=device))
             if not torch.isfinite(loss):
                 raise ValueError("Nonfinite loss")
             progress = (epoch - 1) * steps + step
@@ -151,6 +163,7 @@ def train(toolsearch: Path, smoke: bool):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--toolsearch", type=Path, required=True, help="dump from eval/toolsearch/diag.ts --dump")
+    parser.add_argument("--sts", type=Path, help="directory with STS train splits; adds a CoSENT term")
     parser.add_argument("--smoke", action="store_true")
     args = parser.parse_args()
-    train(args.toolsearch, args.smoke)
+    train(args.toolsearch, args.smoke, args.sts)
