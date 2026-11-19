@@ -47,14 +47,19 @@ if (previous !== next) {
     console.log(`examples: ${name} ${previous} -> ${next}`);
 }
 
-// A fresh publish can take a moment to reach the registry; retry for about two minutes.
+// npm can take several minutes to process a fresh publish: the version shows up in the
+// metadata first and its tarball later. Wait for the tarball itself (bun also caches
+// package manifests, so retrying `bun install` alone keeps seeing the old one).
+const published = `https://registry.npmjs.org/${name}/-/${name.split('/')[1]}-${next}.tgz`;
 for (let attempt = 1; ; attempt++) {
-    const install = spawnSync('bun', ['install', '--cwd', `${root}examples`], { stdio: 'inherit' });
-    if (install.status === 0) break;
-    if (attempt === 12) {
-        console.error(`${name}@${next} is not installable from npm. Once it is, rerun this script.`);
+    const status = await fetch(published, { method: 'HEAD' }).then(response => response.status, () => 0);
+    if (status === 200) break;
+    if (attempt === 60) {
+        console.error(`${name}@${next} is still not on npm after 15 minutes. Once it is, rerun the release with --no-npm.publish.`);
         process.exit(1);
     }
-    console.log(`waiting for ${name}@${next} on npm (attempt ${attempt}/12)`);
-    spawnSync('sleep', ['10']);
+    console.log(`waiting for ${name}@${next} on npm (${attempt}/60)`);
+    await new Promise(resolve => setTimeout(resolve, 15_000));
 }
+const install = spawnSync('bun', ['install', '--no-cache', '--cwd', `${root}examples`], { stdio: 'inherit' });
+process.exit(install.status ?? 1);
