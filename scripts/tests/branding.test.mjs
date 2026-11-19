@@ -2,7 +2,7 @@ import test from 'node:test';
 import { createHash } from 'node:crypto';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, statSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 
@@ -42,7 +42,7 @@ test('one public package with consistent names, repository metadata and upstream
         assert.equal(manifest.homepage, 'https://ternava.usestrict.dev/');
         assert.equal(manifest.bugs.url, 'https://github.com/ali-master/ternava/issues');
     }
-    assert.equal(json('examples/package.json').dependencies[mini.name], '0.2.0');
+    assert.match(json('examples/package.json').dependencies[mini.name], /^\d+\.\d+\.\d+$/, 'examples pin an exact published version');
     const readme = readFileSync(resolve(root, 'README.md'), 'utf8');
     assert.ok(readme.slice(0, 700).includes(credit));
     assert.match(readme.slice(0, 700), /Thank you/);
@@ -54,6 +54,7 @@ test('owned sources, including historical results and the model card, contain no
     const problems = [];
     for (const file of files) {
         if (!file || !existsSync(resolve(root, file))) continue;
+        if (statSync(resolve(root, file)).isDirectory()) continue; // tracked symlink to a directory
         const bytes = readFileSync(resolve(root, file));
         if (bytes.includes(0)) {
             if (obsolete.test(file)) problems.push(file);

@@ -1,11 +1,12 @@
-// Compare @ternlight/base and @usex/ternava for tool search, English and Persian.
+// Compare a baseline embedding package (BASELINE=/path/to/package) and @usex/ternava for tool search, English and Persian.
 // Path to a mikrotik-mcp checkout (the 1006-tool catalog under test).
 const REPO = process.env.MIKROTIK_MCP;
 if (!REPO) throw new Error("set MIKROTIK_MCP=/path/to/mikrotik-mcp");
 const { moduleCatalog } = await import(`${REPO}/src/tools/index.ts`);
 const { buildToolIndex, searchToolIndex } = await import(`${REPO}/src/core/tool-search.ts`);
 const { semanticText, fuseRanks } = await import(`${REPO}/src/core/tool-semantic.ts`);
-const base = await import(`${REPO}/node_modules/@ternlight/base`);
+if (!process.env.BASELINE) throw new Error("set BASELINE=/path/to/a package exporting embed(text)");
+const base = await import(process.env.BASELINE);
 const ternava = await import("../../packages/mini/src/index.mjs");
 
 const META = new Set(["find_tools", "describe_tool", "invoke_tool"]);
@@ -103,7 +104,7 @@ for (const lang of [0, 1] as const) {
     if (searchToolIndex(index, c[lang], 5).some((h: any) => c[2].includes(h.name))) n++;
   console.log(`words only ${lang ? "FA" : "EN"}: top5 ${n}/25`);
 }
-run("ternlight/base", base.embed);
+run("baseline", base.embed);
 run("ternava", ternava.embed);
 
 // Both models together: words + base + ternava, fused.

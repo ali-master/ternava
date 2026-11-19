@@ -3,7 +3,8 @@ const REPO = process.env.MIKROTIK_MCP;
 if (!REPO) throw new Error("set MIKROTIK_MCP=/path/to/mikrotik-mcp");
 const { moduleCatalog } = await import(`${REPO}/src/tools/index.ts`);
 const { semanticText } = await import(`${REPO}/src/core/tool-semantic.ts`);
-const base = await import(`${REPO}/node_modules/@ternlight/base`);
+// Optional baseline: BASELINE=/path/to/a package exporting embed(text).
+const base = process.env.BASELINE ? await import(process.env.BASELINE) : null;
 const tv = await import("../../packages/mini/src/index.mjs");
 const tools: any[] = [];
 for (const m of moduleCatalog) for (const t of m.tools) tools.push(t);
@@ -70,7 +71,7 @@ function report(label: string, e: E) {
   console.log("word pairs (sim to own English | mean sim to the other English words): " + W.map((w, i) => { const v = e(w[0]); const o = ev.reduce((a, x, j) => a + (j === i ? 0 : dot(x, v)), 0) / (W.length - 1); return `${w[1]}<-${w[0]} ${dot(v, ev[i]!).toFixed(2)}|${o.toFixed(2)}`; }).join("; "));
 }
 report("ternava", tv.embed);
-report("ternlight/base", base.embed);
+if (base) report("baseline", base.embed);
 // 4. normalization details
 const sim = (a: string, b: string) => dot(tv.embed(a), tv.embed(b)).toFixed(2);
 console.log("\nternava details: ZWNJ vs space 'دی‌ان‌اس'~'دی ان اس'", sim("دی‌ان‌اس", "دی ان اس"), "| joined 'دیاناس'", sim("دی‌ان‌اس", "دیاناس"), "| Persian digits '۵ مگابیت'~'5 مگابیت'", sim("۵ مگابیت", "5 مگابیت"), "| word order 'روتر را خاموش کن'~'خاموش کن را روتر'", sim("روتر را خاموش کن", "خاموش کن را روتر"), "| 'خاموش کن'~'روشن کن'", sim("روتر را خاموش کن", "روتر را روشن کن"), "| en 'enable interface'~'disable interface'", sim("enable interface", "disable interface"));
