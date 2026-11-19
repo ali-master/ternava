@@ -7,7 +7,7 @@
 // All on-device after first load. The info pane reports live latency, model
 // architecture, and corpus stats.
 
-import init, { embed, engineInfo } from './wasm/0.2.0/index.mjs';
+import init, { embed, engineInfo } from './wasm/0.3.0/index.mjs';
 
 // ── Element refs ────────────────────────────────────────────────────────────
 
@@ -96,7 +96,7 @@ let LAST_QUERY_VEC = null; // most recent query embedding (for copy-button)
     $indexAction.textContent = 'در حال ساخت بردارها…';
 
     // HEAD request for wasm bytes — we surface the actual size in PACKAGE.
-    fetch('./wasm/0.2.0/tern_engine_bg.wasm', { method: 'HEAD' })
+    fetch('./wasm/0.3.0/tern_engine_bg.wasm', { method: 'HEAD' })
         .then(r => {
             const bytes = parseInt(r.headers.get('content-length') || '0', 10);
             if (bytes > 0) WASM_BYTES = bytes;

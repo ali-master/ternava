@@ -1,6 +1,6 @@
 // Persian phrase matching followed by cosine ranking, entirely in the browser.
 
-import init, { embed } from './wasm/0.2.0/index.mjs';
+import init, { embed } from './wasm/0.3.0/index.mjs';
 import { rankEmojis } from './search.js';
 import { CHIPS, CHALLENGES } from './queries.js';
 
@@ -19,7 +19,7 @@ let EMOJIS = [], NAMES = [], VECS = [], PHRASES = [];
   const response = await fetch('./emoji-index.json', { cache: 'no-store' });
   if (!response.ok) throw new Error('دریافت داده‌های ایموجی ناموفق بود.');
   const idx = await response.json();
-  const wasmResponse = await fetch('./wasm/0.2.0/tern_engine_bg.wasm');
+  const wasmResponse = await fetch('./wasm/0.3.0/tern_engine_bg.wasm');
   if (!wasmResponse.ok) throw new Error('دریافت مدل ناموفق بود.');
   const wasmBytes = await wasmResponse.arrayBuffer();
   await init(wasmBytes);

@@ -5,6 +5,6 @@
     "build": "bun build.mjs"
   },
   "dependencies": {
-    "@usex/ternava": "0.2.0"
+    "@usex/ternava": "0.3.0"
   }
 }

@@ -5,11 +5,11 @@
     "": {
       "name": "ternava-examples",
       "dependencies": {
-        "@usex/ternava": "0.2.0",
+        "@usex/ternava": "0.3.0",
       },
     },
   },
   "packages": {
-    "@usex/ternava": ["@usex/ternava@0.2.0", "", {}, "sha512-K1cYjTJOBTu3t4QlktyaDHLjgLBWooaaLLiMUUneHZkJgCzLCxCKUG8l4DKSYLK62Lgyd9d8uE9b3wC7DUSD7g=="],
+    "@usex/ternava": ["@usex/ternava@0.3.0", "", {}, "sha512-qJqxc3gAAT6o5i3z6OymjR3BB5tTl6tUOv9cPfWRKx4foOgZWsJ15k8UpjSB8pMM2IoqzBqYF3VoI4zGW51vmQ=="],
   }
 }

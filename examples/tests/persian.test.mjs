@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { pathToFileURL, fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
-import init, { embed } from '../emoji-search/wasm/0.2.0/index.mjs';
+import init, { embed } from '../emoji-search/wasm/0.3.0/index.mjs';
 import { normalizeSearchText, searchPhrases, rankEmojis } from '../emoji-search/search.js';
 import { CHALLENGES } from '../emoji-search/queries.js';
 
@@ -20,7 +20,7 @@ test('both browser demos ship the unmodified runtime of the pinned npm version',
   assert.equal(json('node_modules/@usex/ternava/package.json').version, json('package.json').dependencies['@usex/ternava']);
   for (const demo of ['docs-search', 'emoji-search']) {
     for (const file of readdirSync(new URL('node_modules/@usex/ternava/pkg-web/', root))) {
-      assert.deepEqual(read(`${demo}/wasm/0.2.0/${file}`), read(`node_modules/@usex/ternava/pkg-web/${file}`), `${demo}: ${file}`);
+      assert.deepEqual(read(`${demo}/wasm/0.3.0/${file}`), read(`node_modules/@usex/ternava/pkg-web/${file}`), `${demo}: ${file}`);
     }
   }
 });
@@ -46,7 +46,7 @@ test('Persian corpora have usable unique records and no leftover English prose',
 test('emoji vectors belong to the exact Persian source and bundled WASM', async () => {
   const items = json('emoji-search/corpus.fa.json');
   const index = json('emoji-search/emoji-index.json');
-  const wasm = read('emoji-search/wasm/0.2.0/tern_engine_bg.wasm');
+  const wasm = read('emoji-search/wasm/0.3.0/tern_engine_bg.wasm');
   assert.equal(index.corpus_sha256, hash(read('emoji-search/corpus.fa.json')));
   assert.equal(index.wasm_sha256, hash(wasm));
   assert.equal(index.language, 'fa');
@@ -65,7 +65,7 @@ test('emoji vectors belong to the exact Persian source and bundled WASM', async 
 });
 
 test('Persian emoji ranking handles affection variants and the other demo queries with real WASM', async () => {
-  await init(read('emoji-search/wasm/0.2.0/tern_engine_bg.wasm'));
+  await init(read('emoji-search/wasm/0.3.0/tern_engine_bg.wasm'));
   const index = json('emoji-search/emoji-index.json');
   const cases = [
     ['خیلی دوستت دارم', '🥰'],
@@ -93,7 +93,7 @@ test('curated challenging queries and contrasting meanings rank correctly with t
   const cases = json('tests/fixtures/emoji-challenges.fa.json');
   assert.equal(new Set(cases.map(x => x.query)).size, cases.length);
   for (const query of CHALLENGES) assert(cases.some(x => x.query === query), `Missing chip coverage: ${query}`);
-  await init(read('emoji-search/wasm/0.2.0/tern_engine_bg.wasm'));
+  await init(read('emoji-search/wasm/0.3.0/tern_engine_bg.wasm'));
   const index = json('emoji-search/emoji-index.json');
   for (const {query, expected, category} of cases) {
     const ranked = rankEmojis(query, embed(query), index.vecs, index.phrases);

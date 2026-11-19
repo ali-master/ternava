@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.3.0](https://github.com/ali-master/ternava/compare/v0.2.0...v0.3.0) (2026-11-19)
+
+### Features
+
+* **agents:** add huggingface skills ([2100bc3](https://github.com/ali-master/ternava/commit/2100bc33665561dc6feb5b114b397fd4a69c722c))
+* **agents:** add huggingface skills ([2f769b9](https://github.com/ali-master/ternava/commit/2f769b9b52eb738aaf251151c2b6d68fedc3255d))
+* **eval:** add tool-search benchmark and checkpoint scoring ([cd94b3c](https://github.com/ali-master/ternava/commit/cd94b3cedf5bad4f6f957b6eb8f4bb441f9f6025))
+* **training:** add v2 pilot config and cache-free domain round ([cd7d1a0](https://github.com/ali-master/ternava/commit/cd7d1a0a7473db9fcfce6a1f826c10012ae3c207))
+
+### Bug Fixes
+
+* **docs-search:** load the published bilingual model ([f09d670](https://github.com/ali-master/ternava/commit/f09d670f7500731729cf4f5d06c986e7ee854a92))
+* **emoji-search:** rebuild vectors with 0.2.0 ([dd634a5](https://github.com/ali-master/ternava/commit/dd634a50fced1fdff673c596b55baf7d5b3d08d1))
+* **release:** wait for the published tarball before syncing the examples ([f6fc610](https://github.com/ali-master/ternava/commit/f6fc6107c641d1434db06c6b66324c3029d33582))
+* **tests:** unblock the branding check ([40e5038](https://github.com/ali-master/ternava/commit/40e5038cc3b041245b3867ba71dfa6d3ac914a4c))
+* **tokenizer:** map Persian and Arabic-Indic digits to ASCII ([fe58b3b](https://github.com/ali-master/ternava/commit/fe58b3bec33f39bece0c2692e7e0cd989e8c30fb))
+
 ## [0.2.0](https://github.com/ali-master/ternava/compare/v0.1.1...v0.2.0) (2026-10-13)
 
 ### Features

@@ -21,10 +21,10 @@ published bilingual package; it illustrates the interface, not benchmark quality
 Published on npm as **`@usex/ternava`**:
 
 ```sh
-bun add @usex/ternava@0.2.0
+bun add @usex/ternava@0.3.0
 ```
 
-Run `bun run build:examples` to prepare the demos from the published `0.2.0`
+Run `bun run build:examples` to prepare the demos from the published `0.3.0`
 package. Their separate lockfile prevents local workspace builds from replacing
 the npm dependency.
 

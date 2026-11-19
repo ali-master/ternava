@@ -1,5 +1,5 @@
 // Rebuild Persian text vectors with the exact WASM shipped by this demo.
-import init, { embed, engineInfo } from './wasm/0.2.0/index.mjs';
+import init, { embed, engineInfo } from './wasm/0.3.0/index.mjs';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import assert from 'node:assert/strict';
@@ -8,7 +8,7 @@ import { searchPhrases } from './search.js';
 const source = readFileSync(new URL('./corpus.fa.json', import.meta.url));
 const items = JSON.parse(source);
 assert(items.length > 0 && new Set(items.map(e => e.emoji)).size === items.length, 'دادهٔ ایموجی خالی یا تکراری است');
-const wasm = readFileSync(new URL('./wasm/0.2.0/tern_engine_bg.wasm', import.meta.url));
+const wasm = readFileSync(new URL('./wasm/0.3.0/tern_engine_bg.wasm', import.meta.url));
 await init(wasm);
 const vectors = items.map(({ name, text }) => {
   assert(typeof name === 'string' && typeof text === 'string' && /[\u0600-\u06ff]/u.test(name + text), 'متن فارسی لازم است');
