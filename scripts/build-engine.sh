@@ -34,7 +34,7 @@ cd "$ROOT"
 # Tier definitions: package dir → packed model .bin to embed.
 default_bin_for() {
     case "$1" in
-        */mini) echo "$ROOT/training/pack/out/pilot-fa-en-reasoning/model.bin" ;; # bilingual d256
+        */mini) echo "$ROOT/training/pack/out/pilot-fa-en-32k-v2-domain-sts/model.bin" ;; # bilingual d256, v2 pilot + domain/STS round
         */base) echo "$ROOT/training/pack/out/d384/model-int4.bin" ;;   # d384
         *)      echo "" ;;
     esac

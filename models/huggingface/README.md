@@ -36,7 +36,7 @@ Original MIT attribution remains in [LICENSE](../../LICENSE).
 | Quantization | int4 token embeddings, ternary linear weights |
 | Packed model | 5,165,680 bytes |
 | Complete web WASM | 8,004,767 bytes |
-| Selected local reference | `pilot-fa-en-reasoning` |
+| Selected local reference | `pilot-fa-en-32k-v2-domain-sts` (next release; `@usex/ternava` 0.3.0 ships `pilot-fa-en-reasoning`) |
 
 ## Use
 
