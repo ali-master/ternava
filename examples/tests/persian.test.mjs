@@ -20,7 +20,7 @@ test('both browser demos ship the unmodified runtime of the pinned npm version',
   assert.equal(json('node_modules/@usex/ternava/package.json').version, json('package.json').dependencies['@usex/ternava']);
   for (const demo of ['docs-search', 'emoji-search']) {
     for (const file of readdirSync(new URL('node_modules/@usex/ternava/pkg-web/', root))) {
-      assert.deepEqual(read(`${demo}/wasm/0.3.0/${file}`), read(`node_modules/@usex/ternava/pkg-web/${file}`), `${demo}: ${file}`);
+      assert.ok(read(`${demo}/wasm/0.3.0/${file}`).equals(read(`node_modules/@usex/ternava/pkg-web/${file}`)), `${demo}: ${file}`);
     }
   }
 });
